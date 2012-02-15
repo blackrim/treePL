@@ -43,8 +43,9 @@ int main(int argc,char* argv[]) {
     retval = feraiseexcept( FE_ALL_EXCEPT );
     bool setparams = false;
     if(argc != 2){
+	cout << "treePL version 1.0"<< endl;
 	cout << "you need more arguments." << endl;
-	cout << "usage: cppr8s configfile" << endl;
+	cout << "usage: treePL configfile" << endl;
 	exit(0);
     }
     string treefile;

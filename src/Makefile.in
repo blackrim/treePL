@@ -7,9 +7,16 @@
 CC := gcc
 CP := g++
 
+OPENMP := -fopenmp
+#OPENMP := -openmp -parallel
+
+LIBS := -lm $(OPENMP) -ladolc -L/usr/lib64 -lnlopt_cxx
+
 RM := rm -rf
 
 SRC_DIR = ./
+
+prefix = /usr/bin/
 
 CPP_SRCS += \
 ./main.cpp \
@@ -60,27 +67,23 @@ CPP_DEPS += \
 ./optim_options.d \
 ./utils.d
 
-
-OPENMP := -fopenmp
-#OPENMP := -openmp -parallel
-
 %.o: %.cpp
 	$(CP) -O3 -g3 -c -fmessage-length=0 $(OPENMP) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o $@ $(SRC_DIR)$<
 
 %.o: %.c
 	$(CC) -O3 -g3 -c -fmessage-length=0 $(OPENMP) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o $@ $<
 
-LIBS := -lm $(OPENMP) -ladolc -L/usr/lib64 -lnlopt_cxx
+all: treePL
 
-# All Target
-all: cppr8s
+treePL: $(OBJS)
+	$(CP) -O3 -g3 -o treePL $(OBJS) $(LIBS)
 
-# Tool invocations
-cppr8s: $(OBJS)
-	$(CP) -O3 -g3 -o cppr8s $(OBJS) $(LIBS)
-
-# Other Targets
 clean:
 	-$(RM) *.d *.o
 
+install:
+	install -m 0755 treePL $(prefix)
+	
+uninstall:
+	-rm $(prefix)treePL
 

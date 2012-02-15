@@ -163,7 +163,7 @@ configure: failed program was:
 | #define PACKAGE_TARNAME "treepl"
 | #define PACKAGE_VERSION "0.1"
 | #define PACKAGE_STRING "treepl 0.1"
-| #define PACKAGE_BUGREPORT "http://bitbucket.org/blackrim/clocking"
+| #define PACKAGE_BUGREPORT "eebsmith@umich.edu"
 | #define PACKAGE_URL ""
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
@@ -180,7 +180,7 @@ configure: failed program was:
 | #define PACKAGE_TARNAME "treepl"
 | #define PACKAGE_VERSION "0.1"
 | #define PACKAGE_STRING "treepl 0.1"
-| #define PACKAGE_BUGREPORT "http://bitbucket.org/blackrim/clocking"
+| #define PACKAGE_BUGREPORT "eebsmith@umich.edu"
 | #define PACKAGE_URL ""
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
@@ -249,8 +249,8 @@ configure:3729: $? = 0
 configure:3738: result: yes
 configure:3751: checking for library containing nlopt_create
 configure:3782: gcc -o conftest -g -O2   conftest.c -lm  >&5
-/tmp/ccfsReCF.o: In function `main':
-/media/data/Dropbox/programming/cpp/dev_r8s/clocking/src/conftest.c:32: undefined reference to `nlopt_create'
+/tmp/ccBF3yeL.o: In function `main':
+/media/data/Dropbox/programming/cpp/treePL/src/conftest.c:32: undefined reference to `nlopt_create'
 collect2: ld returned 1 exit status
 configure:3782: $? = 1
 configure: failed program was:
@@ -259,7 +259,7 @@ configure: failed program was:
 | #define PACKAGE_TARNAME "treepl"
 | #define PACKAGE_VERSION "0.1"
 | #define PACKAGE_STRING "treepl 0.1"
-| #define PACKAGE_BUGREPORT "http://bitbucket.org/blackrim/clocking"
+| #define PACKAGE_BUGREPORT "eebsmith@umich.edu"
 | #define PACKAGE_URL ""
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
@@ -323,7 +323,7 @@ configure: failed program was:
 | #define PACKAGE_TARNAME "treepl"
 | #define PACKAGE_VERSION "0.1"
 | #define PACKAGE_STRING "treepl 0.1"
-| #define PACKAGE_BUGREPORT "http://bitbucket.org/blackrim/clocking"
+| #define PACKAGE_BUGREPORT "eebsmith@umich.edu"
 | #define PACKAGE_URL ""
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
@@ -400,7 +400,7 @@ configure: failed program was:
 | #define PACKAGE_TARNAME "treepl"
 | #define PACKAGE_VERSION "0.1"
 | #define PACKAGE_STRING "treepl 0.1"
-| #define PACKAGE_BUGREPORT "http://bitbucket.org/blackrim/clocking"
+| #define PACKAGE_BUGREPORT "eebsmith@umich.edu"
 | #define PACKAGE_URL ""
 | #define STDC_HEADERS 1
 | #define HAVE_SYS_TYPES_H 1
@@ -600,7 +600,7 @@ LIBOBJS=''
 LIBS='-lnlopt_cxx -lm '
 LTLIBOBJS=''
 OBJEXT='o'
-PACKAGE_BUGREPORT='http://bitbucket.org/blackrim/clocking'
+PACKAGE_BUGREPORT='eebsmith@umich.edu'
 PACKAGE_NAME='treepl'
 PACKAGE_STRING='treepl 0.1'
 PACKAGE_TARNAME='treepl'
@@ -646,7 +646,7 @@ target_alias=''
 #define PACKAGE_TARNAME "treepl"
 #define PACKAGE_VERSION "0.1"
 #define PACKAGE_STRING "treepl 0.1"
-#define PACKAGE_BUGREPORT "http://bitbucket.org/blackrim/clocking"
+#define PACKAGE_BUGREPORT "eebsmith@umich.edu"
 #define PACKAGE_URL ""
 #define STDC_HEADERS 1
 #define HAVE_SYS_TYPES_H 1

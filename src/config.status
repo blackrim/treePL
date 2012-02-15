@@ -433,7 +433,7 @@ $config_files
 Configuration headers:
 $config_headers
 
-Report bugs to <http://bitbucket.org/blackrim/clocking>."
+Report bugs to <eebsmith@umich.edu>."
 
 ac_cs_config=""
 ac_cs_version="\
@@ -445,7 +445,7 @@ Copyright (C) 2010 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/media/data/Dropbox/programming/cpp/dev_r8s/clocking/src'
+ac_pwd='/media/data/Dropbox/programming/cpp/treePL/src'
 srcdir='.'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
@@ -659,7 +659,7 @@ S["program_transform_name"]="s,x,x,"
 S["prefix"]="/usr/local"
 S["exec_prefix"]="${prefix}"
 S["PACKAGE_URL"]=""
-S["PACKAGE_BUGREPORT"]="http://bitbucket.org/blackrim/clocking"
+S["PACKAGE_BUGREPORT"]="eebsmith@umich.edu"
 S["PACKAGE_STRING"]="treepl 0.1"
 S["PACKAGE_VERSION"]="0.1"
 S["PACKAGE_TARNAME"]="treepl"
@@ -711,7 +711,7 @@ D["PACKAGE_NAME"]=" \"treepl\""
 D["PACKAGE_TARNAME"]=" \"treepl\""
 D["PACKAGE_VERSION"]=" \"0.1\""
 D["PACKAGE_STRING"]=" \"treepl 0.1\""
-D["PACKAGE_BUGREPORT"]=" \"http://bitbucket.org/blackrim/clocking\""
+D["PACKAGE_BUGREPORT"]=" \"eebsmith@umich.edu\""
 D["PACKAGE_URL"]=" \"\""
 D["STDC_HEADERS"]=" 1"
 D["HAVE_SYS_TYPES_H"]=" 1"

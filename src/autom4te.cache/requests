@@ -14,8 +14,8 @@
                         'configure.ac'
                       ],
                       {
-                        '_LT_AC_TAGCONFIG' => 1,
                         'AM_PROG_F77_C_O' => 1,
+                        '_LT_AC_TAGCONFIG' => 1,
                         'm4_pattern_forbid' => 1,
                         'AC_CANONICAL_TARGET' => 1,
                         'AC_CONFIG_LIBOBJ_DIR' => 1,
@@ -76,9 +76,9 @@
                         'AC_FC_FREEFORM' => 1,
                         'AH_OUTPUT' => 1,
                         'AM_PROG_CC_C_O' => 1,
+                        'AM_CONDITIONAL' => 1,
                         'AC_CANONICAL_SYSTEM' => 1,
                         'AM_XGETTEXT_OPTION' => 1,
-                        'AM_CONDITIONAL' => 1,
                         'AC_CONFIG_HEADERS' => 1,
                         'AM_POT_TOOLS' => 1,
                         'm4_include' => 1,

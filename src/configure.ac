@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.68])
-AC_INIT([treepl], [0.1], [http://bitbucket.org/blackrim/clocking])
+AC_INIT([treepl], [0.1], [eebsmith@umich.edu])
 AC_CONFIG_SRCDIR([tnc.h])
 AC_CONFIG_HEADERS([config.h])
 
