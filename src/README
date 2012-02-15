@@ -1,0 +1,15 @@
+For autodiff with adol-c, need to do
+
+
+UBUNTU 11.10 (64 bit)
+-----------
+git clone git://gitorious.org/adol-c/adol-c.git
+(OR USE THE ARCHIVED ONE)
+sudo apt-get install build-essential autoconf libtool
+cd adol-c
+./update_versions (JUST ENTER THROUGH ANY LATEX ERRORS)
+./configure --with-openmp-flag=-fopenmp --prefix=/usr
+make
+sudo make install
+export LD_LIBRARY_PATH=/usr/lib64
+echo export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH >> ~/.bashrc

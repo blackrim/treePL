@@ -1,0 +1,26 @@
+treefile = M1155.tre
+sample = 1
+smooth = 1
+[cv]
+randomcv
+numsites = 2256
+mrca = xx1 Hypocrea_lutea Gibberella_pulicaris
+mrca = xx2 Microascus_cirrosus Petriella_setifera
+mrca = xx3 Albertiniella_polyporicola Kionochaeta_ramifera
+max = xx1 136
+min = xx2 112
+min = xx3 250
+max = xx3 250
+collapse
+[verbose]
+thorough
+cviter = 3
+[paramverbose]
+lfsimaniter = 1000
+plsimaniter = 10000
+pliter = 10
+[prime]
+opt = 2
+optad = 0
+moredetailad
+optcvad = 2

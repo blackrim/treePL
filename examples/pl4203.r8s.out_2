@@ -1,0 +1,398 @@
+Reading tree PAUP_4203
+Executing blformat command...
+Number of sites in sequences set to 2744
+Branch lengths assumed to be in units of numbers of substitutions per site
+All branch lengths multipled by the 2744 sites in the sequence
+Branch lengths rounded to nearest integer
+(This may not be a good idea when using CALIBRATE on ultrametric user supplied input trees. Use ROUND=NO then)
+********************* WARNING **********************
+
+MRCA COMMAND: Num nodes less than num labels: You probably have misspelled a taxon name!
+
+****************************************************
+Defining clade name: ingroup
+********************* WARNING **********************
+
+MRCA COMMAND: Num nodes less than num labels: You probably have misspelled a taxon name!
+
+****************************************************
+Defining clade name: root
+Fixing age of root at 1000.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 1)
+Setting maximum age constraint for taxon ingroup to 900.000000
+Using DIVTIME with clock (Langley-Fitch) options to obtain an initial guess at rates for PL search
+
+
+----------------------------------------
+
+
+LINEAGE RATE/TIME ANALYSIS FOR TREE PAUP_4203
+
+Method = Penalized Likelihood
+Smoothing factor = 0.000100
+Penalty function = Ancestor-Descendant
+Scale for rate penalty = ADDITIVE
+Minimum allowed rate = 0.050000 of initial average rate estimate
+Minimum allowed duration on 0-length terminal branches = 0.001000 of root's age
+Optimization via Powell's method
+
+----------------------------------------
+Substitution Model
+	Rates are equal across sites
+Global/Local Search Parameters
+	Number of searches from random starts = 1
+	Number of restarts after each search = 1
+	Local perturbation on restarts = 0.01
+	Local fractional tolerance after restarts = 0.01
+Optimization parameters
+	Maximum number of iterations  = 1000000
+	Function Tolerance = 1e-10
+	linminOffset = 0.05
+	Contract Factor =  0.1
+	Max number of contract iterations  = 10
+Time constraints are enforced using barrier optimization
+	Barrier Tol = 0.0001
+	Max Barrier Iter =     10
+	Init Barrier Factor = 0.25
+	Barrier Multiplier =  0.1
+Length of tree input =  27674
+Number of taxa  =  29
+Number of sites in sequences =  2744
+
+----------------------------------------
+Starting optimization (random starting point 1)
+
+[Barrier iteration 1]
+...Checking the starting point...(for some barrier constant)...
+...Passed...now optimizing...
+...Initial solution=214.569676
+......starting perturbation 1
+......solution for perturbation 1=214.568277...best=214.568277
+
+[Barrier iteration 2]
+...Checking the starting point...(for some barrier constant)...
+...Passed...now optimizing...
+...Initial solution=214.567077
+......starting perturbation 1
+......solution for perturbation 1=214.567051...best=214.567051
+Optimization replicates used in first pass...2
+Optimization replicates used in LAST restart...13
+
+Using optimization from starting point 1 as best estimate
+
+Goodness of fit test for soln. 1 (best): Chi squared = 0.000000 (df=28)
+Objective function value:214.567051
+Likelihood portion of objective function=214.565095
+Penalty portion (divided by smoothing factor):19.562508
+
+Parameter estimates:
+
+	       1  
+
+Times
+p[ 1]	   0.309  
+p[ 2]	   0.301  
+p[ 3]	   0.256  
+p[ 4]	   0.259  
+p[ 5]	    0.23  
+p[ 6]	   0.209  
+p[ 7]	     0.2  
+p[ 8]	   0.145  
+p[ 9]	  0.0725  
+p[10]	  0.0535  
+p[11]	  0.0498  
+p[12]	  0.0609  
+p[13]	  0.0526  
+p[14]	  0.0314  
+p[15]	    0.03  
+p[16]	   0.105  
+p[17]	  0.0537  
+p[18]	   0.181  
+p[19]	  0.0812  
+p[20]	   0.063  
+p[21]	   0.052  
+p[22]	  0.0332  
+p[23]	   0.158  
+p[24]	   0.123  
+p[25]	    0.11  
+p[26]	  0.0907  
+p[27]	   0.203  
+
+Rates (substitutions per site per unit time)
+p[28]	 0.000659  
+p[29]	 0.000667  
+p[30]	 0.000638  
+p[31]	 0.000632  
+p[32]	 0.000654  
+p[33]	 0.000602  
+p[34]	 0.000807  
+p[35]	 0.000318  
+p[36]	 0.000731  
+p[37]	 0.000802  
+p[38]	 0.000823  
+p[39]	 0.000707  
+p[40]	 0.000719  
+p[41]	 0.00126  
+p[42]	 0.00166  
+p[43]	 0.00139  
+p[44]	 0.00111  
+p[45]	  0.0019  
+p[46]	 0.00123  
+p[47]	 0.00125  
+p[48]	  0.0016  
+p[49]	 0.00183  
+p[50]	 0.00206  
+p[51]	 0.00175  
+p[52]	 0.00167  
+p[53]	 0.00184  
+p[54]	 0.00147  
+p[55]	 0.000823  
+p[56]	 0.000908  
+p[57]	 0.000852  
+p[58]	 0.00112  
+p[59]	 0.000413  
+p[60]	 0.000849  
+p[61]	 0.00084  
+p[62]	 0.00099  
+p[63]	 0.000796  
+p[64]	 0.000745  
+p[65]	 0.000632  
+p[66]	 0.000942  
+p[67]	 0.00124  
+p[68]	 0.00132  
+p[69]	 0.00139  
+p[70]	 0.000815  
+p[71]	 0.000736  
+p[72]	 0.000712  
+p[73]	 0.000927  
+p[74]	 0.000697  
+p[75]	 0.000754  
+p[76]	 0.000884  
+p[77]	 0.000847  
+p[78]	 0.000957  
+p[79]	 0.000607  
+p[80]	 0.000907  
+p[81]	 0.000784  
+p[82]	 0.000824  
+p[83]	 0.00109  
+
+	  PASSED  
+__________________
+Result codes:
+PASSED = OK
+FAILED(1) = Optimization routine returned error
+FAILED(2) = Solution's gradient was not 0
+__________________
+
+
+Obj->	-214.567  
+[Printing tree 1]
+
+[CLADOGRAM of tree PAUP_4203]
+                            +----------------------------Araucarius_minor
+              +-------------+3
+              |             |             +--------------Dendroctonus_ponderosae
++-------------+2            +-------------+5
+|             |                           +--------------Hylastes_porculus
+|             |
+|             +------------------------------------------Ctonoxylon_flavescens
+|
+|                                       +----------------Cactophagus_spinolae
+|                               +-------+15
+|                               |       |       +--------Rhodobaenus_cf_nawradii
+|                               |       +-------+17
+|                         +-----+14             +--------Rhodobaenus_nigrofasciatus
+|                         |     |
+|                         |     |     +------------------Metamasius_callizona
+|                         |     |     |
+|                         |     +-----+20         +------Metamasius_hemipterus
+|                         |           |     +-----+23
+|                   +-----+13         |     |     +------Metamasius_sp_nr_hemipterus
+|                   |     |           +-----+22
+|                   |     |                 |     +------Sphenophorus_coesifrons
+|                   |     |                 +-----+26
+|                   |     |                       +------Sphenophorus_venatus
+|              +----+12   |
++root          |    |     +------------------------------Rhabdoscelus_obscurus
+|              |    |
+|              |    |                       +------------Scyphophorus_acupunctatus
+|              |    |           +-----------+31
+|              |    +-----------+30         +------------Scyphophorus_yuccae
+|         +----+11              |
+|         |    |                +------------------------Sphenophorus_striatopunctatus
+|         |    |
+|         |    |     +-----------------------------------Diocalandra_frumenti
+|         |    |     |
+|         |    |     |             +---------------------Sitophilus_granarius
+|         |    +-----+35           |
+|         |          |      +------+38           +-------Sitophilus_oryzae
+|         |          |      |      |      +------+41
+|    +----+10        |      |      +------+40    +-------Sitophilus_zeamais
+|    |    |          +------+37           |
+|    |    |                 |             +--------------Sitophilus_vateriae
+|    |    |                 |
+|    |    |                 +----------------------------Sitophilus_linearis
+|    |    |
+|    |    |        +-------------------------------------Cosmopolites_sordidus
+|    |    |        |
++----+ingroup      |                          +----------Dynamis_borassi
+     |    +--------+46               +--------+50
+     |             |        +--------+49      +----------Rhynchophorus_palmarum
+     |             |        |        |
+     |             +--------+48      +-------------------Rhynchophorus_cruentatus
+     |                      |
+     |                      +----------------------------Rhynchophorus_phoenicis
+     |
+     |                        +--------------------------Mesocordylus_bracteolatus
+     +------------------------+55
+                              +--------------------------Rhinostomus_barbirostris
+
+-----------------------------------------------------------------------------------------
+Estimated ages and substitution rates for tree PAUP_4203
+
+Reconstruction method: Penalized likelihood
+Named internal nodes indicated by [*]
+Rates are for branches subtending indicated node
+Rates are in units of substitutions per site per unit time
+
+				  Constraints				Rates
+	Node	   Fix [Mod]	  Min	  Max	  Age		Estimated	Local
+-----------------------------------------------------------------------------------------
+ [*]  root	     * [0] 	   --      --	1000.00		
+     (2)	       [0] 	   --      --	 848.02		6.5942e-04	6.5942e-04
+     (3)	       [0] 	   --      --	 826.70		6.6658e-04	6.6659e-04
+      Araucari	     * [0] 	   --      --	   0.00		6.3788e-04	6.3788e-04
+     (5)	       [0] 	   --      --	 702.24		6.3246e-04	6.3246e-04
+      Dendroct	     * [0] 	   --      --	   0.00		6.5389e-04	6.5389e-04
+      Hylastes	     * [0] 	   --      --	   0.00		6.0199e-04	6.0199e-04
+      Ctonoxyl	     * [0] 	   --      --	   0.00		8.0663e-04	8.0663e-04
+ [*]  ingroup	       [0] 	   --    900.00	 711.36		3.1817e-04	3.1817e-04
+     (10)	       [0] 	   --      --	 630.62		7.3126e-04	7.3126e-04
+     (11)	       [0] 	   --      --	 572.49		8.0249e-04	8.0249e-04
+     (12)	       [0] 	   --      --	 548.15		8.2334e-04	8.2334e-04
+     (13)	       [0] 	   --      --	 398.64		7.0689e-04	7.0689e-04
+     (14)	       [0] 	   --      --	 198.98		7.1917e-04	7.1917e-04
+     (15)	       [0] 	   --      --	 146.93		1.2602e-03	1.2602e-03
+      Cactopha	     * [0] 	   --      --	   0.00		1.6568e-03	1.6568e-03
+     (17)	       [0] 	   --      --	 136.68		1.3864e-03	1.3864e-03
+      Rhodobae	     * [0] 	   --      --	   0.00		1.1119e-03	1.1119e-03
+      Rhodobae	     * [0] 	   --      --	   0.00		1.9037e-03	1.9037e-03
+     (20)	       [0] 	   --      --	 167.23		1.2282e-03	1.2282e-03
+      Metamasi	     * [0] 	   --      --	   0.00		1.2465e-03	1.2465e-03
+     (22)	       [0] 	   --      --	 144.25		1.6013e-03	1.6013e-03
+     (23)	       [0] 	   --      --	  86.06		1.8289e-03	1.8289e-03
+      Metamasi	     * [0] 	   --      --	   0.00		2.0580e-03	2.0580e-03
+      Metamasi	     * [0] 	   --      --	   0.00		1.7488e-03	1.7488e-03
+     (26)	       [0] 	   --      --	  82.44		1.6686e-03	1.6686e-03
+      Sphenoph	     * [0] 	   --      --	   0.00		1.8433e-03	1.8433e-03
+      Sphenoph	     * [0] 	   --      --	   0.00		1.4720e-03	1.4720e-03
+      Rhabdosc	     * [0] 	   --      --	   0.00		8.2277e-04	8.2277e-04
+     (30)	       [0] 	   --      --	 287.54		9.0753e-04	9.0753e-04
+     (31)	       [0] 	   --      --	 147.28		8.5226e-04	8.5226e-04
+      Scyphoph	     * [0] 	   --      --	   0.00		1.1234e-03	1.1234e-03
+      Scyphoph	     * [0] 	   --      --	   0.00		4.1323e-04	4.1323e-04
+      Sphenoph	     * [0] 	   --      --	   0.00		8.4918e-04	8.4918e-04
+     (35)	       [0] 	   --      --	 496.60		8.4038e-04	8.4038e-04
+      Diocalan	     * [0] 	   --      --	   0.00		9.8996e-04	9.8996e-04
+     (37)	       [0] 	   --      --	 222.77		7.9584e-04	7.9584e-04
+     (38)	       [0] 	   --      --	 172.86		7.4485e-04	7.4485e-04
+      Sitophil	     * [0] 	   --      --	   0.00		6.3246e-04	6.3246e-04
+     (40)	       [0] 	   --      --	 142.69		9.4220e-04	9.4220e-04
+     (41)	       [0] 	   --      --	  91.13		1.2439e-03	1.2439e-03
+      Sitophil	     * [0] 	   --      --	   0.00		1.3157e-03	1.3157e-03
+      Sitophil	     * [0] 	   --      --	   0.00		1.3916e-03	1.3916e-03
+      Sitophil	     * [0] 	   --      --	   0.00		8.1471e-04	8.1471e-04
+      Sitophil	     * [0] 	   --      --	   0.00		7.3616e-04	7.3616e-04
+     (46)	       [0] 	   --      --	 434.11		7.1212e-04	7.1212e-04
+      Cosmopol	     * [0] 	   --      --	   0.00		9.2680e-04	9.2680e-04
+     (48)	       [0] 	   --      --	 336.80		6.9662e-04	6.9662e-04
+     (49)	       [0] 	   --      --	 300.55		7.5390e-04	7.5390e-04
+     (50)	       [0] 	   --      --	 249.01		8.8381e-04	8.8381e-04
+      Dynamis_	     * [0] 	   --      --	   0.00		8.4739e-04	8.4739e-04
+      Rhynchop	     * [0] 	   --      --	   0.00		9.5716e-04	9.5716e-04
+      Rhynchop	     * [0] 	   --      --	   0.00		6.0749e-04	6.0749e-04
+      Rhynchop	     * [0] 	   --      --	   0.00		9.0674e-04	9.0674e-04
+     (55)	       [0] 	   --      --	 558.04		7.8441e-04	7.8441e-04
+      Mesocord	     * [0] 	   --      --	   0.00		8.2350e-04	8.2350e-04
+      Rhinosto	     * [0] 	   --      --	   0.00		1.0893e-03	1.0893e-03
+-----------------------------------------------------------------------------------------
+
+Summary of rate variation (substitutions per site per unit time)
+  Mean    = 0.001003
+  Std Dev = 0.0004032
+  Min     = 0.0003182
+  Max     = 0.002058
+  Range   = 0.00174
+  Ratio   =  6.468
+[Printing tree 1]
+
+[NODE INFORMATION of tree PAUP_4203]
+node   1 (root) age=1000.00 len=2.7e+02
+node   2 () age=8.5e+02 | anc   1 (root) age=1e+03 | dur=1.5e+02 len=2.8e+02 rate=  1.81 nodeReal=     0 age bounds=[1000..0]
+node   3 () age=8.3e+02 | anc   2 () age=8.5e+02 | dur=  21 len=  39 rate=  1.83 nodeReal=     0 age bounds=[1000..0]
+node   4 (Araucarius_minor) age=   0 | anc   3 () age=8.3e+02 | dur=8.3e+02 len=1.4e+03 rate=  1.75 nodeReal=     0 age bounds=[0..0]
+node   5 () age=7e+02 | anc   3 () age=8.3e+02 | dur=1.2e+02 len=2.2e+02 rate=  1.74 nodeReal=     0 age bounds=[1000..0]
+node   6 (Dendroctonus_ponderosae) age=   0 | anc   5 () age=7e+02 | dur=7e+02 len=1.3e+03 rate=  1.79 nodeReal=     0 age bounds=[0..0]
+node   7 (Hylastes_porculus) age=   0 | anc   5 () age=7e+02 | dur=7e+02 len=1.2e+03 rate=  1.65 nodeReal=     0 age bounds=[0..0]
+node   8 (Ctonoxylon_flavescens) age=   0 | anc   2 () age=8.5e+02 | dur=8.5e+02 len=1.9e+03 rate=  2.21 nodeReal=     0 age bounds=[0..0]
+node   9 (ingroup) age=7.1e+02 | anc   1 (root) age=1e+03 | dur=2.9e+02 len=2.5e+02 rate= 0.873 nodeReal=     0 age bounds=[900..0]
+node  10 () age=6.3e+02 | anc   9 (ingroup) age=7.1e+02 | dur=  81 len=1.6e+02 rate=  2.01 nodeReal=     0 age bounds=[900..0]
+node  11 () age=5.7e+02 | anc  10 () age=6.3e+02 | dur=  58 len=1.3e+02 rate=   2.2 nodeReal=     0 age bounds=[900..0]
+node  12 () age=5.5e+02 | anc  11 () age=5.7e+02 | dur=  24 len=  55 rate=  2.26 nodeReal=     0 age bounds=[900..0]
+node  13 () age=4e+02 | anc  12 () age=5.5e+02 | dur=1.5e+02 len=2.9e+02 rate=  1.94 nodeReal=     0 age bounds=[900..0]
+node  14 () age=2e+02 | anc  13 () age=4e+02 | dur=2e+02 len=3.9e+02 rate=  1.97 nodeReal=     0 age bounds=[900..0]
+node  15 () age=1.5e+02 | anc  14 () age=2e+02 | dur=  52 len=1.8e+02 rate=  3.46 nodeReal=     0 age bounds=[900..0]
+node  16 (Cactophagus_spinolae) age=   0 | anc  15 () age=1.5e+02 | dur=1.5e+02 len=6.7e+02 rate=  4.55 nodeReal=     0 age bounds=[0..0]
+node  17 () age=1.4e+02 | anc  15 () age=1.5e+02 | dur=  10 len=  39 rate=   3.8 nodeReal=     0 age bounds=[900..0]
+node  18 (Rhodobaenus_cf_nawradii) age=   0 | anc  17 () age=1.4e+02 | dur=1.4e+02 len=4.2e+02 rate=  3.05 nodeReal=     0 age bounds=[0..0]
+node  19 (Rhodobaenus_nigrofasciatus) age=   0 | anc  17 () age=1.4e+02 | dur=1.4e+02 len=7.1e+02 rate=  5.22 nodeReal=     0 age bounds=[0..0]
+node  20 () age=1.7e+02 | anc  14 () age=2e+02 | dur=  32 len=1.1e+02 rate=  3.37 nodeReal=     0 age bounds=[900..0]
+node  21 (Metamasius_callizona) age=   0 | anc  20 () age=1.7e+02 | dur=1.7e+02 len=5.7e+02 rate=  3.42 nodeReal=     0 age bounds=[0..0]
+node  22 () age=1.4e+02 | anc  20 () age=1.7e+02 | dur=  23 len=1e+02 rate=  4.39 nodeReal=     0 age bounds=[900..0]
+node  23 () age=  86 | anc  22 () age=1.4e+02 | dur=  58 len=2.9e+02 rate=  5.02 nodeReal=     0 age bounds=[900..0]
+node  24 (Metamasius_hemipterus) age=   0 | anc  23 () age=  86 | dur=  86 len=4.9e+02 rate=  5.65 nodeReal=     0 age bounds=[0..0]
+node  25 (Metamasius_sp_nr_hemipterus) age=   0 | anc  23 () age=  86 | dur=  86 len=4.1e+02 rate=   4.8 nodeReal=     0 age bounds=[0..0]
+node  26 () age=  82 | anc  22 () age=1.4e+02 | dur=  62 len=2.8e+02 rate=  4.58 nodeReal=     0 age bounds=[900..0]
+node  27 (Sphenophorus_coesifrons) age=   0 | anc  26 () age=  82 | dur=  82 len=4.2e+02 rate=  5.06 nodeReal=     0 age bounds=[0..0]
+node  28 (Sphenophorus_venatus) age=   0 | anc  26 () age=  82 | dur=  82 len=3.3e+02 rate=  4.04 nodeReal=     0 age bounds=[0..0]
+node  29 (Rhabdoscelus_obscurus) age=   0 | anc  13 () age=4e+02 | dur=4e+02 len=9e+02 rate=  2.26 nodeReal=     0 age bounds=[0..0]
+node  30 () age=2.9e+02 | anc  12 () age=5.5e+02 | dur=2.6e+02 len=6.5e+02 rate=  2.49 nodeReal=     0 age bounds=[900..0]
+node  31 () age=1.5e+02 | anc  30 () age=2.9e+02 | dur=1.4e+02 len=3.3e+02 rate=  2.34 nodeReal=     0 age bounds=[900..0]
+node  32 (Scyphophorus_acupunctatus) age=   0 | anc  31 () age=1.5e+02 | dur=1.5e+02 len=4.5e+02 rate=  3.08 nodeReal=     0 age bounds=[0..0]
+node  33 (Scyphophorus_yuccae) age=   0 | anc  31 () age=1.5e+02 | dur=1.5e+02 len=1.7e+02 rate=  1.13 nodeReal=     0 age bounds=[0..0]
+node  34 (Sphenophorus_striatopunctatus) age=   0 | anc  30 () age=2.9e+02 | dur=2.9e+02 len=6.7e+02 rate=  2.33 nodeReal=     0 age bounds=[0..0]
+node  35 () age=5e+02 | anc  11 () age=5.7e+02 | dur=  76 len=1.8e+02 rate=  2.31 nodeReal=     0 age bounds=[900..0]
+node  36 (Diocalandra_frumenti) age=   0 | anc  35 () age=5e+02 | dur=5e+02 len=1.3e+03 rate=  2.72 nodeReal=     0 age bounds=[0..0]
+node  37 () age=2.2e+02 | anc  35 () age=5e+02 | dur=2.7e+02 len=6e+02 rate=  2.18 nodeReal=     0 age bounds=[900..0]
+node  38 () age=1.7e+02 | anc  37 () age=2.2e+02 | dur=  50 len=1e+02 rate=  2.04 nodeReal=     0 age bounds=[900..0]
+node  39 (Sitophilus_granarius) age=   0 | anc  38 () age=1.7e+02 | dur=1.7e+02 len=3e+02 rate=  1.74 nodeReal=     0 age bounds=[0..0]
+node  40 () age=1.4e+02 | anc  38 () age=1.7e+02 | dur=  30 len=  78 rate=  2.59 nodeReal=     0 age bounds=[900..0]
+node  41 () age=  91 | anc  40 () age=1.4e+02 | dur=  52 len=1.8e+02 rate=  3.41 nodeReal=     0 age bounds=[900..0]
+node  42 (Sitophilus_oryzae) age=   0 | anc  41 () age=  91 | dur=  91 len=3.3e+02 rate=  3.61 nodeReal=     0 age bounds=[0..0]
+node  43 (Sitophilus_zeamais) age=   0 | anc  41 () age=  91 | dur=  91 len=3.5e+02 rate=  3.82 nodeReal=     0 age bounds=[0..0]
+node  44 (Sitophilus_vateriae) age=   0 | anc  40 () age=1.4e+02 | dur=1.4e+02 len=3.2e+02 rate=  2.24 nodeReal=     0 age bounds=[0..0]
+node  45 (Sitophilus_linearis) age=   0 | anc  37 () age=2.2e+02 | dur=2.2e+02 len=4.5e+02 rate=  2.02 nodeReal=     0 age bounds=[0..0]
+node  46 () age=4.3e+02 | anc  10 () age=6.3e+02 | dur=2e+02 len=3.8e+02 rate=  1.95 nodeReal=     0 age bounds=[900..0]
+node  47 (Cosmopolites_sordidus) age=   0 | anc  46 () age=4.3e+02 | dur=4.3e+02 len=1.1e+03 rate=  2.54 nodeReal=     0 age bounds=[0..0]
+node  48 () age=3.4e+02 | anc  46 () age=4.3e+02 | dur=  97 len=1.9e+02 rate=  1.91 nodeReal=     0 age bounds=[900..0]
+node  49 () age=3e+02 | anc  48 () age=3.4e+02 | dur=  36 len=  75 rate=  2.07 nodeReal=     0 age bounds=[900..0]
+node  50 () age=2.5e+02 | anc  49 () age=3e+02 | dur=  52 len=1.2e+02 rate=  2.43 nodeReal=     0 age bounds=[900..0]
+node  51 (Dynamis_borassi) age=   0 | anc  50 () age=2.5e+02 | dur=2.5e+02 len=5.8e+02 rate=  2.33 nodeReal=     0 age bounds=[0..0]
+node  52 (Rhynchophorus_palmarum) age=   0 | anc  50 () age=2.5e+02 | dur=2.5e+02 len=6.5e+02 rate=  2.63 nodeReal=     0 age bounds=[0..0]
+node  53 (Rhynchophorus_cruentatus) age=   0 | anc  49 () age=3e+02 | dur=3e+02 len=5e+02 rate=  1.67 nodeReal=     0 age bounds=[0..0]
+node  54 (Rhynchophorus_phoenicis) age=   0 | anc  48 () age=3.4e+02 | dur=3.4e+02 len=8.4e+02 rate=  2.49 nodeReal=     0 age bounds=[0..0]
+node  55 () age=5.6e+02 | anc   9 (ingroup) age=7.1e+02 | dur=1.5e+02 len=3.3e+02 rate=  2.15 nodeReal=     0 age bounds=[900..0]
+node  56 (Mesocordylus_bracteolatus) age=   0 | anc  55 () age=5.6e+02 | dur=5.6e+02 len=1.3e+03 rate=  2.26 nodeReal=     0 age bounds=[0..0]
+node  57 (Rhinostomus_barbirostris) age=   0 | anc  55 () age=5.6e+02 | dur=5.6e+02 len=1.7e+03 rate=  2.99 nodeReal=     0 age bounds=[0..0]
+[Printing tree 1]
+
+[TREE DESCRIPTION of tree PAUP_4203]
+
+tree PAUP_4203 = (((Araucarius_minor:826.698848,(Dendroctonus_ponderosae:702.236111,Hylastes_porculus:702.236111):124.462737):21.321825,Ctonoxylon_flavescens:848.020673):151.979327,(((((((Cactophagus_spinolae:146.931760,(Rhodobaenus_cf_nawradii:136.680160,Rhodobaenus_nigrofasciatus:136.680160):10.251600):52.052983,(Metamasius_callizona:167.234808,((Metamasius_hemipterus:86.062952,Metamasius_sp_nr_hemipterus:86.062952):58.186038,(Sphenophorus_coesifrons:82.441449,Sphenophorus_venatus:82.441449):61.807541):22.985817):31.749935):199.655961,Rhabdoscelus_obscurus:398.640703):149.508208,((Scyphophorus_acupunctatus:147.280301,Scyphophorus_yuccae:147.280301):140.254765,Sphenophorus_striatopunctatus:287.535066):260.613845):24.344519,(Diocalandra_frumenti:496.604113,((Sitophilus_granarius:172.863387,((Sitophilus_oryzae:91.131925,Sitophilus_zeamais:91.131925):51.561993,Sitophilus_vateriae:142.693917):30.169470):49.905312,Sitophilus_linearis:222.768700):273.835413):75.889318):58.127768,(Cosmopolites_sordidus:434.107208,(((Dynamis_borassi:249.005504,Rhynchophorus_palmarum:249.005504):51.542396,Rhynchophorus_cruentatus:300.547900):36.254769,Rhynchophorus_phoenicis:336.802668):97.304539):196.513990):80.734799,(Mesocordylus_bracteolatus:558.040149,Rhinostomus_barbirostris:558.040149):153.315848)ingroup:288.644003)root;
+[Printing tree 1]
+
+[RATO DESCRIPTION of tree PAUP_4203]
+
+tree PAUP_4203 = (((Araucarius_minor:0.000638,(Dendroctonus_ponderosae:0.000654,Hylastes_porculus:0.000602):0.000632):0.000667,Ctonoxylon_flavescens:0.000807):0.000659,(((((((Cactophagus_spinolae:0.001657,(Rhodobaenus_cf_nawradii:0.001112,Rhodobaenus_nigrofasciatus:0.001904):0.001386):0.001260,(Metamasius_callizona:0.001246,((Metamasius_hemipterus:0.002058,Metamasius_sp_nr_hemipterus:0.001749):0.001829,(Sphenophorus_coesifrons:0.001843,Sphenophorus_venatus:0.001472):0.001669):0.001601):0.001228):0.000719,Rhabdoscelus_obscurus:0.000823):0.000707,((Scyphophorus_acupunctatus:0.001123,Scyphophorus_yuccae:0.000413):0.000852,Sphenophorus_striatopunctatus:0.000849):0.000908):0.000823,(Diocalandra_frumenti:0.000990,((Sitophilus_granarius:0.000632,((Sitophilus_oryzae:0.001316,Sitophilus_zeamais:0.001392):0.001244,Sitophilus_vateriae:0.000815):0.000942):0.000745,Sitophilus_linearis:0.000736):0.000796):0.000840):0.000802,(Cosmopolites_sordidus:0.000927,(((Dynamis_borassi:0.000847,Rhynchophorus_palmarum:0.000957):0.000884,Rhynchophorus_cruentatus:0.000607):0.000754,Rhynchophorus_phoenicis:0.000907):0.000697):0.000712):0.000731,(Mesocordylus_bracteolatus:0.000824,Rhinostomus_barbirostris:0.001089):0.000784)ingroup:0.000318)root;

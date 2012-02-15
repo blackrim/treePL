@@ -1,0 +1,108 @@
+Reading tree PAUP_4203
+Executing blformat command...
+Number of sites in sequences set to 2744
+Branch lengths assumed to be in units of numbers of substitutions per site
+All branch lengths multipled by the 2744 sites in the sequence
+Branch lengths rounded to nearest integer
+(This may not be a good idea when using CALIBRATE on ultrametric user supplied input trees. Use ROUND=NO then)
+Pruning taxon Apion_sp
+Pruning taxon Penestes_sp
+Pruning taxon Tanysphyrus_lemnae
+********************* WARNING **********************
+
+MRCA COMMAND: Num nodes less than num labels: You probably have misspelled a taxon name!
+
+****************************************************
+Defining clade name: ingroup
+0 zero-length branches collapsed
+Fixing age of ingroup at 1000.000000
+ (The age of this node will no longer be estimated.)
+ (This command overides any previous age constraints for this node.)
+ (The total number of fixed ages is now 1)
+[Printing tree 1]
+
+[TREE DESCRIPTION of tree PAUP_4203]
+
+tree PAUP_4203 = (((Araucarius_minor:952.324999,(Dendroctonus_ponderosae:809.794042,Hylastes_porculus:809.794042):142.530957):24.655171,Ctonoxylon_flavescens:976.980170):161.436550,(((((((Cactophagus_spinolae:336.886036,(Rhodobaenus_cf_nawradii:315.750364,Rhodobaenus_nigrofasciatus:315.750364):21.135671):92.477561,(Metamasius_callizona:371.076676,((Metamasius_hemipterus:193.596584,Metamasius_sp_nr_hemipterus:193.596584):128.792631,(Sphenophorus_coesifrons:184.208106,Sphenophorus_venatus:184.208106):138.181109):48.687461):58.286921):206.364321,Rhabdoscelus_obscurus:635.727918):167.701975,((Scyphophorus_acupunctatus:214.679208,Scyphophorus_yuccae:214.679208):206.135007,Sphenophorus_striatopunctatus:420.814215):382.615677):31.596612,(Diocalandra_frumenti:732.645386,((Sitophilus_granarius:267.270968,((Sitophilus_oryzae:143.579791,Sitophilus_zeamais:143.579791):79.025571,Sitophilus_vateriae:222.605362):44.665606):69.284221,Sitophilus_linearis:336.555190):396.090197):102.381118):73.137964,(Cosmopolites_sordidus:675.619530,(((Dynamis_borassi:410.273859,Rhynchophorus_palmarum:410.273859):86.019886,Rhynchophorus_cruentatus:496.293745):56.841705,Rhynchophorus_phoenicis:553.135450):122.484080):232.544937):91.835533,(Mesocordylus_bracteolatus:816.744814,Rhinostomus_barbirostris:816.744814):183.255186)ingroup:138.416720);
+[Printing tree 1]
+
+[RATO DESCRIPTION of tree PAUP_4203]
+
+tree PAUP_4203 = (((Araucarius_minor:0.000554,(Dendroctonus_ponderosae:0.000567,Hylastes_porculus:0.000522):0.000552):0.000576,Ctonoxylon_flavescens:0.000700):0.000622,(((((((Cactophagus_spinolae:0.000722,(Rhodobaenus_cf_nawradii:0.000483,Rhodobaenus_nigrofasciatus:0.000822):0.000672):0.000708,(Metamasius_callizona:0.000563,((Metamasius_hemipterus:0.000913,Metamasius_sp_nr_hemipterus:0.000778):0.000825,(Sphenophorus_coesifrons:0.000823,Sphenophorus_venatus:0.000660):0.000746):0.000754):0.000669):0.000694,Rhabdoscelus_obscurus:0.000516):0.000629,((Scyphophorus_acupunctatus:0.000767,Scyphophorus_yuccae:0.000286):0.000579,Sphenophorus_striatopunctatus:0.000581):0.000618):0.000633,(Diocalandra_frumenti:0.000671,((Sitophilus_granarius:0.000410,((Sitophilus_oryzae:0.000834,Sitophilus_zeamais:0.000881):0.000808,Sitophilus_vateriae:0.000524):0.000634):0.000536,Sitophilus_linearis:0.000488):0.000550):0.000623):0.000637,(Cosmopolites_sordidus:0.000596,(((Dynamis_borassi:0.000514,Rhynchophorus_palmarum:0.000581):0.000529,Rhynchophorus_cruentatus:0.000368):0.000481,Rhynchophorus_phoenicis:0.000552):0.000553):0.000602):0.000642,(Mesocordylus_bracteolatus:0.000563,Rhinostomus_barbirostris:0.000744):0.000656)ingroup:0.000663);
+-----------------------------------------------------------------------------------------
+Estimated ages and substitution rates for tree PAUP_4203
+
+Reconstruction method: Penalized likelihood
+Named internal nodes indicated by [*]
+Rates are for branches subtending indicated node
+Rates are in units of substitutions per site per unit time
+
+				  Constraints				Rates
+	Node	   Fix [Mod]	  Min	  Max	  Age		Estimated	Local
+-----------------------------------------------------------------------------------------
+     (5)	       [0] 	   --      --	1138.42		
+     (6)	       [0] 	   --      --	 976.98		6.2170e-04	6.2079e-04
+     (7)	       [0] 	   --      --	 952.32		5.7633e-04	5.7646e-04
+      Araucari	     * [0] 	   --      --	   0.00		5.5380e-04	5.5373e-04
+     (9)	       [0] 	   --      --	 809.79		5.5245e-04	5.5228e-04
+      Dendroct	     * [0] 	   --      --	   0.00		5.6698e-04	5.6704e-04
+      Hylastes	     * [0] 	   --      --	   0.00		5.2214e-04	5.2203e-04
+      Ctonoxyl	     * [0] 	   --      --	   0.00		6.9985e-04	7.0016e-04
+ [*]  ingroup	     * [0] 	   --      --	1000.00		6.6251e-04	6.6348e-04
+     (14)	       [0] 	   --      --	 908.16		6.4193e-04	6.4287e-04
+     (15)	       [0] 	   --      --	 835.03		6.3713e-04	6.3780e-04
+     (16)	       [0] 	   --      --	 803.43		6.3279e-04	6.3436e-04
+     (17)	       [0] 	   --      --	 635.73		6.2928e-04	6.3020e-04
+     (18)	       [0] 	   --      --	 429.36		6.9437e-04	6.9579e-04
+     (19)	       [0] 	   --      --	 336.89		7.0787e-04	7.0934e-04
+      Cactopha	     * [0] 	   --      --	   0.00		7.2245e-04	7.2262e-04
+     (21)	       [0] 	   --      --	 315.75		6.7192e-04	6.7246e-04
+      Rhodobae	     * [0] 	   --      --	   0.00		4.8288e-04	4.8129e-04
+      Rhodobae	     * [0] 	   --      --	   0.00		8.2194e-04	8.2408e-04
+     (24)	       [0] 	   --      --	 371.08		6.6922e-04	6.6900e-04
+      Metamasi	     * [0] 	   --      --	   0.00		5.6264e-04	5.6176e-04
+     (26)	       [0] 	   --      --	 322.39		7.5415e-04	7.5600e-04
+     (27)	       [0] 	   --      --	 193.60		8.2518e-04	8.2624e-04
+      Metamasi	     * [0] 	   --      --	   0.00		9.1260e-04	9.1486e-04
+      Metamasi	     * [0] 	   --      --	   0.00		7.7847e-04	7.7744e-04
+     (30)	       [0] 	   --      --	 184.21		7.4633e-04	7.4637e-04
+      Sphenoph	     * [0] 	   --      --	   0.00		8.2310e-04	8.2498e-04
+      Sphenoph	     * [0] 	   --      --	   0.00		6.6049e-04	6.5880e-04
+      Rhabdosc	     * [0] 	   --      --	   0.00		5.1643e-04	5.1593e-04
+     (34)	       [0] 	   --      --	 420.81		6.1762e-04	6.1816e-04
+     (35)	       [0] 	   --      --	 214.68		5.7886e-04	5.7988e-04
+      Scyphoph	     * [0] 	   --      --	   0.00		7.6700e-04	7.7069e-04
+      Scyphoph	     * [0] 	   --      --	   0.00		2.8563e-04	2.8349e-04
+      Sphenoph	     * [0] 	   --      --	   0.00		5.8051e-04	5.8023e-04
+     (39)	       [0] 	   --      --	 732.65		6.2260e-04	6.2292e-04
+      Diocalan	     * [0] 	   --      --	   0.00		6.7078e-04	6.7102e-04
+     (41)	       [0] 	   --      --	 336.56		5.5017e-04	5.5020e-04
+     (42)	       [0] 	   --      --	 267.27		5.3593e-04	5.3651e-04
+      Sitophil	     * [0] 	   --      --	   0.00		4.1012e-04	4.0906e-04
+     (44)	       [0] 	   --      --	 222.61		6.3375e-04	6.3641e-04
+     (45)	       [0] 	   --      --	 143.58		8.0750e-04	8.1164e-04
+      Sitophil	     * [0] 	   --      --	   0.00		8.3421e-04	8.3506e-04
+      Sitophil	     * [0] 	   --      --	   0.00		8.8082e-04	8.8329e-04
+      Sitophil	     * [0] 	   --      --	   0.00		5.2366e-04	5.2224e-04
+      Sitophil	     * [0] 	   --      --	   0.00		4.8777e-04	4.8727e-04
+     (50)	       [0] 	   --      --	 675.62		6.0158e-04	6.0178e-04
+      Cosmopol	     * [0] 	   --      --	   0.00		5.9553e-04	5.9550e-04
+     (52)	       [0] 	   --      --	 553.14		5.5283e-04	5.5341e-04
+     (53)	       [0] 	   --      --	 496.29		4.8117e-04	4.8085e-04
+     (54)	       [0] 	   --      --	 410.27		5.2919e-04	5.2957e-04
+      Dynamis_	     * [0] 	   --      --	   0.00		5.1441e-04	5.1430e-04
+      Rhynchop	     * [0] 	   --      --	   0.00		5.8053e-04	5.8092e-04
+      Rhynchop	     * [0] 	   --      --	   0.00		3.6835e-04	3.6789e-04
+      Rhynchop	     * [0] 	   --      --	   0.00		5.5212e-04	5.5211e-04
+     (59)	       [0] 	   --      --	 816.74		6.5627e-04	6.5626e-04
+      Mesocord	     * [0] 	   --      --	   0.00		5.6301e-04	5.6266e-04
+      Rhinosto	     * [0] 	   --      --	   0.00		7.4383e-04	7.4426e-04
+-----------------------------------------------------------------------------------------
+
+Summary of rate variation (substitutions per site per unit time)
+  Mean    = 0.0006281
+  Std Dev = 0.0001255
+  Min     = 0.0002856
+  Max     = 0.0009126
+  Range   = 0.000627
+  Ratio   =  3.195

@@ -1,0 +1,12 @@
+treefile = comm_mol_rr.tre
+mrca = root Raphia_farinifera Oryza_rufipogon
+min = root 100
+max = root 100
+numsites = 20000
+smooth = 0.0001
+[cv]
+[verbose]
+[prime]
+opt = 5
+optad = 3
+optcvad = 0

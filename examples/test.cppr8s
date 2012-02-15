@@ -1,0 +1,22 @@
+treefile = test.tre
+smooth = 100
+numsites = 1000
+mrca = nrt a b
+mrca = rt a f
+min = nrt 50
+max = rt 150
+[cv]
+cvstart = .0001
+cvstop = 10000
+randomcv
+cvmultstep = 0.1
+[verbose]
+[thorough]
+lfsimaniter = 0
+plsimaniter = 0
+[prime]
+opt = 5
+moredetail
+optad = 1
+optcvad = 2
+moredetailcvad

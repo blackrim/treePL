@@ -1,0 +1,21 @@
+#nexus
+begin trees;
+[tree PAUP_4203 = [&R] (((a:0.3,b:0.3):0.2,((c:0.2,d:0.2):0.1,e:0.3):0.2):0.1,(f:0.4,g:0.4):0.2):0.1;]
+tree PAUP_4203 = [&R] (((a:0.3,b:0.9):0.2,((c:0.2,d:0.8):0.1,e:0.7):0.2):0.1,(f:0.1,g:0.4):0.2):0.1;
+end;
+
+begin r8s;
+blformat nsites=1000 lengths=persite;
+mrca nrt =  a b;
+mrca rt = a f;
+[collapse;]
+constrain taxon=rt max_age=150;
+constrain taxon=nrt min_age=50;
+set ftol=1e-10 maxiter=10000; 
+[set verbose=0; suppresses huge amount of output in CV analyses]
+divtime method=pl algorithm=tn  cvStart=-7 cvInc=1 cvNum=10 crossv=yes;
+set smoothing = 0.001;
+divtime method=pl;
+describe plot=cladogram;
+show rates;
+end;

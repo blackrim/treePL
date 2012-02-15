@@ -1,0 +1,56 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.68])
+AC_INIT([treepl], [0.1], [http://bitbucket.org/blackrim/clocking])
+AC_CONFIG_SRCDIR([tnc.h])
+AC_CONFIG_HEADERS([config.h])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+
+# Checks for libraries.
+have_adolc=no
+AC_SEARCH_LIBS([main], [adolc], [have_adolc=yes])
+if test "x${have_adolc}" = xyes; then
+   AC_CHECK_HEADERS([adolc/adouble.h],[],[have_adolc=no])
+fi
+
+if test "x${have_adolc}" = xno; then
+   AC_MSG_WARN([
+--------------------------------------------------------
+The adolc library is helpful for parallel excution of the
+cross validation procedure. Failure to have this library
+may cause problems for convergence
+--------------------------------------------------------])
+fi
+
+AC_CHECK_LIB([m], [fabs])
+
+have_nloptcxx=no
+AC_SEARCH_LIBS([nlopt_create],[nlopt_cxx], [have_nloptcxx=yes])
+
+if test "x${have_nloptcxx}" = xno; then
+   AC_MSG_ERROR([
+--------------------------------------------------------
+The nlopt library configured with c++ bindings is required 
+for optimization.
+--------------------------------------------------------])
+fi
+
+# Checks for header files.
+AC_CHECK_HEADERS([fenv.h stdlib.h string.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_INLINE
+AC_TYPE_SIZE_T
+
+# Checks for library functions.
+AC_FUNC_MALLOC
+AC_FUNC_STRTOD
+AC_CHECK_FUNCS([floor pow sqrt])
+
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT

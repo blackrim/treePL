@@ -1,0 +1,25 @@
+treefile = pl4203.tre
+numsites=2744
+mrca = ingroup Cactophagus_spinolae Rhinostomus_barbirostris
+mrca = root Dendroctonus_ponderosae Rhinostomus_barbirostris
+min = root 1000
+max = root 1000
+[max = ingroup 900]
+smooth = 0.0001
+cv
+randomcv
+cviter = 2
+cvsimaniter = 10
+cvstart = 0.0001
+cvstop = 100
+cvmultstep = 0.1
+thorough
+[prime]
+lfiter = 1
+opt = 5
+optad = 2
+moredetailad
+optcvad = 2
+moredetailcvad
+[ind8s = dates.tre]
+[inr8s = rates.tre]
