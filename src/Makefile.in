@@ -10,7 +10,7 @@ CP := g++
 OPENMP := -fopenmp
 #OPENMP := -openmp -parallel
 
-LIBS := -lm $(OPENMP) -ladolc -L/usr/lib64 -lnlopt_cxx
+LIBS := -lm $(OPENMP) -ladolc -L/usr/lib64 -lnlopt
 
 RM := rm -rf
 

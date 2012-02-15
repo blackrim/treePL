@@ -4,7 +4,7 @@
 #include "optimize_nlopt.h"
 #include "pl_calc_parallel.h"
 #include <math.h>
-#include <nlopt.hpp>
+#include <nlopt.h>
 #include <iostream>
 #include <stdio.h>
 #include <limits>
@@ -106,15 +106,15 @@ int optimize_plcp_nlopt(double *init_x,pl_calc_parallel *pl_,int numiter, int wh
     data_obj_nlopt d;
     d.tncparams.assign(pl_->numparams,0.0);
     d.tncgrads.assign(pl_->numparams,0.0);
-    vector<double> low(pl_->numparams);
-    vector<double> up(pl_->numparams);
-    vector<double> init_v;
+    double low[pl_->numparams];
+    double up[pl_->numparams];
+//    double init_v[pl_->numparams];
 
     for(int i=0;i<pl_->numparams;i++){
 //	cout << init_x[i] <<  endl;
 	low[i] = 0;
 	up[i] = LARGE;
-	init_v.push_back(init_x[i]);
+//	init_v.push_back(init_x[i]);
     }
 //    exit(0);
     //if((whichone == 3 || whichone == 1) && ad == true){//sometimes works, sometimes doesn't
@@ -149,57 +149,61 @@ int optimize_plcp_nlopt(double *init_x,pl_calc_parallel *pl_,int numiter, int wh
     
     //LN_SBPLX is the fastest of the non deriv
 
-    nlopt::opt opt;
+    nlopt_opt opt;
     if(whichone == 1){
-	opt = nlopt::opt(nlopt::LD_LBFGS, pl_->numparams);
+	opt = nlopt_create(NLOPT_LD_LBFGS, pl_->numparams);
 	cout << "setting NLOPT: LD_LBFGS " << endl;
     }else if(whichone == 2){ 
-	opt = nlopt::opt(nlopt::LD_TNEWTON_PRECOND_RESTART, pl_->numparams);
+	opt = nlopt_create(NLOPT_LD_TNEWTON_PRECOND_RESTART, pl_->numparams);
 	cout << "setting NLOPT: LD_TNEWTON_PRECOND_RESTART" << endl;
     }else if(whichone == 3){
-	opt = nlopt::opt(nlopt::LD_MMA, pl_->numparams);
+	opt = nlopt_create(NLOPT_LD_MMA, pl_->numparams);
 	cout << "setting NLOPT: LD_MMA" << endl;
     }else if(whichone == 4){
-	opt = nlopt::opt(nlopt::LD_VAR2, pl_->numparams);
+	opt = nlopt_create(NLOPT_LD_VAR2, pl_->numparams);
 	cout << "setting NLOPT: LD_VAR2 " << endl;
     }else if(whichone == 5){
 	if(pl_->numparams < 10000){
-	    opt = nlopt::opt(nlopt::LN_SBPLX, pl_->numparams);
+	    opt = nlopt_create(NLOPT_LN_SBPLX, pl_->numparams);
 	    cout << "setting NLOPT parallel : LN_SBPLX " << endl;
 	}else{
-	    opt = nlopt::opt(nlopt::LN_NEWUOA_BOUND, pl_->numparams);
-	    cout << "setting NLOPT parallel : LN_NEWUOA_BOUND " << endl;
+//	    whichone = 3;
+	    opt = nlopt_create(NLOPT_LN_PRAXIS, pl_->numparams);
+	    cout << "setting NLOPT parallel : NLOPT_LN_PRAXIS " << endl;
+//	    cout << "you may want to set the plsimaniter > 100000 " << endl;
 	}
     }
 //    opt.set_vector_storage(10);
     
-    opt.set_lower_bounds(low);
-    opt.set_upper_bounds(up);
-    opt.set_maxeval(numiter);
+    nlopt_set_lower_bounds(opt,low);
+    nlopt_set_upper_bounds(opt,up);
+    nlopt_set_maxeval(opt,numiter);
     if (moredetail){
-	opt.set_ftol_rel(ftol*1e-5);
+	nlopt_set_ftol_rel(opt,ftol*1e-5);
     }else{
-	opt.set_ftol_rel(ftol);
+	nlopt_set_ftol_rel(opt,ftol);
     }
-    opt.set_xtol_rel(xtol);
+    nlopt_set_xtol_rel(opt,xtol);
     if(whichone == 5)
-	opt.set_min_objective(function_plcp_nlopt_nograd, (&d));
+	nlopt_set_min_objective(opt,function_plcp_nlopt_nograd, (&d));
     else if(ad==false)
-	opt.set_min_objective(function_plcp_nlopt, (&d));
+	nlopt_set_min_objective(opt,function_plcp_nlopt, (&d));
     else
-	opt.set_min_objective(function_plcp_nlopt_ad, (&d));
+	nlopt_set_min_objective(opt,function_plcp_nlopt_ad, (&d));
     try{
-	nlopt::result result = opt.optimize(init_v, f);
-	for(int i=0;i<pl_->numparams;i++){
-	    init_x[i] = init_v[i];
-	}
+	nlopt_result result = nlopt_optimize(opt,init_x, &f); //was init_v
+//	for(int i=0;i<pl_->numparams;i++){
+//	    init_x[i] = init_v[i];
+//	}
 	cout << "result: " << result << endl;
+	nlopt_destroy(opt);
 	return result;
-    }catch(std::runtime_error e){
-	cout << "failed line search / last value: " << opt.last_optimum_value() << endl;
-	for(int i=0;i<pl_->numparams;i++){
-	    init_x[i] = init_v[i];
-	}
+    }catch(...){
+	cout << "failed line search / last value: " << f << endl;
+//	for(int i=0;i<pl_->numparams;i++){
+//	    init_x[i] = init_v[i];
+//	}
+	nlopt_destroy(opt);
 	return -1;
     }
     return rc;
@@ -212,14 +216,14 @@ int optimize_plcp_nlopt_ad_parallel(double *init_x,pl_calc_parallel *pl_,int num
     data_obj_nlopt d;
     d.tncparams.assign(pl_->numparams,0.0);
     d.tncgrads.assign(pl_->numparams,0.0);
-    vector<double> low(pl_->numparams);
-    vector<double> up(pl_->numparams);
-    vector<double> init_v;
+    double low[pl_->numparams];
+    double up[pl_->numparams];
+//    vector<double> init_v;
 
     for(int i=0;i<pl_->numparams;i++){
 	low[i] = 0;
 	up[i] = LARGE;
-	init_v.push_back(init_x[i]);
+//	init_v.push_back(init_x[i]);
     }
 
     int fcount = 0;
@@ -255,54 +259,63 @@ int optimize_plcp_nlopt_ad_parallel(double *init_x,pl_calc_parallel *pl_,int num
     double g[pl_->numparams];
     d.pl_ = pl_;
     int rc = 0;
-    nlopt::opt opt;
+    nlopt_opt opt;
     if(whichone == 1){
-	opt = nlopt::opt(nlopt::LD_LBFGS, pl_->numparams); 
+	opt = nlopt_create(NLOPT_LD_LBFGS, pl_->numparams); 
 	cout << "setting NLOPT parallel : LD_LBFGS " << endl;
     }else if(whichone == 2){
-	opt = nlopt::opt(nlopt::LD_TNEWTON_PRECOND_RESTART, pl_->numparams);
+	opt = nlopt_create(NLOPT_LD_TNEWTON_PRECOND_RESTART, pl_->numparams);
 	cout << "setting NLOPT parallel : LD_TNEWTON_PRECOND_RESTART" << endl;
     }else if(whichone == 3){
-	opt = nlopt::opt(nlopt::LD_MMA, pl_->numparams);
+	opt = nlopt_create(NLOPT_LD_MMA, pl_->numparams);
 	cout << "setting NLOPT parallel : LD_MMA" << endl;
     }else if(whichone == 4){
-	opt = nlopt::opt(nlopt::LD_VAR2, pl_->numparams);
+	opt = nlopt_create(NLOPT_LD_VAR2, pl_->numparams);
 	cout << "setting NLOPT parallel : LD_VAR2 " << endl;
     }else if(whichone == 5){
 	if(pl_->numparams < 10000){
-	    opt = nlopt::opt(nlopt::LN_SBPLX, pl_->numparams);
+	    opt = nlopt_create(NLOPT_LN_SBPLX, pl_->numparams);
 	    cout << "setting NLOPT parallel : LN_SBPLX " << endl;
 	}else{
-	    opt = nlopt::opt(nlopt::LN_NEWUOA_BOUND, pl_->numparams);
-	    cout << "setting NLOPT parallel : LN_NEWUOA_BOUND " << endl;
+//	    whichone = 3;
+	    opt = nlopt_create(NLOPT_LN_PRAXIS, pl_->numparams);
+	    cout << "setting NLOPT parallel : LN_PRAXIS " << endl;
+//	    cout << "you may want to set the plsimaniter > 100000 " << endl;
 	}
 	
     }
-    opt.set_lower_bounds(low);
-    opt.set_upper_bounds(up);
-    opt.set_maxeval(numiter);
+    nlopt_set_lower_bounds(opt,low);
+    nlopt_set_upper_bounds(opt,up);
+    nlopt_set_maxeval(opt,numiter);
     if(moredetail)
-	opt.set_ftol_rel(ftol*1e-5);
+	nlopt_set_ftol_rel(opt,ftol*1e-5);
     else
-	opt.set_ftol_rel(ftol);
+	nlopt_set_ftol_rel(opt,ftol);
     if(whichone == 5){
-	opt.set_min_objective(function_plcp_nlopt_nograd, (&d));
+	nlopt_set_min_objective(opt,function_plcp_nlopt_nograd, (&d));
     }else{
 #if HAVE_LIBADOLC
-	opt.set_min_objective(function_plcp_nlopt_ad_parallel, (&d));
+	nlopt_set_min_objective(opt,function_plcp_nlopt_ad_parallel, (&d));
 #else
-	opt.set_min_objective(function_plcp_nlopt, (&d));
+	nlopt_set_min_objective(opt,function_plcp_nlopt, (&d));
 #endif
     }
-    opt.set_xtol_rel(xtol);
+    nlopt_set_xtol_rel(opt,xtol);
     try{
-	nlopt::result result = opt.optimize(init_v, f);
-	for(int i=0;i<pl_->numparams;i++){
-	    init_x[i] = init_v[i];
-	}
+	nlopt_result result = nlopt_optimize(opt,init_x, &f);
+//	for(int i=0;i<pl_->numparams;i++){
+//	    init_x[i] = init_v[i];
+//	}
+	cout << "result: " << result << endl;
+	nlopt_destroy(opt);
 	return result;
-    }catch(std::runtime_error e){
-	cout << "error" << endl;
+    }catch(...){
+	cout << "failed line search / last value: " << f << endl;
+//	for(int i=0;i<pl_->numparams;i++){
+//	    init_x[i] = init_v[i];
+//	}
+	nlopt_destroy(opt);
+	return -1;
     }
     return rc;
 }

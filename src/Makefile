@@ -10,7 +10,7 @@ CP := g++
 OPENMP := -fopenmp
 #OPENMP := -openmp -parallel
 
-LIBS := -lm $(OPENMP) -ladolc -L/usr/lib64 -lnlopt_cxx
+LIBS := -lm $(OPENMP) -ladolc -L/usr/lib64 -lnlopt
 
 RM := rm -rf
 
@@ -85,5 +85,5 @@ install:
 	install -m 0755 treePL $(prefix)
 	
 uninstall:
-	-rm $(prefix)/treePL
+	-rm $(prefix)treePL
 

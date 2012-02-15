@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.68])
-AC_INIT([treepl], [0.1], [eebsmith@umich.edu])
+AC_INIT([treepl], [1.0], [eebsmith@umich.edu])
 AC_CONFIG_SRCDIR([tnc.h])
 AC_CONFIG_HEADERS([config.h])
 
@@ -28,14 +28,13 @@ fi
 
 AC_CHECK_LIB([m], [fabs])
 
-have_nloptcxx=no
-AC_SEARCH_LIBS([nlopt_create],[nlopt_cxx], [have_nloptcxx=yes])
+have_nlopt=no
+AC_SEARCH_LIBS([nlopt_create],[nlopt], [have_nlopt=yes])
 
-if test "x${have_nloptcxx}" = xno; then
+if test "x${have_nlopt}" = xno; then
    AC_MSG_ERROR([
 --------------------------------------------------------
-The nlopt library configured with c++ bindings is required 
-for optimization.
+The nlopt library is required for optimization.
 --------------------------------------------------------])
 fi
 
