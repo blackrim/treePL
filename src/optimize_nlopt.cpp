@@ -165,12 +165,12 @@ int optimize_plcp_nlopt(double *init_x,pl_calc_parallel *pl_,int numiter, int wh
     }else if(whichone == 5){
 	if(pl_->numparams < 10000){
 	    opt = nlopt_create(NLOPT_LN_SBPLX, pl_->numparams);
-	    cout << "setting NLOPT parallel : LN_SBPLX " << endl;
+	    cout << "setting NLOPT : LN_SBPLX " << endl;
 	}else{
-//	    whichone = 3;
-	    opt = nlopt_create(NLOPT_LN_PRAXIS, pl_->numparams);
-	    cout << "setting NLOPT parallel : NLOPT_LN_PRAXIS " << endl;
-//	    cout << "you may want to set the plsimaniter > 100000 " << endl;
+	    whichone = 3;
+	    opt = nlopt_create(NLOPT_LD_MMA, pl_->numparams);
+	    cout << "setting NLOPT : NLOPT_LD_MMA " << endl;
+	    cout << "you may want to set the plsimaniter > 100000 " << endl;
 	}
     }
 //    opt.set_vector_storage(10);
@@ -277,10 +277,10 @@ int optimize_plcp_nlopt_ad_parallel(double *init_x,pl_calc_parallel *pl_,int num
 	    opt = nlopt_create(NLOPT_LN_SBPLX, pl_->numparams);
 	    cout << "setting NLOPT parallel : LN_SBPLX " << endl;
 	}else{
-//	    whichone = 3;
-	    opt = nlopt_create(NLOPT_LN_PRAXIS, pl_->numparams);
-	    cout << "setting NLOPT parallel : LN_PRAXIS " << endl;
-//	    cout << "you may want to set the plsimaniter > 100000 " << endl;
+	    whichone = 3;
+	    opt = nlopt_create(NLOPT_LD_MMA, pl_->numparams);
+	    cout << "setting NLOPT parallel : LD_MMA " << endl;
+	    cout << "you may want to set the plsimaniter > 100000 " << endl;
 	}
 	
     }
