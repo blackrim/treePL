@@ -34,7 +34,6 @@ public:
 class Derp {		// one derivative-propagation operation
 public:
     static Derp *LastDerp;
-#pragma omp threadprivate (LastDerp)
     Derp *next;
     const double *a;
     ADvari *b;
