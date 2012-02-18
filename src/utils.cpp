@@ -561,7 +561,7 @@ double get_gmean(vector<double> & container){
     for(int i=0;i<container.size();i++){
 	product *= container[i];
     }
-    return pow(product,1/(float)container.size());
+    return pow(product,1/(double)container.size());
 }
 
 double get_sum(vector<double> & container){
