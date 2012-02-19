@@ -162,6 +162,7 @@ double pl_calc_parallel::calc_lf_function_gradient(vector<double> * params, vect
     //dates
     ADvar advdates[dates.size()];
     for(int i=0;i<dates.size();i++){
+	//cout << dates[i] << endl;
 	advdates[i] = dates[i];
 	if(freeparams[fcount] != -1){//is free, negative is not free
 	    advdates[i] = v[freeparams[fcount]];//params[pcount];
@@ -399,7 +400,7 @@ double pl_calc_parallel::calc_pl_function_gradient(vector<double> * params, vect
 	    }
 	}
     }
-    if(isinf(tpen.val()))
+    if(isinf(tpen.val()) || isnan(tpen.val()))
 	tpen = 0;
     rv += (0.0025)*tpen;//need to check on this penalty boundary
     //calc_ll
@@ -409,12 +410,18 @@ double pl_calc_parallel::calc_pl_function_gradient(vector<double> * params, vect
 	    if (curponi != 0){//not the root
 		double c = char_durations->at(curponi);
 		double lf = log_fact_char_durations->at(curponi);
-		if(isinf(rv.val())){
+		double x = advrates[curponi].val()*advdurations[curponi].val();
+		if(x > 0){
+		    rv += (-(c*log(advrates[curponi]*advdurations[curponi])-(advrates[curponi]*advdurations[curponi])-lf));
+		}else{
 		    cout << c << " " << lf << " " <<advrates[curponi].val() << " " << advdurations[curponi].val() << endl;
-		    exit(0);
+		    if (c > 0.0)
+			rv += LARGE;
+		    else if (c == 0)
+			rv += 0;
 		}
 		//rv += (-(advrates[curponi]*advdurations[curponi])+(c*log(advrates[curponi]*advdurations[curponi])-lf));//was int(c)
-		rv += (-(c*log(advrates[curponi]*advdurations[curponi])-(advrates[curponi]*advdurations[curponi])-lf));
+
 	    }
 	}
     }
@@ -429,7 +436,7 @@ double pl_calc_parallel::calc_pl_function_gradient(vector<double> * params, vect
     tomy = 0;
     for(int i=0;i<numnodes;i++){
 	int curponi = i;//start here
-	if(cvnodes[curponi]==0){//TODO: cv
+	if(cvnodes[curponi]==0){
 	    if(curponi != 0){// isn't the root
 		if(parents_nds_ints->at(curponi) != 0){
 		    rp += (advrates[curponi] - advrates[parents_nds_ints->at(curponi)])*(advrates[curponi] - advrates[parents_nds_ints->at(curponi)]);
@@ -532,6 +539,8 @@ int pl_calc_parallel::calc_pl_function_gradient_adolc_void(int size, double * xp
 	    }
 	}
     }
+    if(isinf(tpen.value()) || isnan(tpen.value()))
+	tpen = 0;
     y += (0.0025)*tpen;
     if (ret == 0){//TODO: MAKE SURE THIS WORKS, memory 
 	trace_off();
@@ -544,18 +553,19 @@ int pl_calc_parallel::calc_pl_function_gradient_adolc_void(int size, double * xp
 	    if (curponi != 0){//not the root
 		double c = char_durations->at(curponi);
 		double lf = log_fact_char_durations->at(curponi);
+		double x = advrates_adc[curponi].value()*advdurations_adc[curponi].value();
+		if(x > 0){
+		    y += (-(c*log(advrates_adc[curponi]*advdurations_adc[curponi]) - (advrates_adc[curponi]*advdurations_adc[curponi]) - lf));
+		}else{
+		    cout << c << " " << lf << " " <<advrates_adc[curponi].value() << " " << advdurations_adc[curponi].value() << endl;
+		    if (c > 0.0)
+			y += LARGE;
+		    else if (c == 0)
+			y += 0;
+		}
+
 		//cout << rt << " " << d  << " " << c  << " " << x << " " << lf << " " << l << endl;
 		//y += (-(advrates_adc[curponi]*advdurations_adc[curponi])+(c*log(advrates_adc[curponi]*advdurations_adc[curponi])-lf));//was int(c)
-		//double tx = advrates_adc[curponi].value() * advdurations_adc[curponi].value();
-		y += (-(c*log(advrates_adc[curponi]*advdurations_adc[curponi]) - (advrates_adc[curponi]*advdurations_adc[curponi]) - lf));
-/*		if (tx > 0.0)
-		    y += (-(c*log(advrates_adc[curponi]*advdurations_adc[curponi]) - (advrates_adc[curponi]*advdurations_adc[curponi]) - lf));
-		else if(tx == 0)
-		    if (c > 0)
-			y += LARGE;
-		    else if(c == 0)
-			y += 0.0;
-*/
 	    }
 	}
     }
@@ -775,7 +785,7 @@ void pl_calc_parallel::calc_pl_gradient(vector<double> & params,vector<double> *
 double pl_calc_parallel::calc_log_like(){
     double ll = 0;
 //marginal speed up
-//#pragma omp parallel for default(none) schedule(static,1000) reduction(+:ll) num_threads(4)
+#pragma omp parallel for default(none) schedule(dynamic,1000) reduction(+:ll) num_threads(2)
     for(int i=0;i<numnodes;i++){
 	int curponi = i;
 	if(cvnodes[curponi] == 0){
@@ -809,7 +819,7 @@ double pl_calc_parallel::calc_roughness_penalty(){
     double tomy = 0;
     for(int i=0;i<numnodes;i++){
 	int curponi = i;//start here
-	if(cvnodes[curponi]==0){//TODO: cv
+	if(cvnodes[curponi]==0){
 	    if(curponi != 0){// is not the root
 		if(parents_nds_ints->at(curponi) != 0){
 		    double sm = rates[curponi] - rates[parents_nds_ints->at(curponi)] ;

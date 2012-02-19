@@ -21,7 +21,8 @@ OptimOptions::OptimOptions(){
     plsimaniter = 15000;
     cvsimaniter = 7500;
     calcgrad = false;
-
+    verbose = false;
+    
     bestopt = 0; //0 = tnc, 1 = lbfgs, 2 = tnewton, 3 = mma
     bestadopt = 0; //0 = tnc, 1 = lbfgs, 2 = tnewton, 3 = mma
     bestcvopt = 3; //0 = tnc, 1 = lbfgs, 2 = tnewton, 3 = mma, these are all ad

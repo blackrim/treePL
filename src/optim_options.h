@@ -28,6 +28,7 @@ public:
     int plsimaniter;
     int cvsimaniter;
     bool calcgrad;
+    bool verbose;
 
     int bestopt; //0 = tnc, 1 = lbfgs, 2 = tnewton, 3 = mma
     int bestadopt; //0 = tnc, 1 = lbfgs, 2 = tnewton, 3 = mma

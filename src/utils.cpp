@@ -637,9 +637,8 @@ void process_ind8s_inr8s(string ind8s,string inr8s,vector<double> * params, Tree
  *
  */
 //TODO: if exit from optimization step is worse than entrance, switch back
-bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimOptions * optims){
+bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimOptions * optims, bool cv){
     bool madeit;
-    bool verbose = false;
     int numiter = optims->pliter;
     if(plp.lf)
 	numiter = optims->lfiter;
@@ -651,7 +650,7 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
 	madeit = true;
 	//start with siman calc
 	siman_calc_par smp3;
-	smp3.set_verbose(verbose);
+	smp3.set_verbose(optims->verbose);
 	smp3.set_pl(&plp,50/float(i+1),0.999,0.07,0.25,optims->lfsimaniter,0.001);
 	smp3.optimize(*params);
 
@@ -678,7 +677,7 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
 	    cout << "calculating without gradient (might want to try a different opt=VALUE)" << endl;
 	    x2 = new double[plp.numparams];
 	    for (unsigned int j = 0; j < params->size(); j++){x2[j]   = (*params)[j];}
-	    rc = optimize_best(5,true,x2,&plp,optims->maxoptimiters,optims->moredetail,optims->ftol,optims->xtol);
+	    rc = optimize_best(5,false,x2,&plp,optims->maxoptimiters,optims->moredetail,optims->ftol,optims->xtol);
 	    for (unsigned int j = 0; j < params->size(); j++){(*params)[j] = x2[j];}
 	    delete[] x2;
 	    out1 = plp.calc_pl(*params);
@@ -686,7 +685,7 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
 	cout << "after opt calc1: " << out1 << endl;
 	x2 = new double[plp.numparams];
 	for (unsigned int j = 0; j < params->size(); j++){x2[j]   = (*params)[j];}
-	if (plp.calc_isum(*plp.get_cv_nodes()) == 0)
+	if (cv == false)
 	    rc = optimize_best(optims->bestadopt,true,x2,&plp,optims->maxoptimiters,optims->moredetailad,optims->ftol,optims->xtol);
 	else
 	    rc = optimize_best_parallel(optims->bestadopt,x2,&plp,10000,optims->moredetailad,optims->ftol,optims->xtol);
@@ -704,7 +703,7 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
 	    cout << "calculating without gradient (might want to try a different optad=VALUE)" << endl;
 	    x2 = new double[plp.numparams];
 	    for (unsigned int j = 0; j < params->size(); j++){x2[j]   = (*params)[j];}
-	    rc = optimize_best(5,true,x2,&plp,optims->maxoptimiters,optims->moredetail,optims->ftol,optims->xtol);
+	    rc = optimize_best(5,false,x2,&plp,optims->maxoptimiters,optims->moredetail,optims->ftol,optims->xtol);
 	    for (unsigned int j = 0; j < params->size(); j++){(*params)[j] = x2[j];}
 	    delete[] x2;
 	    out2 = plp.calc_pl(*params);

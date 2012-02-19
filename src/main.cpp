@@ -148,6 +148,7 @@ int main(int argc,char* argv[]) {
 		    cout << "cvmultstep: " << cvmultstep << endl;
 		}else if(!strcmp(tokens[0].c_str(), "verbose")){
 		    verbose = true;
+		    oopt.verbose = true;
 		    cout << "set verbose: true" << endl;
 		}else if(!strcmp(tokens[0].c_str(), "lftemp")){
 		    oopt.lftemp = atof(tokens[1].c_str());
@@ -481,7 +482,7 @@ int main(int argc,char* argv[]) {
 
 	    //optimize
 	    //this is for testing thorough, has to stay made it for the entire iteration
-	    bool madeit = optimize_full(plp,&params,&oopt);
+	    bool madeit = optimize_full(plp,&params,&oopt,false);
 	    cout << "exited lf converged :" << madeit<< endl;
 	    initcalc = plp.calc_pl(params);
 	    cout << "lf calc: " << initcalc << endl;
@@ -580,7 +581,7 @@ int main(int argc,char* argv[]) {
 			cout << "smoothing:" << plp.smoothing << endl;
 			plp.set_freeparams(numparams, false, &freeparams, &params);
 			cout << plp.calc_pl(params) << endl;
-			optimize_full(plp,&params,&oopt);
+			optimize_full(plp,&params,&oopt,false);
 			cout << "after opt calc: " << plp.calc_pl(params) << endl;
 			cvstdates = vector<double>(plp.dates);
 			cvstdur = vector<double>(plp.durations);
@@ -622,7 +623,7 @@ int main(int argc,char* argv[]) {
 			//cout << "samp_group: "<<samp_groups[i].size() << endl;
 
 			//add a loop to remove the cv nodes for fold
-			optimize_full(plpcv,&cvplparams,&oopt);
+			optimize_full(plpcv,&cvplparams,&oopt,true);
 			double poc = plpcv.calc_pl(cvplparams);
 			cout << "post opt cv check: " << poc << endl;
 			int fcount = 0;
@@ -745,7 +746,7 @@ int main(int argc,char* argv[]) {
 	    }
 	    cout << plp.calc_pl(params) << endl;
 //	    exit(0);
-	    optimize_full(plp,&params,&oopt);
+	    optimize_full(plp,&params,&oopt,false);
 	    cout << "after opt calc: " << plp.calc_pl(params) << endl;
 	    /*
 	     * write the final dates to a text file
