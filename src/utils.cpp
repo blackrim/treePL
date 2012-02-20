@@ -685,10 +685,14 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
 	cout << "after opt calc1: " << out1 << endl;
 	x2 = new double[plp.numparams];
 	for (unsigned int j = 0; j < params->size(); j++){x2[j]   = (*params)[j];}
-	if (cv == false)
-	    rc = optimize_best(optims->bestadopt,true,x2,&plp,optims->maxoptimiters,optims->moredetailad,optims->ftol,optims->xtol);
-	else
+	if (cv == false){
+	    if(plp.numparams < 100000)
+	        rc = optimize_best(optims->bestadopt,true,x2,&plp,optims->maxoptimiters,optims->moredetailad,optims->ftol,optims->xtol);
+            else
+		rc = optimize_best(optims->bestadopt,false,x2,&plp,optims->maxoptimiters,optims->moredetailad,optims->ftol,optims->xtol);
+	}else{
 	    rc = optimize_best_parallel(optims->bestadopt,x2,&plp,10000,optims->moredetailad,optims->ftol,optims->xtol);
+	}
 	for (unsigned int j = 0; j < params->size(); j++){(*params)[j] = x2[j];}
 	delete[] x2;
 	double out2 = plp.calc_pl(*params);
