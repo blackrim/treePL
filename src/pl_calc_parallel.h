@@ -76,6 +76,7 @@ public:
 	double minrate;
 	double ftol;
 	bool isConstrained;
+	double penalty_boundary;
 };
 
 #endif /* PL_CALC_PARALLEL_H_ */

@@ -65,6 +65,7 @@ void pl_calc_parallel::setup_starting_bits(const vector<int> * parents_nds, cons
     minrate = 1e-10;
     ftol = 1e-7;
     isConstrained = true;
+    penalty_boundary = 0.0025;
     //cout << "set everything up" << endl;
 }
 
@@ -402,7 +403,7 @@ double pl_calc_parallel::calc_pl_function_gradient(vector<double> * params, vect
     }
     if(isinf(tpen.val()) || isnan(tpen.val()))
 	tpen = 0;
-    rv += (0.0025)*tpen;//need to check on this penalty boundary
+    rv += (penalty_boundary)*tpen;//need to check on this penalty boundary
     //calc_ll
     for(int i=0;i<numnodes;i++){
 	int curponi = i;
@@ -541,7 +542,7 @@ int pl_calc_parallel::calc_pl_function_gradient_adolc_void(int size, double * xp
     }
     if(isinf(tpen.value()) || isnan(tpen.value()))
 	tpen = 0;
-    y += (0.0025)*tpen;
+    y += (penalty_boundary)*tpen;
     if (ret == 0){//TODO: MAKE SURE THIS WORKS, memory 
 	trace_off();
 	return ret;
@@ -663,6 +664,7 @@ void pl_calc_parallel::calc_lf_gradient(vector<double> & params, vector<double> 
     g->at(count) =- (sumbl/rate-sumtimes);
 
     if (isnan(g->at(count))){
+	cout << sumbl << " " << rate << " " << sumtimes << endl;
 	cout << "isnan" << endl;
 	exit(0);
 	for (int i=0;i < params.size(); i++)
@@ -863,7 +865,7 @@ double pl_calc_parallel::set_durations(){
 		return LARGE;
 	    }
 	}
-	if(durations[curponi] == 0){//TODO:set this locally
+	if(durations[curponi] == 0 || isnan(durations[curponi])){//TODO:set this locally
 	        durations[curponi] = numeric_limits<double>::min();
 	}
     }
@@ -934,7 +936,7 @@ void pl_calc_parallel::delete_ad_arrays(){
  * should be able to add this to the duration calculator
  */
 double pl_calc_parallel::calc_penalty(){
-    double rk = 0.0025; // TODO: need to double check this
+    double rk = penalty_boundary; // TODO: need to double check this
     double tpen=0;
     for(int i=0;i<numnodes;i++){
 	int curponi = i;

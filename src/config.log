@@ -246,7 +246,7 @@ configure:3729: $? = 0
 configure:3738: result: yes
 configure:3751: checking for library containing nlopt_create
 configure:3782: gcc -o conftest -g -O2   conftest.c -lm  >&5
-/tmp/ccFQdAk9.o: In function `main':
+/tmp/ccdCfoNT.o: In function `main':
 /home/smitty/Dropbox/programming/cpp/treePL/src/conftest.c:32: undefined reference to `nlopt_create'
 collect2: ld returned 1 exit status
 configure:3782: $? = 1
