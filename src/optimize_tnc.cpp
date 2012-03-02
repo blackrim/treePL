@@ -46,6 +46,10 @@ static int function_plcp_ad(double x[], double *f, double g[], void *state){
     int tv = d->tncgrads.size()-1;
     for(unsigned int i=0;i<d->tncgrads.size();i++){
 	g[i] = d->tncgrads[i];
+	if (g[i] > 1e+40)
+	    g[i] = 1e+40;
+	if(g[i] < 1e-40)
+	    g[i] = 1e-40;
     }
     return 0;
 }
@@ -60,6 +64,10 @@ static int function_plcp_ad_parallel(double x[], double *f, double g[], void *st
     int tv = d->tncgrads.size()-1;
     for(unsigned int i=0;i<d->tncgrads.size();i++){
 	g[i] = d->tncgrads[i];
+	if (g[i] > 1e+40)
+	    g[i] = 1e+40;
+	if(g[i] < 1e-40)
+	    g[i] = 1e-40;
     }
     return 0;
 }
@@ -86,6 +94,10 @@ static int function_plcp(double x[], double *f, double g[], void *state){
 //    cout <<"-";
     for(unsigned int i=0;i<d->tncgrads.size();i++){
 	g[i] = d->tncgrads[i];
+	if (g[i] > 1e+40)
+	    g[i] = 1e+40;
+	if(g[i] < 1e-40)
+	    g[i] = 1e-40;
 //	cout << g[i] << " ";
     }
 //    cout << endl;
@@ -127,9 +139,20 @@ int optimize_plcp_tnc(double *init_x,pl_calc_parallel *pl_,int numiter, bool ad,
 	fcount += 1;
     }
 
-//    for(int i=0;i<pl_->numparams;i++){
+    for(int i=0;i<pl_->numparams;i++){
+	if (low[i]==0)
+	    low[i] = 1e-40;
 //	cout << low[i] << " " << up[i] << " " << init_x[i] << endl;
-//    }
+    }
+
+    for(int i=0;i<pl_->numparams;i++){
+	if(low[i] > init_x[i])
+	    init_x[i] = low[i];
+	if(up[i] < init_x[i])
+	    init_x[i] = up[i];
+//	cout << "- " << init_x[i] << " " << low[i] << " " << up[i] << endl;
+    }
+
     double g[pl_->numparams];
     d.pl_=pl_;
 //maxCGit = -1
@@ -182,7 +205,18 @@ int optimize_plcp_tnc_ad_parallel(double *init_x,pl_calc_parallel *pl_,double in
 	}
 	fcount += 1;
     }
+    for(int i=0;i<pl_->numparams;i++){
+	if(low[i] == 0)
+	    low[i] = 1e-40;
+    }
 
+    for(int i=0;i<pl_->numparams;i++){
+	if(low[i] > init_x[i])
+	    init_x[i] = low[i];
+	if(up[i] < init_x[i])
+	    init_x[i] = up[i];
+//	cout << "- " << init_x[i] << " " << low[i] << " " << up[i] << endl;
+    }
 
     double g[pl_->numparams];
     d.pl_=pl_;

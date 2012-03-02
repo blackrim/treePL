@@ -26,7 +26,7 @@ double function_plcp_nlopt_ad(unsigned n, const double *x, double *g, void *stat
     }
 
     double f = d->pl_->calc_function_gradient(&d->tncparams,&d->tncgrads);
-//       cout << "adf: " << f << endl;
+//    cout << "adf: " << f << endl;
     if (isnan(f) || f == std::numeric_limits<double>::infinity()){
 	return LARGE;
 //    cout << "adf: " << f << endl;
@@ -35,6 +35,11 @@ double function_plcp_nlopt_ad(unsigned n, const double *x, double *g, void *stat
     int tv = d->tncgrads.size()-1;
     for(unsigned int i=0;i<d->tncgrads.size();i++){
 	g[i] = d->tncgrads[i];
+/*	if (g[i] > 1e+40)
+	    g[i] = 1e+40;
+	if(g[i] < 1e-40)
+	    g[i] = 1e-40;*/
+//	cout << "adg: " << g[i] << "\tx: "<< x[i] << endl;
     }
     return f;
 }
@@ -43,11 +48,11 @@ double function_plcp_nlopt(unsigned n, const double *x, double *g, void *state){
     data_obj_nlopt *d = (data_obj_nlopt *) state;
     for(unsigned int i=0;i<d->tncparams.size();i++){
 	d->tncparams[i] = x[i];
-//	cout <<"x " << x[i] << endl;
+//	cout <<"x: " << x[i] << endl;
     }
 //    cout << "here" <<endl;
     double f = d->pl_->calc_pl(d->tncparams);
-    //   cout << "f: " << f << endl;
+//    cout << "f: " << f << endl;
     if (isnan(f) || f == std::numeric_limits<double>::infinity()){
 	cout << "throwing" << endl;
 	return LARGE;
@@ -56,7 +61,11 @@ double function_plcp_nlopt(unsigned n, const double *x, double *g, void *state){
 //	cout << "f2 " << f2 << endl;
 	for(unsigned int i=0;i<d->tncgrads.size();i++){
 	    g[i] = d->tncgrads[i];
-//	    cout << "g: " << g[i] << " " << tgrads[i] << endl;
+/*	    if (g[i] > 1e+40)
+		g[i] = 1e+40;
+	    if(g[i] < 1e-40)
+		g[i] = 1e-40;*/
+//	    cout << "g: " << g[i] << "\tx: "<< x[i] << endl;
 	}
     }
     return f;
@@ -87,6 +96,10 @@ double function_plcp_nlopt_ad_parallel(unsigned n, const double *x, double *g, v
 	return LARGE;
     for(unsigned int i=0;i<d->tncgrads.size();i++){
 	g[i] = d->tncgrads[i];
+	if (g[i] > 1e+40)
+	    g[i] = 1e+40;
+	if(g[i] < 1e-40)
+	    g[i] = 1e-40;
     }
     return f;
 }
@@ -140,6 +153,18 @@ int optimize_plcp_nlopt(double *init_x,pl_calc_parallel *pl_,int numiter, int wh
 	    fcount += 1;
 	}
 
+    for(int i=0;i<pl_->numparams;i++){
+	if (low[i] == 0)
+	    low[i] = 1e-40;
+    }
+
+    for(int i=0;i<pl_->numparams;i++){
+	if(low[i] > init_x[i])
+	    init_x[i] = low[i];
+	if(up[i] < init_x[i])
+	    init_x[i] = up[i];
+//	cout << "- " << init_x[i] << " " << low[i] << " " << up[i] << endl;
+    }
 	//}
 
     
@@ -196,7 +221,9 @@ int optimize_plcp_nlopt(double *init_x,pl_calc_parallel *pl_,int numiter, int wh
 //	    init_x[i] = init_v[i];
 //	}
 	cout << "result: " << result << endl;
-	nlopt_destroy(opt);
+//	if (result == -1)
+//	    exit(0);
+       	nlopt_destroy(opt);
 	return result;
     }catch(...){
 	cout << "failed line search / last value: " << f << endl;
@@ -249,8 +276,13 @@ int optimize_plcp_nlopt_ad_parallel(double *init_x,pl_calc_parallel *pl_,int num
     }
 
     for(int i=0;i<pl_->numparams;i++){
+	if(low[i] == 0)
+	    low[i] = 1e-40;
+    }
+
+    for(int i=0;i<pl_->numparams;i++){
 	if(low[i] > init_x[i])
-	    init_x[i] = low[i]+.1;
+	    init_x[i] = low[i];
 	if(up[i] < init_x[i])
 	    init_x[i] = up[i];
 //	cout << "- " << init_x[i] << " " << low[i] << " " << up[i] << endl;

@@ -645,7 +645,7 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
     else if (plp.calc_isum((*plp.get_cv_nodes())) > 0)
 	numiter = optims->cviter;
 
-
+    int totaliters = 0;
     for(int i=0;i<numiter;i++){
 	madeit = true;
 	//start with siman calc
@@ -713,7 +713,12 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
 	    out2 = plp.calc_pl(*params);
 	}
 	cout << "after opt calc2: " << out2 << endl;
+	totaliters += 1;
 	if (optims->thorough == true && (i+1) == optims->lfiter){
+	    if(totaliters >= 20){
+		cout << "thorough optimization hit 20 iterations, breaking" << endl;
+		break;
+	    }
 	    if(madeit == true)
 		break;
 	    else{

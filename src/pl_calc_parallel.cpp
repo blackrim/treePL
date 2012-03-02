@@ -101,7 +101,7 @@ double pl_calc_parallel::calc_pl(vector<double> & params){
 	return LARGE;
     }
     double ll = calc_log_like();
-    //      cout << ll << endl;
+    //cout << ll << endl;
     if(paramverbose){
 	ofstream paramverboseFile;
 	if(lf){

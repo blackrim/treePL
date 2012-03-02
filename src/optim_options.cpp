@@ -32,6 +32,7 @@ OptimOptions::OptimOptions(){
     ftol = 1e-10;
     xtol = -1;
     maxoptimiters = 10000;
+    nthreads = 1;
 }
 
 OptimOptions::~OptimOptions(){}

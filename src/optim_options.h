@@ -39,7 +39,9 @@ public:
     double ftol;
     double xtol;
     int maxoptimiters;
+    int nthreads;
     ~OptimOptions();
+
 };
 
 #endif /* OPTIM_OPTIONS_H_ */

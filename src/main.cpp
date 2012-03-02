@@ -64,7 +64,7 @@ int main(int argc,char* argv[]) {
     OptimOptions oopt;
 
     double cvstart = 1000;
-    double cvstop = 0.00001; 
+    double cvstop = 0.001; 
     double cvmultstep = 0.1;
     bool randomcv = false;
     int randomcviter = 10;
@@ -242,6 +242,9 @@ int main(int argc,char* argv[]) {
 		}else if(!strcmp(tokens[0].c_str(),"mapspace")){
 		    mapspaceb = true;
 		    cout << "after the analysis, a map of the adjacent space will be reported to the file mapspace.txt"<<endl;
+		}else if(!strcmp(tokens[0].c_str(),"nthreads")){
+		    oopt.nthreads = atoi(tokens[1].c_str());
+		    cout << "setting the maximum number of threads to " << oopt.nthreads << endl;
 		}
 	    }
 	}
