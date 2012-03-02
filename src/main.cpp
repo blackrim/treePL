@@ -32,7 +32,7 @@ using namespace std;
 #include "optimize_nlopt.h"
 #include "siman_calc_par.h"
 
-#define LARGE 10e+15
+#define LARGE 1e+15
 
 
 int main(int argc,char* argv[]) {
@@ -459,7 +459,7 @@ int main(int argc,char* argv[]) {
 	    plp.set_freeparams(numparams, true, &freeparams, &params);
 	    double initcalc = plp.calc_pl(params);
 	    cout << "initial calc: " << initcalc << endl;
-	    if(isnan(initcalc) || isinf(initcalc)){
+	    if(isnan(initcalc) || isinf(initcalc) || initcalc == LARGE){
 		cout << "problem initializing" << endl;
 		exit(0);
 	    }
