@@ -715,8 +715,8 @@ bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimO
 	cout << "after opt calc2: " << out2 << endl;
 	totaliters += 1;
 	if (optims->thorough == true && (i+1) == optims->lfiter){
-	    if(totaliters >= 20){
-		cout << "thorough optimization hit 20 iterations, breaking" << endl;
+	    if(totaliters >= 1000){//just last ditch
+		cout << "thorough optimization hit 1000 iterations, breaking" << endl;
 		break;
 	    }
 	    if(madeit == true)
