@@ -10,4 +10,4 @@ smooth = 0.0001
 opt = 5
 optad = 3
 optcvad = 0
-verbose
+[verbose]
