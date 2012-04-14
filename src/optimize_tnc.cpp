@@ -94,10 +94,10 @@ static int function_plcp(double x[], double *f, double g[], void *state){
 //    cout <<"-";
     for(unsigned int i=0;i<d->tncgrads.size();i++){
 	g[i] = d->tncgrads[i];
-	if (g[i] > 1e+40)
+/*	if (g[i] > 1e+40)
 	    g[i] = 1e+40;
 	if(g[i] < 1e-40)
-	    g[i] = 1e-40;
+	    g[i] = 1e-40;*/
 //	cout << g[i] << " ";
     }
 //    cout << endl;

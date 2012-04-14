@@ -60,11 +60,11 @@ int main(int argc,char* argv[]) {
     double scale=1;
     bool checkconstraints = false;
     string outfilen = "";
-    
+    string cvoutfile = "cv.out";
     OptimOptions oopt;
 
     double cvstart = 1000;
-    double cvstop = 0.001; 
+    double cvstop = 0.1; 
     double cvmultstep = 0.1;
     bool randomcv = false;
     int randomcviter = 10;
@@ -245,6 +245,9 @@ int main(int argc,char* argv[]) {
 		}else if(!strcmp(tokens[0].c_str(),"nthreads")){
 		    oopt.nthreads = atoi(tokens[1].c_str());
 		    cout << "setting the maximum number of threads to " << oopt.nthreads << endl;
+		}else if(!strcmp(tokens[0].c_str(), "cvoutfile")){
+		    cvoutfile = tokens[1];
+		    cout << "setting the cv outfile to " << cvoutfile << endl;
 		}
 	    }
 	}
@@ -499,6 +502,8 @@ int main(int argc,char* argv[]) {
 	     * CROSS VALIDATION IF REQUIRED
 	     */
 	    if ( cv == true){
+		ofstream cvoutFl;
+		cvoutFl.open(cvoutfile.c_str(),ios::out);
 		cout << "conducting cross validation analysis" << endl;
 		int cvtype = 0; //0 = LOOCV, 1 = RANDOM
 		if(randomcv == true){
@@ -596,7 +601,7 @@ int main(int argc,char* argv[]) {
 		    int i;
 		    vector<double> sqerrs;
 //was shared(chisq,chisqcount)
-#pragma omp parallel for ADOLC_OPENMP_NC reduction(+:chisq) reduction(+:chisqcount) num_threads(8)
+#pragma omp parallel for ADOLC_OPENMP_NC reduction(+:chisq) reduction(+:chisqcount) num_threads(oopt.nthreads)
 		    for(i=0;i<samp_groups.size();i++){
 			//cout << "thread_num: "<< omp_get_thread_num() << endl;
 			//cout << "num threads: " << omp_get_num_threads() << endl;
@@ -712,6 +717,7 @@ int main(int argc,char* argv[]) {
 		    }
 		    
 		    cout << "chisq: (" << curcv << ") "<< chisq << endl;//"\tsq:" << get_sum(sqerrs) << "\tmed: " << get_gmean(sqerrs) << endl;
+		    cvoutFl << "chisq: ("<< curcv << ") " << chisq << endl;
 		    if (std::numeric_limits<double>::infinity() == chisq){
 			cout << "INF"<<endl;
 			exit(0);
@@ -727,6 +733,7 @@ int main(int argc,char* argv[]) {
 		}
 		cout << "check:"<<plp.calc_pl(params) <<endl;
 		plp.smoothing = lowest_smoothing;
+		cvoutFl.close();
 	    }else{
 		plp.smoothing = smooth;
 	    }
