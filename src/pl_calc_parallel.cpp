@@ -36,6 +36,7 @@ void pl_calc_parallel::setup_starting_bits(const vector<int> * parents_nds, cons
 					    const vector<double> * log_fact_ch, const vector<double> * vmn, 
 					    const vector<double> * vmx, const vector<double> * start_dates, 
 					    const vector<double> * start_rates, const vector<double> * start_durations){
+    log_pen = false;
     parents_nds_ints = parents_nds;
     free = vfree;
     char_durations = char_dur;
@@ -431,6 +432,7 @@ double pl_calc_parallel::calc_pl_function_gradient(vector<double> * params, vect
     ADvar ss;
     ADvar s;
     ADvar tomy;
+    ADvar r;
     rp = 0.0;
     ss = 0.0;
     s = 0.0;
@@ -445,8 +447,14 @@ double pl_calc_parallel::calc_pl_function_gradient(vector<double> * params, vect
 	    }else{
 		for(int j=0;j<children_vec->at(curponi).size();j++){
 		    int curch = children_vec->at(curponi)[j];
-		    s += advrates[curch];
-		    ss += advrates[curch]*advrates[curch]; 
+		    if(log_pen){//make sure that this is efficient
+			r = log(advrates[curch]);
+			s += r;
+			ss += r*r;
+		    }else{
+			s += advrates[curch];
+			ss += advrates[curch]*advrates[curch]; 
+		    }
 		    tomy+=1;
 		}
 	    }
@@ -575,6 +583,7 @@ int pl_calc_parallel::calc_pl_function_gradient_adolc_void(int size, double * xp
     adouble ss;
     adouble s;
     adouble tomy;
+    adouble r;
     rp = 0.0;
     ss = 0.0;
     s = 0.0;
@@ -589,8 +598,14 @@ int pl_calc_parallel::calc_pl_function_gradient_adolc_void(int size, double * xp
 	    }else{
 		for(int j=0;j<children_vec->at(curponi).size();j++){
 		    int curch = children_vec->at(curponi)[j];
-		    ss += advrates_adc[curch] * advrates_adc[curch];
-		    s += advrates_adc[curch];
+		    if(log_pen){
+			r = log(advrates_adc[curch]);
+			ss += r*r;
+			s += r;
+		    }else{
+			ss += advrates_adc[curch] * advrates_adc[curch];
+			s += advrates_adc[curch];
+		    }
 		    tomy++;
 		}
 	    }
@@ -743,35 +758,53 @@ void pl_calc_parallel::calc_pl_gradient(vector<double> & params,vector<double> *
 	    int tomy = 0;
 	    double meanr = 0.0;
 	    double tg = 0.0;
+	    double lograte;
 	    if(curponi != 0){//not the root
 		tg = char_durations->at(curponi)/rates[curponi] - durations[curponi];
+		if(log_pen)
+		    lograte = log(rates[curponi]);
 		if(parents_nds_ints->at(curponi) == 0){//parent is the root
 		    int curp = parents_nds_ints->at(curponi);
 		    for(int j=0;j<children_vec->at(curp).size();j++){
 			int curch = children_vec->at(curp)[j];
 			if(cvnodes[curch] == 0){
 			    ++tomy; 
-			    meanr += rates[curch];
+			    if(log_pen)
+				meanr += log(rates[curch]);
+			    else
+				meanr += rates[curch];
 //			    printf("ch1 %f\t%f\t%i\n",rates[curch],meanr,tomy);
 			}
 		    }
 		    meanr/=tomy;
-		    tg += -(2*smoothing)*(rates[curponi]-meanr)/tomy;
+		    if(log_pen)
+			tg += -(2*smoothing/rates[curponi])*(lograte-meanr)/tomy;
+		    else
+			tg += -(2*smoothing)*(rates[curponi]-meanr)/tomy;
 //		    cout << "f "<<  tg << endl;
 		    for(int j=0;j<children_vec->at(curponi).size();j++){
 			int curch = children_vec->at(curponi)[j];
 			if (cvnodes[curch] == 0){
-			    tg += 2*smoothing*(rates[curch] - rates[curponi]);
+			    if(log_pen)
+				tg += 2*smoothing*(log(rates[curch]) - lograte)/rates[curponi];
+			    else
+				tg += 2*smoothing*(rates[curch] - rates[curponi]);
 			}
 		    }
 //		    cout << tg << endl;
 		}else{
 		    int curp = parents_nds_ints->at(curponi);
-		    tg += (-2*smoothing)*(rates[curponi] - rates[curp]);
+		    if(log_pen)
+			tg += (-2*smoothing)*(lograte - log(rates[curp]))/rates[curponi];		  
+		    else
+			tg += (-2*smoothing)*(rates[curponi] - rates[curp]);
 		    for(int j=0;j<children_vec->at(curponi).size();j++){
 			int curch = children_vec->at(curponi)[j];
 			if (cvnodes[curch] == 0){
-			    tg += 2*smoothing*(rates[curch]-rates[curponi]);
+			    if(log_pen)
+				tg += 2*smoothing*(log(rates[curch])-lograte)/rates[curponi];
+			    else
+				tg += 2*smoothing*(rates[curch]-rates[curponi]);
 			}
 		    }
 //		    cout << "notroot " << -tg << endl;
@@ -783,6 +816,7 @@ void pl_calc_parallel::calc_pl_gradient(vector<double> & params,vector<double> *
     }
 //    exit(0);
 }
+
 
 double pl_calc_parallel::calc_log_like(){
     double ll = 0;
@@ -814,6 +848,7 @@ double pl_calc_parallel::calc_log_like(){
     return ll;
 }
 
+//need to add whether this will be log penalty
 double pl_calc_parallel::calc_roughness_penalty(){
     double su = 0;
     double ss = 0;
@@ -830,8 +865,11 @@ double pl_calc_parallel::calc_roughness_penalty(){
 	    }else{
 		for(int j=0;j<children_vec->at(curponi).size();j++){
 		    int curch = children_vec->at(curponi)[j];
-		    s += rates[curch];
-		    ss += rates[curch]*rates[curch]; 
+		    double r = rates[curch];
+		    if(log_pen)
+			r = log(r);
+		    s += r;
+		    ss += r*r; 
 		    ++tomy;
 		}
 	    }
@@ -841,7 +879,6 @@ double pl_calc_parallel::calc_roughness_penalty(){
 //    cout << "ss " << ss << " s " << s << " tomy " << tomy << " su "<< su << endl;
     return su;
 }
-
 
 double pl_calc_parallel::set_durations(){
     for(int i=0;i<numnodes;i++){
@@ -958,4 +995,8 @@ double pl_calc_parallel::calc_penalty(){
 //	cout << "pen: " << tpen << endl;
     }
     return rk* tpen;
+}
+
+void pl_calc_parallel::set_log_pen(bool lpen){
+    log_pen = lpen;
 }

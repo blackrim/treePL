@@ -11,3 +11,4 @@ opt = 5
 optad = 3
 optcvad = 0
 [verbose]
+log_pen

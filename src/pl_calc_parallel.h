@@ -27,6 +27,7 @@ private:
 	adouble * advdates_adc;
 	adouble * advdurations_adc;
 	int adc_size;
+	bool log_pen;
 
 public:
 	pl_calc_parallel();
@@ -48,6 +49,7 @@ public:
 		     const vector<double> * start_rates, const vector<double> * start_durations);
 	void set_freeparams(int nump, bool lf, vector<int> * freep, vector<double> * params);
 	int calc_isum(vector<int> & inc);
+	void set_log_pen(bool); //set whether log penalty is set
 	//these should all be hidden but oh well for now
 	int numparams;
 	bool cvnodeset;

@@ -8,7 +8,7 @@ max = nrt 100
 randomcv
 [verbose]
 [thorough]
-prime
+[prime]
 cviter = 1
 cvstart = 0.001
 cvstop = 10000
@@ -18,3 +18,4 @@ opt = 3
 moredetail
 optad = 1
 optcvad = 3
+log_pen

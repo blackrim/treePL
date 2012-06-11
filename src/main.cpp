@@ -73,6 +73,7 @@ int main(int argc,char* argv[]) {
     bool paramverbose = false;
     bool prime = false;
     bool mapspaceb = false;
+    bool log_pen = false;
 
     string ind8s;
     string inr8s;
@@ -248,6 +249,9 @@ int main(int argc,char* argv[]) {
 		}else if(!strcmp(tokens[0].c_str(), "cvoutfile")){
 		    cvoutfile = tokens[1];
 		    cout << "setting the cv outfile to " << cvoutfile << endl;
+		}else if(!strcmp(tokens[0].c_str(), "log_pen")){
+		    log_pen = true;
+		    cout << "setting log penalty" << endl;
 		}
 	    }
 	}
@@ -442,6 +446,7 @@ int main(int argc,char* argv[]) {
 	    plp.setup_starting_bits(&parent_nds_ints,&child_counts, &free, 
 				    &char_durations, &log_fact_char_durations, &vmin, 
 				    &vmax, &start_dates, &start_rates, &start_durations);
+	    plp.set_log_pen(log_pen);
 	    plp.minrate = minrate;
 	    plp.pen_min = &penmin;
 	    plp.pen_max = &penmax;
@@ -617,6 +622,7 @@ int main(int argc,char* argv[]) {
 			plpcv.setup_starting_bits(&parent_nds_ints,&child_counts, &free, 
 				    &char_durations, &log_fact_char_durations, &vmin, 
 				    &vmax, &cvstdates, &cvstrates, &cvstdur);
+			plpcv.set_log_pen(log_pen);
 			plpcv.children_vec = &children_vec;
 			plpcv.pen_min = &penmin;
 			plpcv.pen_max = &penmax;
