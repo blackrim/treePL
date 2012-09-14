@@ -5,10 +5,10 @@ mrca = nrt a b
 mrca = rt a f
 min = nrt 50
 max = rt 150
-[cv]
+cv
 cvstart = .0001
 cvstop = 10000
-randomcv
+[randomcv]
 cvmultstep = 0.1
 [verbose]
 [thorough]
