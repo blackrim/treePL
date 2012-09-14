@@ -439,7 +439,7 @@ void prime_optimization(pl_calc_parallel & plp, vector<double> & params){
     smp3.set_verbose(false);
     smp3.set_pl(&plp,50,0.999,0.07,0.25,15000,0.001);
     smp3.optimize(params);
-    cout << params[0] << endl;
+    //cout << params[0] << endl;
     double exsim = plp.calc_pl(params);
     cout << "exit siman: " << exsim << endl;
     double ftol = 1e-7;
@@ -464,7 +464,7 @@ void prime_optimization(pl_calc_parallel & plp, vector<double> & params){
 	    else
 		moredetail = false;
 	}
-	cout << rc << " " << out2 << " " << exsim-out2<< endl;
+	cout << " final: " << out2 << " diff: " << exsim-out2<< endl;
 	delete []x2;
     }
     cout << "----"<<endl;
@@ -487,7 +487,7 @@ void prime_optimization(pl_calc_parallel & plp, vector<double> & params){
 	    else
 		moredetailad = false;
 	}
-	cout << rc << " " << out2 << " " << exsim-out2<< endl;
+	cout << " final: " << out2 << " diff: " << exsim-out2<< endl;
 	delete []x2;
     }
     cout << "----"<<endl;
@@ -519,7 +519,7 @@ void prime_optimization(pl_calc_parallel & plp, vector<double> & params){
 	    else
 		moredetailcv = false;
 	}
-	cout << rc << " " << out2 << " " << exsim-out2<< endl;
+	cout << " final: " << out2 << " diff: " << exsim-out2<< endl;
 	delete []x2;
     }
 

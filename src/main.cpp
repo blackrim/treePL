@@ -611,13 +611,13 @@ int main(int argc,char* argv[]) {
 			//cout << "thread_num: "<< omp_get_thread_num() << endl;
 			//cout << "num threads: " << omp_get_num_threads() << endl;
 			vector<int> cvnodes(free.size(),0);
-			cout << "cv vec: ";
+//			cout << "cv vec: ";
 			for(int j=0;j<samp_groups[i].size();j++){
 			    cvnodes[samp_groups[i][j]]=1;
-			    cout << samp_groups[i][j] << " " ;
-			    cout << tree->getNodeByNodeNumber(samp_groups[i][j])->getName() << " " ;
+//			    cout << samp_groups[i][j] << " " ;
+//			    cout << tree->getNodeByNodeNumber(samp_groups[i][j])->getName() << " " ;
 			}
-			cout << endl;
+//			cout << endl;
 			pl_calc_parallel plpcv;
 			plpcv.setup_starting_bits(&parent_nds_ints,&child_counts, &free, 
 				    &char_durations, &log_fact_char_durations, &vmin, 
@@ -709,7 +709,7 @@ int main(int argc,char* argv[]) {
 					tchisq += 0;
 				else
 					tchisq += sq/expe;//average chisq
-				cout << "chi: " << d << " " << expe << " " << length << " " << sq << endl;
+//				cout << "chi: " << d << " " << expe << " " << length << " " << sq << endl;
 //				cout << "tchisq: " << tchisq << endl;
 			    }
 			    chisq += tchisq/(float)samp_groups[i].size();

@@ -5,9 +5,9 @@ min = ingroup 100
 max = ingroup 100
 smooth = 1000
 outfile = 1000.tre
-[cv]
+cv
 randomcv
-cviter = 2
+cviter = 3
 cvsimaniter = 1000
 cvstart = 1000
 cvstop = 0.0001
