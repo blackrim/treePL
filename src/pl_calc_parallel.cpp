@@ -821,7 +821,7 @@ void pl_calc_parallel::calc_pl_gradient(vector<double> & params,vector<double> *
 double pl_calc_parallel::calc_log_like(){
     double ll = 0;
 //marginal speed up
-#pragma omp parallel for default(none) schedule(dynamic,1000) reduction(+:ll) num_threads(2)
+//#pragma omp parallel for default(none) schedule(dynamic,1000) reduction(+:ll) num_threads(2)
     for(int i=0;i<numnodes;i++){
 	int curponi = i;
 	if(cvnodes[curponi] == 0){
