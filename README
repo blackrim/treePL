@@ -2,4 +2,6 @@ treePL (/ˈtriːpəl/) is a phylogenetic penalized likelihood program.
 
 More information on installation can be found on the wiki https://github.com/blackrim/treePL/wiki
 
-A Mac 10.9 binary package can be found as treePL_mac10_9_binary.tgz in the repository (contributed by Joseph Brown)
+A Mac 10.9 binary package can be found as treePL_mac10_9_binary.tgz in the repository (contributed by Joseph Brown). It may be necessary to change the permissions to make this executable. Type:
+
+chmod 755 treePL
