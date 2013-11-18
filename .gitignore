@@ -13,9 +13,11 @@
 *.la
 *.a
 
-# Other junk
+# Other stuff
 .DS_Store
 ._*
 *~
 config.log
 config.status
+Makefile
+treePL
