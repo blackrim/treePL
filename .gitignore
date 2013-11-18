@@ -17,3 +17,5 @@
 .DS_Store
 ._*
 *~
+config.log
+config.status
