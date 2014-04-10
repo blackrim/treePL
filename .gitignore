@@ -21,3 +21,7 @@ config.log
 config.status
 Makefile
 treePL
+
+# Eclipse stuff
+.cproject
+.project
