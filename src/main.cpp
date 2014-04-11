@@ -36,7 +36,7 @@ using namespace std;
 
 
 int main(int argc,char* argv[]) {
-    srand(time(NULL));
+    int seed = -1;
     cout.precision(8);
     int retval;
     retval = -1;
@@ -252,6 +252,9 @@ int main(int argc,char* argv[]) {
                 }else if(!strcmp(tokens[0].c_str(), "log_pen")){
                     log_pen = true;
                     cout << "setting log penalty" << endl;
+                }else if(!strcmp(tokens[0].c_str(), "seed")){
+                    seed = atoi(tokens[1].c_str());
+                    cout << "setting the random number seed to " << seed << endl;
                 }
             }
         }
@@ -270,6 +273,15 @@ int main(int argc,char* argv[]) {
         cvmultstep = 1/(float)cvmultstep;
         cout << "switching cvmultstep: " << cvmultstep <<endl;
     }
+
+    // Set the random number seed, either from user or clock;
+    if (seed == -1) {
+        srand((unsigned)time(NULL));
+        cout << "using system clock for random number seed" << endl;
+    } else {
+        srand(seed);
+    }
+
     /*
      * start the analyses
      */
@@ -531,7 +543,7 @@ int main(int argc,char* argv[]) {
                         samp_groups.push_back(samps);
                     }
                 }else if(cvtype == 1){//kfold cv, TODO fix this for new array types
-                    srand(time(NULL));
+                    //srand(time(NULL)); // this was used twice! don't do that!
                     int sampsize = (tree->getExternalNodeCount()*randomcvsamp)+0.5;//round up
                     /* uncomment for sample without replacement
                       vector<int> poss_nodes;
