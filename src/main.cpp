@@ -104,18 +104,18 @@ int main(int argc,char* argv[]) {
 		    vector<string> searchtokens;
 		    Tokenize(tokens[1], searchtokens, ", 	");
 		    for(unsigned int j=0;j<searchtokens.size();j++){
-			TrimSpaces(searchtokens[j]);
+			    TrimSpaces(searchtokens[j]);
 		    }
 		    vector<string> mrc;
 		    for(unsigned int j=1;j<searchtokens.size();j++){
-			mrc.push_back(searchtokens[j]);
+			    mrc.push_back(searchtokens[j]);
 		    }
 		    mrcas[searchtokens[0]] = mrc;
 		}else if(!strcmp(tokens[0].c_str(), "min")){
 		    vector<string> searchtokens;
 		    Tokenize(tokens[1], searchtokens, ", 	");
 		    for(unsigned int j=0;j<searchtokens.size();j++){
-			TrimSpaces(searchtokens[j]);
+			    TrimSpaces(searchtokens[j]);
 		    }
 		    mrca_mins[searchtokens[0]] = atof(searchtokens[1].c_str());
 		    //						if(atof(searchtokens[1].c_str()) > scale)
@@ -124,7 +124,7 @@ int main(int argc,char* argv[]) {
 		    vector<string> searchtokens;
 		    Tokenize(tokens[1], searchtokens, ", 	");
 		    for(unsigned int j=0;j<searchtokens.size();j++){
-			TrimSpaces(searchtokens[j]);
+			    TrimSpaces(searchtokens[j]);
 		    }
 		    mrca_maxs[searchtokens[0]] = atof(searchtokens[1].c_str());
 		    //						if(atof(searchtokens[1].c_str()) > scale)
@@ -264,9 +264,10 @@ int main(int argc,char* argv[]) {
 	cvstart = cvstop;
 	cvstop = tend;
 	cout << "switching cvstart cvstop: " << cvstart << " -- " << cvstop << endl;
-    }if(cvmultstep > 1){
-	cvmultstep = 1/(float)cvmultstep;
-	cout << "switching cvmultstep: " << cvmultstep <<endl;
+    }
+    if(cvmultstep > 1){
+	    cvmultstep = 1/(float)cvmultstep;
+	    cout << "switching cvmultstep: " << cvmultstep <<endl;
     }
     /*
      * start the analyses
@@ -275,8 +276,8 @@ int main(int argc,char* argv[]) {
     //added loop to do multiple trees in the file
     ifstream infile(treefile.c_str());
     if (!infile){
-	cerr << "Could not open file." << endl;
-	return 1;
+	    cerr << "Could not open file." << endl;
+	    return 1;
     }
     ofstream outFile;
     outFile.open(outfilen.c_str(),ios::out);
@@ -337,11 +338,11 @@ int main(int argc,char* argv[]) {
 		tmrca->maxb = true;
 		if(tmrca->minb == true){
 		    if(tmrca->min != tmrca->max){//don't set the penalty if it is a fixed age
-			tmrca->pen_maxb = true;
-			tmrca->pen_max = (*it).second/scale;
+			    tmrca->pen_maxb = true;
+			    tmrca->pen_max = (*it).second/scale;
 		    }else{
-			tmrca->pen_minb = false;
-			tmrca->pen_max = 0;
+			    tmrca->pen_minb = false;
+			    tmrca->pen_max = 0;
 		    }
 		}else{
 		    tmrca->pen_maxb = true;
@@ -390,8 +391,8 @@ int main(int argc,char* argv[]) {
 		    while (tempn != tree->getRoot()){
 			if (mins.count(tempn) == 1){
 			    if (mins[tempn] < curtest){
-				cout << min_names[tempn] << " in conflict " << min_names[(*it).first] << endl;
-				exit(0);
+				    cout << min_names[tempn] << " in conflict " << min_names[(*it).first] << endl;
+				    exit(0);
 			    }
 			}
 			tempn = tempn->getParent();
@@ -453,7 +454,7 @@ int main(int argc,char* argv[]) {
 	    plp.children_vec = &children_vec;
 	    //delete current file
 	    if(paramverbose){
-		paramverboseFile.open("paramverboself",ios::out);
+		    paramverboseFile.open("paramverboself",ios::out);
 	    }
 	    plp.paramverbose = paramverbose;
 	    
@@ -468,8 +469,8 @@ int main(int argc,char* argv[]) {
 	    double initcalc = plp.calc_pl(params);
 	    cout << "initial calc: " << initcalc << endl;
 	    if(isnan(initcalc) || isinf(initcalc) || initcalc == LARGE){
-		cout << "problem initializing" << endl;
-		exit(0);
+		    cout << "problem initializing" << endl;
+		    exit(0);
 	    }
 /*	    vector<double> g(params.size());
 	    cout << "calculating gradient" <<endl;
@@ -487,8 +488,8 @@ int main(int argc,char* argv[]) {
 */
 	    //prime optimization
 	    if (prime == true){
-		prime_optimization(plp,params);
-		exit(0);
+		    prime_optimization(plp,params);
+		    exit(0);
 	    }
 
 	    //optimize
@@ -498,8 +499,8 @@ int main(int argc,char* argv[]) {
 	    initcalc = plp.calc_pl(params);
 	    cout << "lf calc: " << initcalc << endl;
 	    if(paramverbose){
-		paramverboseFile.close();
-		paramverboseFile.open("paramverbosepl",ios::out);
+		    paramverboseFile.close();
+		    paramverboseFile.open("paramverbosepl",ios::out);
 	    }
 //	    exit(0);
 
@@ -523,9 +524,9 @@ int main(int argc,char* argv[]) {
 		vector< vector<int> > samp_groups;
 		if (cvtype == 0){
 		    for (int i = 0;i < tree->getExternalNodeCount(); i++){
-			vector<int> samps;
-			samps.push_back(tree->getExternalNode(i)->getNumber());
-			samp_groups.push_back(samps);
+			    vector<int> samps;
+			    samps.push_back(tree->getExternalNode(i)->getNumber());
+			    samp_groups.push_back(samps);
 		    }
 		}else if (cvtype == 1){//kfold cv, TODO fix this for new array types
 		    srand(time(NULL));
@@ -587,18 +588,18 @@ int main(int argc,char* argv[]) {
 	    
 		while(curcv >= cvstop){
 		    if (startopt){
-			freeparams.clear();
-			numparams = generate_param_order_vector(&freeparams, false, NULL, &free);
-			cout << "numparams:" << numparams << endl;
-			plp.smoothing = curcv;
-			cout << "smoothing:" << plp.smoothing << endl;
-			plp.set_freeparams(numparams, false, &freeparams, &params);
-			cout << plp.calc_pl(params) << endl;
-			optimize_full(plp,&params,&oopt,false);
-			cout << "after opt calc: " << plp.calc_pl(params) << endl;
-			cvstdates = vector<double>(plp.dates);
-			cvstdur = vector<double>(plp.durations);
-			cvstrates = vector<double>(plp.rates);
+			    freeparams.clear();
+			    numparams = generate_param_order_vector(&freeparams, false, NULL, &free);
+			    cout << "numparams:" << numparams << endl;
+			    plp.smoothing = curcv;
+			    cout << "smoothing:" << plp.smoothing << endl;
+			    plp.set_freeparams(numparams, false, &freeparams, &params);
+			    cout << plp.calc_pl(params) << endl;
+			    optimize_full(plp,&params,&oopt,false);
+			    cout << "after opt calc: " << plp.calc_pl(params) << endl;
+			    cvstdates = vector<double>(plp.dates);
+			    cvstdur = vector<double>(plp.durations);
+			    cvstrates = vector<double>(plp.rates);
 		    }
 		    double chisq = 0;
 		    cout << "curcv: "<< curcv << endl;
@@ -660,11 +661,11 @@ int main(int argc,char* argv[]) {
 			    if(par==0){//is the root
 				for(int j=0;j<parent_nds_ints.size();j++){
 				    if(parent_nds_ints[j] == par && j != samp_groups[i][0]){
-					ratees = plpcv.rates[j];
+					    ratees = plpcv.rates[j];
 				    }
 				}
 			    }else{
-				ratees = plpcv.rates[par];
+				    ratees = plpcv.rates[par];
 			    }
 			    double d = plpcv.durations[samp_groups[i][0]];
 			    double expe = ratees*d;
@@ -685,8 +686,7 @@ int main(int argc,char* argv[]) {
 //				cout << "\t" << plpcv.dates[j]/float(numsites);
 //			    }
 //			    cout << endl;
-			}
-			else{//randomcv chisq
+			}else{//randomcv chisq
 			    double tchisq = 0;
 			    // for(int k = 0; k < nds.size(); k++){
 			    for(int k=0; k < samp_groups[i].size(); k++){
@@ -695,7 +695,7 @@ int main(int argc,char* argv[]) {
 				if(par==0){
 				    for(int j=0; j < parent_nds_ints.size(); j++){
 				       if (parent_nds_ints[j] == par && j != samp_groups[i][k]){
-					   ratees = plpcv.rates[j];
+					       ratees = plpcv.rates[j];
 				       }
 				    }
 				}else{
@@ -741,7 +741,7 @@ int main(int argc,char* argv[]) {
 		plp.smoothing = lowest_smoothing;
 		cvoutFl.close();
 	    }else{
-		plp.smoothing = smooth;
+		    plp.smoothing = smooth;
 	    }
 	    //exit(0);
 	    /*
@@ -756,9 +756,9 @@ int main(int argc,char* argv[]) {
 
 	    //JUST FOR TESTING R8S things
 	    if(ind8s.size() > 1 && inr8s.size() > 1){
-		process_ind8s_inr8s(ind8s,inr8s,&params, tree);
-		cout << plp.calc_pl(params) << endl;
-		exit(0);
+		    process_ind8s_inr8s(ind8s,inr8s,&params, tree);
+		    cout << plp.calc_pl(params) << endl;
+		    exit(0);
 	    }
 	    cout << plp.calc_pl(params) << endl;
 //	    exit(0);
@@ -796,17 +796,17 @@ int main(int argc,char* argv[]) {
 
 	    
 	    for(int i=0;i<tree->getNodeCount();i++){
-		tree->getNode(i)->setBL(plp.rates[tree->getNode(i)->getNumber()]/numsites);
+		    tree->getNode(i)->setBL(plp.rates[tree->getNode(i)->getNumber()]/numsites);
 	    }
 	    outFile2 << tree->getRoot()->getNewick(true) << ";"<<endl;
 
 	    if (mapspaceb){
-		mapspace(plp,&params);
+		    mapspace(plp,&params);
 	    }
 
 	    delete tree;
 	    if (paramverbose){
-		paramverboseFile.close();
+		    paramverboseFile.close();
 	    }
 	}
     }

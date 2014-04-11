@@ -25,3 +25,4 @@ treePL
 # Eclipse stuff
 .cproject
 .project
+.settings
