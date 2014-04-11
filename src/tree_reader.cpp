@@ -9,6 +9,7 @@
 #include <vector>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 
 using namespace std;
 
@@ -21,6 +22,14 @@ TreeReader::TreeReader(){}
 Tree * TreeReader::readTree(string trees){
 	Tree * tree = new Tree();
 	string pb = trees;
+
+	// remove any trailing spaces
+	pb.erase(pb.find_last_not_of(" \n\r\t")+1);
+	if (pb[pb.size() - 1] != ';') {
+		cout << "Tree is invalid: missing concluding semicolon. Exiting." << endl;
+		exit(1);
+	}
+
 	unsigned int x = 0;
 	char nextChar = pb.c_str()[x];
 	bool start = true;
