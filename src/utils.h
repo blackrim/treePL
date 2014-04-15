@@ -43,4 +43,5 @@ double get_sum(vector<double> & container);
 void process_ind8s_inr8s(string ind8s, string inr8s,vector<double> * params, Tree * intree);
 bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimOptions * oopt, bool cv);
 void mapspace(pl_calc_parallel &plp, vector<double> * params);
+int count_trees (string & treefile);
 #endif
