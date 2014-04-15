@@ -762,8 +762,8 @@ int count_trees (string & treefile) {
 
 	while(getline(ifs,line)){
 		if(line.size() > 1){
-			if(line[0] != "#"){
-				if(line[0] == "("){
+			if(line[0] != '#'){
+				if(line[0] == '('){
 					tree_count++;
 				}
 			}
