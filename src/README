@@ -13,3 +13,32 @@ make
 sudo make install
 export LD_LIBRARY_PATH=/usr/lib64
 echo export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH >> ~/.bashrc
+
+Ubuntu 13.10 and 14.04 (32 bit)
+------------------------------------
+On Ubuntu 13.10 and 140.04 32-bit, if you have installed adol-c via sudo apt-get, it may be necessary to edit the Makefile produced by configure.
+
+Particularly, the line:
+```
+LIBS := -lm $(OPENMP) -ladolc -L/usr/lib64 -lnlopt
+
+```
+
+may need to be edited to:
+```
+LIBS := -lm $(OPENMP) -ladolc -L/usr/lib -lnlopt
+```
+
+Otherwise, the error message:
+
+```
+./main.o: In function `ADOLC_OpenMP_NC':
+/usr/include/adolc/adolc_openmp.h:46: undefined reference to `ADOLC_parallel_doCopy'
+/usr/include/adolc/adolc_openmp.h:47: undefined reference to `beginParallel()'
+./main.o: In function `~ADOLC_OpenMP_NC':
+/usr/include/adolc/adolc_openmp.h:50: undefined reference to `endParallel()'
+collect2: error: ld returned 1 exit status
+make: *** [treePL] Error 1
+```
+
+may result.
