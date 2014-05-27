@@ -228,6 +228,7 @@ int main(int argc,char* argv[]) {
                     oopt.moredetailcvad = true;
                 }else if(!strcmp(tokens[0].c_str(),"randomcv")){
                     randomcv = true;
+                    cv = true;
                 }else if(!strcmp(tokens[0].c_str(),"ind8s")){
                     cout << "input dates: " << tokens[1] << endl;
                     ind8s = tokens[1];
@@ -276,8 +277,9 @@ int main(int argc,char* argv[]) {
 
     // Set the random number seed, either from user or clock;
     if (seed == -1) {
-        srand((unsigned)time(NULL));
-        cout << "using system clock for random number seed" << endl;
+        int timeSeed = (unsigned)time(NULL);
+    	srand(timeSeed);
+        cout << "using system clock for random number seed = " << timeSeed << endl;
     } else {
         srand(seed);
     }
