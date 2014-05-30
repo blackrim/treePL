@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <fstream>
+#include <numeric>
 
 #include <time.h>
 #include <math.h>
@@ -445,6 +446,8 @@ int optimize_best_parallel(int whichone, double * init_x, pl_calc_parallel * plp
     return 0;
 }
 
+
+
 //TODO: add timing to this, the faster one may be better too
 void prime_optimization(pl_calc_parallel & plp, vector<double> & params){
     bool moredetail, moredetailad,moredetailcv;
@@ -508,6 +511,8 @@ void prime_optimization(pl_calc_parallel & plp, vector<double> & params){
     cout << "----"<<endl;
     bestsc = 0;
     int bestindcv = 0;
+
+// *** this is the one that is giving inconsistent results ***
     cout << "now priming CV (AD)"<< endl;
     //get the one node to CV, last node should always be a tip
     vector<int> cvnodes(plp.free->size(),0);
@@ -518,10 +523,10 @@ void prime_optimization(pl_calc_parallel & plp, vector<double> & params){
     int numparamscv = generate_param_order_vector(&freeparamscv, false, &cvnodes, &free);
     vector<double> cvplparams;
     plp.set_freeparams(numparamscv,false,&freeparamscv, &cvplparams);
+    int rc = 0;
     for(int i=0;i<6;i++){
 		double *x2 = new double[plp.numparams];
 		for (unsigned int j = 0; j < cvplparams.size(); j++){x2[j]   = cvplparams[j];}
-		int rc;
 		rc = optimize_best_parallel(i,x2,&plp,10000,false,ftol,xtol);
 		vector<double> nparams;
 		for (unsigned int j = 0; j < cvplparams.size(); j++){nparams.push_back(x2[j]);}
@@ -574,18 +579,18 @@ double get_median(vector<double> & container){
 }
 
 double get_gmean(vector<double> & container){
-    double product = 1;
-    for(int i=0;i<container.size();i++){
-	    product *= container[i];
-    }
+    double product = std::accumulate(container.begin(), container.end(), 1.0, std::multiplies<double>());
+//    for(int i=0;i<container.size();i++){
+//	    product *= container[i];
+//    }
     return pow(product,1/(double)container.size());
 }
 
 double get_sum(vector<double> & container){
-    double s = 0;
-    for(int i=0;i<container.size();i++){
-	    s += container[i];
-    }
+    double s = std::accumulate(container.begin(), container.end(), 0.0);
+//    for(int i=0;i<container.size();i++){
+//	    s += container[i];
+//    }
     return s;
 }
 

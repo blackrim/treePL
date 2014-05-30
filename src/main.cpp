@@ -455,7 +455,7 @@ int main(int argc,char* argv[]) {
             double start_rate = get_start_rate(tree,&start_durations);//numsites/20.;
             cout << "start rate " << start_rate << endl;
             start_rates[1] = start_rate;
-            double minrate = 0;
+            double minrate = 0.0;
             /*
              * Start with Langley Fitch (one rate)
              */
@@ -478,15 +478,57 @@ int main(int argc,char* argv[]) {
             //lf
             int numparams = generate_param_order_vector(&freeparams, true, NULL, &free);
         
-            cout << "numparams:" << numparams<<endl;
+            cout << "numparams:" << numparams << endl;
             vector<double> params;
         
             plp.set_freeparams(numparams, true, &freeparams, &params);
             double initcalc = plp.calc_pl(params);
             cout << "initial calc: " << initcalc << endl;
+
+            // TODO: if initialization fails, try again until no failure.
             if(isnan(initcalc) || isinf(initcalc) || initcalc == LARGE){
-                cout << "problem initializing" << endl;
-                exit(0);
+                bool good = false;
+                int trycount = 0;
+                while (!good) {
+                	cout << "problem initializing. trying again." << endl;
+					cout << "attempting to get feasible start rates/dates." <<endl;
+				// clear vectors of bad values
+					//start_dates.clear();
+					//start_rates.clear();
+					//start_durations.clear();
+					get_feasible_start_dates(tree,&start_dates,&start_rates,&start_durations);
+					start_rate = get_start_rate(tree,&start_durations);
+					cout << "new start rate " << start_rate << endl;
+					start_rates[1] = start_rate;
+					minrate = 0.0;
+					pl_calc_parallel plp;
+					plp.setup_starting_bits(&parent_nds_ints,&child_counts, &free,
+								&char_durations, &log_fact_char_durations, &vmin,
+								&vmax, &start_dates, &start_rates, &start_durations);
+					plp.set_log_pen(log_pen);
+					plp.minrate = minrate;
+					plp.pen_min = &penmin;
+					plp.pen_max = &penmax;
+					plp.children_vec = &children_vec;
+
+					//freeparams.clear();
+					numparams = generate_param_order_vector(&freeparams, true, NULL, &free);
+					plp.set_freeparams(numparams, true, &freeparams, &params);
+					initcalc = plp.calc_pl(params);
+					cout << "initial calc: " << initcalc << endl;
+
+					if(isnan(initcalc) || isinf(initcalc) || initcalc == LARGE){
+						trycount += 1;
+						if (trycount == 10) { // 10 is a magic number here. just don't want infinite looping if pathological problem.
+							cout << "Failed setting feasible start rates/dates after 10 attempts. Aborting." << endl;
+							exit(0);
+						}
+					} else {
+						cout << "feasible start rates/dates found" << endl;
+						good = true;
+					}
+					//exit(0);
+                }
             }
     /*        vector<double> g(params.size());
             cout << "calculating gradient" <<endl;
