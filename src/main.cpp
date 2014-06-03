@@ -34,6 +34,10 @@ using namespace std;
 
 #define LARGE 1e+15
 
+// line endings
+#define	LINETERM_UNIX	0
+#define	LINETERM_MAC	1
+#define	LINETERM_DOS	2
 
 int main(int argc,char* argv[]) {
     int seed = -1;
@@ -82,8 +86,9 @@ int main(int argc,char* argv[]) {
      **************/
     ifstream ifs(argv[1]);
     string line;
-    while(getline(ifs,line)){
-        if(line.size()>1){
+    //while(getline(ifs,line)){
+    while(getlineSafe(ifs, line)) { // version of getline where line endings are unknown
+    	if(line.size()>1){
             if(&line[0]!="#"){
                 vector<string> tokens;
                 string del("=");
@@ -302,7 +307,8 @@ int main(int argc,char* argv[]) {
     ofstream paramverboseFile;
 
     // this should read each tree in a file and process those
-    while (getline(infile, line)){
+    //while (getline(infile, line)){
+    while (getlineSafe(infile, line)) { // version of getline where line endings are unknown
         if(line.size() > 1){
             TreeReader tr;
             Tree *tree = NULL;

@@ -44,4 +44,7 @@ void process_ind8s_inr8s(string ind8s, string inr8s,vector<double> * params, Tre
 bool optimize_full(pl_calc_parallel & plp, vector<double> * params, const OptimOptions * oopt, bool cv);
 void mapspace(pl_calc_parallel &plp, vector<double> * params);
 int count_trees (string & treefile);
+
+istream& getlineSafe(std::istream& is, std::string& t);
+
 #endif
