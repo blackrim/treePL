@@ -1,0 +1,64 @@
+Install vagrant via vagrantup.com. Vagrant enables the quick, easy 
+installation of customizeable virtual machines. The default is a 32-bit Ubuntu
+12.04 box. It works really cleanly for developing these machines. I'm 
+currently figuring out how to share my personal machine (without having to
+pay for it). 
+
+##To start Vagrant:
+vagrant init hashicorp/precise32
+vagrant up
+vagrant ssh
+
+##To set up treePL:
+
+sudo apt-get install git
+sudo apt-get install make
+sudo apt-get install libtool
+sudo apt-get install autoconf
+git clone git://github.com/blackrim/treePL.git
+cd treePL/
+cd deps/
+tar xvf adol-c_git_saved.tar.gz 
+tar xvf nlopt-2.2.4.tar.gz 
+rm *.gz
+cd nlopt-2.2.4/
+./configure 
+make
+sudo make install
+cd ../adol-c
+autoreconf -fi
+sudo ./configure --with-openmp-flag=-fopenmp --prefix=/usr
+make
+sudo make install
+cd ../src	
+./configure
+sudo make install
+
+##To copy files to Vagrant box:
+
+scp -P 2222 <file> vagrant@localhost:.
+
+Password is 'vagrant'
+
+##Once all your files are in Vagrant
+
+treePL doesn't play well with Mac/Windows line endings. So, we shall switch them to *nix line endings
+
+for file in *.txt; do sed -i 's/\r/\n/g' $file; done
+
+Alter as needed to change all your files to *nix line endings.
+
+###To run treePL
+
+Place your config file and your tree (if in a separate file) into the treePL directory. Call as such:
+
+./treePL treePLmatt
+
+To call in a loop for multiple trees:
+
+for file in *.tre ; do cp $file input.txt; ./treePL config ; cp dated.tre $file.tre; done
+
+In your config file, set treefile = input.txt
+
+
+
