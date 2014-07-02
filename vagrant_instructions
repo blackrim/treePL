@@ -48,6 +48,12 @@ for file in *.txt; do sed -i 's/\r/\n/g' $file; done
 
 Alter as needed to change all your files to *nix line endings.
 
+treePL also gets weird about rooting. If you've rerooted your tree in a software that leaves a [&R] tag, this might cause a segmentation fault ... for some reason.
+
+sed -i 's/\[&R]//g' your_file
+
+should fix this.
+
 ###To run treePL
 
 Place your config file and your tree (if in a separate file) into the treePL directory. Call as such:
@@ -59,6 +65,7 @@ To call in a loop for multiple trees:
 for file in *.tre ; do cp $file input.txt; ./treePL config ; cp dated.tre $file.tre; done
 
 In your config file, set treefile = input.txt
+
 
 
 
