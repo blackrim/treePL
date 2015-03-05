@@ -679,9 +679,9 @@ void pl_calc_parallel::calc_lf_gradient(vector<double> & params, vector<double> 
     g->at(count) =- (sumbl/rate-sumtimes);
 
     if (isnan(g->at(count))){
-	cout << sumbl << " " << rate << " " << sumtimes << endl;
-	cout << "isnan" << endl;
-	exit(0);
+	//cout << sumbl << " " << rate << " " << sumtimes << endl;
+	//cout << "isnan" << endl;
+	//exit(0);
 	for (int i=0;i < params.size(); i++)
 	    g->at(i) = 1000000;
 	return;

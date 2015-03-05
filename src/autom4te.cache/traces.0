@@ -1,4 +1,3 @@
-m4trace:configure.ac:4: -1- AC_PREREQ([2.68])
 m4trace:configure.ac:5: -1- AC_INIT([treepl], [1.0], [eebsmith@umich.edu])
 m4trace:configure.ac:5: -1- m4_pattern_forbid([^_?A[CHUM]_])
 m4trace:configure.ac:5: -1- m4_pattern_forbid([_AC_])
@@ -148,7 +147,6 @@ m4trace:configure.ac:5: -1- AC_SUBST([target_alias])
 m4trace:configure.ac:5: -1- AC_SUBST_TRACE([target_alias])
 m4trace:configure.ac:5: -1- m4_pattern_allow([^target_alias$])
 m4trace:configure.ac:7: -1- AC_CONFIG_HEADERS([config.h])
-m4trace:configure.ac:10: -1- AC_PROG_CXX
 m4trace:configure.ac:10: -1- AC_SUBST([CXX])
 m4trace:configure.ac:10: -1- AC_SUBST_TRACE([CXX])
 m4trace:configure.ac:10: -1- m4_pattern_allow([^CXX$])
@@ -176,7 +174,6 @@ m4trace:configure.ac:10: -1- m4_pattern_allow([^EXEEXT$])
 m4trace:configure.ac:10: -1- AC_SUBST([OBJEXT], [$ac_cv_objext])
 m4trace:configure.ac:10: -1- AC_SUBST_TRACE([OBJEXT])
 m4trace:configure.ac:10: -1- m4_pattern_allow([^OBJEXT$])
-m4trace:configure.ac:11: -1- AC_PROG_CC
 m4trace:configure.ac:11: -1- AC_SUBST([CC])
 m4trace:configure.ac:11: -1- AC_SUBST_TRACE([CC])
 m4trace:configure.ac:11: -1- m4_pattern_allow([^CC$])
@@ -207,7 +204,6 @@ m4trace:configure.ac:11: -1- m4_pattern_allow([^CC$])
 m4trace:configure.ac:11: -1- AC_SUBST([ac_ct_CC])
 m4trace:configure.ac:11: -1- AC_SUBST_TRACE([ac_ct_CC])
 m4trace:configure.ac:11: -1- m4_pattern_allow([^ac_ct_CC$])
-m4trace:configure.ac:17: -1- AC_CHECK_HEADERS([adolc/adouble.h], [], [have_adolc=no])
 m4trace:configure.ac:17: -1- AH_OUTPUT([HAVE_ADOLC_ADOUBLE_H], [/* Define to 1 if you have the <adolc/adouble.h> header file. */
 @%:@undef HAVE_ADOLC_ADOUBLE_H])
 m4trace:configure.ac:17: -1- AC_SUBST([CPP])
@@ -229,8 +225,6 @@ m4trace:configure.ac:17: -1- AC_DEFINE_TRACE_LITERAL([STDC_HEADERS])
 m4trace:configure.ac:17: -1- m4_pattern_allow([^STDC_HEADERS$])
 m4trace:configure.ac:17: -1- AH_OUTPUT([STDC_HEADERS], [/* Define to 1 if you have the ANSI C header files. */
 @%:@undef STDC_HEADERS])
-m4trace:configure.ac:17: -1- AC_CHECK_HEADERS([sys/types.h sys/stat.h stdlib.h string.h memory.h strings.h \
-		  inttypes.h stdint.h unistd.h], [], [], [$ac_includes_default])
 m4trace:configure.ac:17: -1- AH_OUTPUT([HAVE_SYS_TYPES_H], [/* Define to 1 if you have the <sys/types.h> header file. */
 @%:@undef HAVE_SYS_TYPES_H])
 m4trace:configure.ac:17: -1- AH_OUTPUT([HAVE_SYS_STAT_H], [/* Define to 1 if you have the <sys/stat.h> header file. */
@@ -255,14 +249,12 @@ m4trace:configure.ac:29: -1- AH_OUTPUT([HAVE_LIBM], [/* Define to 1 if you have 
 @%:@undef HAVE_LIBM])
 m4trace:configure.ac:29: -1- AC_DEFINE_TRACE_LITERAL([HAVE_LIBM])
 m4trace:configure.ac:29: -1- m4_pattern_allow([^HAVE_LIBM$])
-m4trace:configure.ac:42: -1- AC_CHECK_HEADERS([fenv.h stdlib.h string.h])
 m4trace:configure.ac:42: -1- AH_OUTPUT([HAVE_FENV_H], [/* Define to 1 if you have the <fenv.h> header file. */
 @%:@undef HAVE_FENV_H])
 m4trace:configure.ac:42: -1- AH_OUTPUT([HAVE_STDLIB_H], [/* Define to 1 if you have the <stdlib.h> header file. */
 @%:@undef HAVE_STDLIB_H])
 m4trace:configure.ac:42: -1- AH_OUTPUT([HAVE_STRING_H], [/* Define to 1 if you have the <string.h> header file. */
 @%:@undef HAVE_STRING_H])
-m4trace:configure.ac:45: -1- AC_HEADER_STDBOOL
 m4trace:configure.ac:45: -1- AC_DEFINE_TRACE_LITERAL([HAVE__BOOL])
 m4trace:configure.ac:45: -1- m4_pattern_allow([^HAVE__BOOL$])
 m4trace:configure.ac:45: -1- AH_OUTPUT([HAVE__BOOL], [/* Define to 1 if the system has the type `_Bool\'. */
@@ -271,19 +263,15 @@ m4trace:configure.ac:45: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STDBOOL_H])
 m4trace:configure.ac:45: -1- m4_pattern_allow([^HAVE_STDBOOL_H$])
 m4trace:configure.ac:45: -1- AH_OUTPUT([HAVE_STDBOOL_H], [/* Define to 1 if stdbool.h conforms to C99. */
 @%:@undef HAVE_STDBOOL_H])
-m4trace:configure.ac:46: -1- AC_C_INLINE
 m4trace:configure.ac:46: -1- AH_OUTPUT([inline], [/* Define to `__inline__\' or `__inline\' if that\'s what the C compiler
    calls it, or to nothing if \'inline\' is not supported under any name.  */
 #ifndef __cplusplus
 #undef inline
 #endif])
-m4trace:configure.ac:47: -1- AC_TYPE_SIZE_T
 m4trace:configure.ac:47: -1- AC_DEFINE_TRACE_LITERAL([size_t])
 m4trace:configure.ac:47: -1- m4_pattern_allow([^size_t$])
 m4trace:configure.ac:47: -1- AH_OUTPUT([size_t], [/* Define to `unsigned int\' if <sys/types.h> does not define. */
 @%:@undef size_t])
-m4trace:configure.ac:50: -1- AC_FUNC_MALLOC
-m4trace:configure.ac:50: -1- AC_CHECK_HEADERS([stdlib.h])
 m4trace:configure.ac:50: -1- AH_OUTPUT([HAVE_STDLIB_H], [/* Define to 1 if you have the <stdlib.h> header file. */
 @%:@undef HAVE_STDLIB_H])
 m4trace:configure.ac:50: -1- AC_DEFINE_TRACE_LITERAL([HAVE_STDLIB_H])
@@ -303,7 +291,6 @@ m4trace:configure.ac:50: -1- AC_DEFINE_TRACE_LITERAL([malloc])
 m4trace:configure.ac:50: -1- m4_pattern_allow([^malloc$])
 m4trace:configure.ac:50: -1- AH_OUTPUT([malloc], [/* Define to rpl_malloc if the replacement function should be used. */
 @%:@undef malloc])
-m4trace:configure.ac:51: -1- AC_FUNC_STRTOD
 m4trace:configure.ac:51: -1- AC_SUBST([POW_LIB])
 m4trace:configure.ac:51: -1- AC_SUBST_TRACE([POW_LIB])
 m4trace:configure.ac:51: -1- m4_pattern_allow([^POW_LIB$])
@@ -311,7 +298,6 @@ m4trace:configure.ac:51: -1- AC_SUBST([LIB@&t@OBJS], ["$LIB@&t@OBJS strtod.$ac_o
 m4trace:configure.ac:51: -1- AC_SUBST_TRACE([LIB@&t@OBJS])
 m4trace:configure.ac:51: -1- m4_pattern_allow([^LIB@&t@OBJS$])
 m4trace:configure.ac:51: -1- AC_LIBSOURCE([strtod.c])
-m4trace:configure.ac:52: -1- AC_CHECK_FUNCS([floor pow sqrt])
 m4trace:configure.ac:52: -1- AH_OUTPUT([HAVE_FLOOR], [/* Define to 1 if you have the `floor\' function. */
 @%:@undef HAVE_FLOOR])
 m4trace:configure.ac:52: -1- AH_OUTPUT([HAVE_POW], [/* Define to 1 if you have the `pow\' function. */
