@@ -330,6 +330,13 @@ int main(int argc,char* argv[]) {
                     cout << "problem with mrca " << (*it).first << " (probably no mrca named this)" <<endl;
                     exit(0);
                 }
+                for(int m=0;m<mrcas[(*it).first].size();m++){
+                    Node * tn = tree->getExternalNode(mrcas[(*it).first][m]);
+                    if (tn == NULL){
+                        cout << "problem with taxa for mrca " << (*it).first << " = " << mrcas[(*it).first][m] << " doesn't exist " << endl;
+                        exit(0);
+                    }
+                }
                 Node * tmrca =tree->getMRCA(mrcas[(*it).first]);
                 if(tmrca == NULL){
                     cout << "problem with mrca " << (*it).first << " (probably bad names to nodes)" << endl;
