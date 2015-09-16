@@ -98,6 +98,22 @@ int main(int argc,char* argv[]) {
         cerr << "Could not open file." << endl;
         return 1;
     }
+    
+    // *** NEW *** - if not doing cv, use multiple processors over trees
+    if(cv == false){
+    	int numtrees = count_trees(treefile);
+        if (numtrees == 0) {
+            cerr << "No trees found in file '" << treefile << "'." << endl;
+            infile.close();
+            return 1;
+        }
+        cout << endl << "preparing to analyze " << numtrees << " trees" << endl << endl;
+        
+        // initialize empty vectors. that way, different threads can write to them without crashing
+    	vector <string> datetrees(numtrees, "");
+    	vector <string> ratetrees(numtrees, "");
+    }
+    
     ofstream outFile;
     outFile.open(outfilen.c_str(),ios::out);
     ofstream outFile2;

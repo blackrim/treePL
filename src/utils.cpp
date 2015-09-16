@@ -839,7 +839,7 @@ void read_config(string configFileName, double& cvstart, double& cvstop, double&
                 }
                 if(!strcmp(tokens[0].c_str(), "treefile")){
                     treefile = tokens[1];
-                }else if(!strcmp(tokens[0].c_str(),  "numsites")){
+                }else if(!strcmp(tokens[0].c_str(), "numsites")){
                     numsites = atoi(tokens[1].c_str());
                 }else if(!strcmp(tokens[0].c_str(),  "sample")){
                     sample = atof(tokens[1].c_str());
