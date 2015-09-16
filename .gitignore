@@ -17,9 +17,12 @@
 .DS_Store
 ._*
 *~
+Makefile
+configure
+config.h
 config.log
 config.status
-Makefile
+autom4te.cache
 treePL
 
 # Eclipse stuff

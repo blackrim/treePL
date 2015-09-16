@@ -79,7 +79,10 @@ treePL: $(OBJS)
 	$(CP) -O3 -g3 -o treePL $(OBJS) $(LIBS)
 
 clean:
-	-$(RM) *.d *.o
+	-$(RM) *.d *.o treePL
+
+distclean:
+	-$(RM) *.o *.d configure config.log config.h config.status treePL Makefile
 
 install:
 	install -m 0755 treePL $(prefix)
