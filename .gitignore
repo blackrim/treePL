@@ -25,7 +25,9 @@ config.status
 autom4te.cache
 treePL
 
-# Eclipse stuff
+# Eclipse/Netbeans stuff
 .cproject
 .project
 .settings
+nbproject
+
