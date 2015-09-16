@@ -12,7 +12,6 @@
 #include <math.h>
 #include <fenv.h>
 #include <string.h>
-#include <time.h>
 #include <algorithm> 
 #include <limits>
 #include <omp.h>
@@ -35,9 +34,9 @@ using namespace std;
 #define LARGE 1e+15
 
 // line endings
-#define	LINETERM_UNIX	0
-#define	LINETERM_MAC	1
-#define	LINETERM_DOS	2
+#define LINETERM_UNIX  0
+#define LINETERM_MAC   1
+#define LINETERM_DOS   2
 
 int main(int argc,char* argv[]) {
     int seed = -1;
@@ -46,7 +45,7 @@ int main(int argc,char* argv[]) {
     retval = -1;
     retval = feraiseexcept( FE_ALL_EXCEPT );
     bool setparams = false;
-    if(argc != 2){
+    if(argc != 2 || string(argv[1]) == "-h" || string(argv[1]) == "--help"){
         cout << "treePL version 1.0"<< endl;
         cout << "you need more arguments." << endl;
         cout << "usage: treePL configfile" << endl;
@@ -81,213 +80,13 @@ int main(int argc,char* argv[]) {
 
     string ind8s;
     string inr8s;
-    /*************
-     * read the configuration file
-     **************/
-    ifstream ifs(argv[1]);
-    string line;
-    //while(getline(ifs,line)){
-    while(getlineSafe(ifs, line)) { // version of getline where line endings are unknown
-    	if(line.size()>1){
-            if(&line[0]!="#"){
-                vector<string> tokens;
-                string del("=");
-                tokens.clear();
-                Tokenize(line, tokens, del);
-                for(unsigned int j=0;j<tokens.size();j++){
-                    TrimSpaces(tokens[j]);
-                }
-                if(!strcmp(tokens[0].c_str(), "treefile")){
-                    treefile = tokens[1];
-                }else if(!strcmp(tokens[0].c_str(),  "numsites")){
-                    numsites = atoi(tokens[1].c_str());
-                }else if(!strcmp(tokens[0].c_str(),  "sample")){
-                    sample = atof(tokens[1].c_str());
-                }else if(!strcmp(tokens[0].c_str(),  "smooth")){
-                    smooth = atof(tokens[1].c_str());
-                }else if(!strcmp(tokens[0].c_str(), "mrca")){
-                    vector<string> searchtokens;
-                    Tokenize(tokens[1], searchtokens, ",     ");
-                    for(unsigned int j=0;j<searchtokens.size();j++){
-                        TrimSpaces(searchtokens[j]);
-                    }
-                    vector<string> mrc;
-                    for(unsigned int j=1;j<searchtokens.size();j++){
-                        mrc.push_back(searchtokens[j]);
-                    }
-                    mrcas[searchtokens[0]] = mrc;
-                }else if(!strcmp(tokens[0].c_str(), "min")){
-                    vector<string> searchtokens;
-                    Tokenize(tokens[1], searchtokens, ",     ");
-                    for(unsigned int j=0;j<searchtokens.size();j++){
-                        TrimSpaces(searchtokens[j]);
-                    }
-                    mrca_mins[searchtokens[0]] = atof(searchtokens[1].c_str());
-                    //                        if(atof(searchtokens[1].c_str()) > scale)
-                    //                            scale = atof(searchtokens[1].c_str());
-                }else if(!strcmp(tokens[0].c_str(), "max")){
-                    vector<string> searchtokens;
-                    Tokenize(tokens[1], searchtokens, ",     ");
-                    for(unsigned int j=0;j<searchtokens.size();j++){
-                        TrimSpaces(searchtokens[j]);
-                    }
-                    mrca_maxs[searchtokens[0]] = atof(searchtokens[1].c_str());
-                    //                        if(atof(searchtokens[1].c_str()) > scale)
-                    //                            scale = atof(searchtokens[1].c_str());
-                }else if(!strcmp(tokens[0].c_str(),  "cv")){
-                    cv = true;
-                }else if(!strcmp(tokens[0].c_str(),  "collapse")){
-                    collapse = true;
-                }else if(!strcmp(tokens[0].c_str(), "checkconstraints")){
-                    checkconstraints = true;
-                }else if(!strcmp(tokens[0].c_str(), "outfile")){
-                    outfilen = tokens[1];
-                    cout << "outfile: " << outfilen << endl;
-                }else if(!strcmp(tokens[0].c_str(), "cvstart")){
-                    cvstart = atof(tokens[1].c_str());
-                    cout << "cvstart: " << cvstart << endl;
-                }else if(!strcmp(tokens[0].c_str(), "cvstop")){
-                    cvstop = atof(tokens[1].c_str());
-                    cout << "cvstop: " << cvstop << endl;
-                }else if(!strcmp(tokens[0].c_str(), "cvmultstep")){
-                    cvmultstep = atof(tokens[1].c_str());
-                    cout << "cvmultstep: " << cvmultstep << endl;
-                }else if(!strcmp(tokens[0].c_str(), "verbose")){
-                    verbose = true;
-                    oopt.verbose = true;
-                    cout << "set verbose: true" << endl;
-                }else if(!strcmp(tokens[0].c_str(), "lftemp")){
-                    oopt.lftemp = atof(tokens[1].c_str());
-                    cout << "lf start temp: " << oopt.lftemp << endl;
-                }else if(!strcmp(tokens[0].c_str(), "pltemp")){
-                    oopt.pltemp = atof(tokens[1].c_str());
-                    cout << "pl start temp: " << oopt.pltemp << endl;
-                }else if(!strcmp(tokens[0].c_str(), "lfcool")){
-                    oopt.lfcool = atof(tokens[1].c_str());
-                    cout << "lf cool rate: " << oopt.lfcool << endl;
-                }else if(!strcmp(tokens[0].c_str(), "plcool")){
-                    oopt.plcool = atof(tokens[1].c_str());
-                    cout << "pl cool rate: " << oopt.plcool << endl;
-                }else if(!strcmp(tokens[0].c_str(), "lfstoptemp")){
-                    oopt.lfstoptemp = atof(tokens[1].c_str());
-                    cout << "lf stop temp: " << oopt.lfstoptemp << endl;
-                }else if(!strcmp(tokens[0].c_str(), "plstoptemp")){
-                    oopt.plstoptemp = atof(tokens[1].c_str());
-                    cout << "pl stop temp: " << oopt.plstoptemp << endl;
-                }else if(!strcmp(tokens[0].c_str(), "lfrtstep")){
-                    oopt.lfrtstep = atof(tokens[1].c_str());
-                    cout << "lf rate step: " << oopt.lfrtstep << endl;
-                }else if(!strcmp(tokens[0].c_str(), "lfdtstep")){
-                    oopt.lfdtstep = atof(tokens[1].c_str());
-                    cout << "lf date step: " << oopt.lfdtstep << endl;
-                }else if(!strcmp(tokens[0].c_str(), "plrtstep")){
-                    oopt.plrtstep = atof(tokens[1].c_str());
-                    cout << "pl rate step: " << oopt.plrtstep << endl;
-                }else if(!strcmp(tokens[0].c_str(), "pldtstep")){
-                    oopt.pldtstep = atof(tokens[1].c_str());
-                    cout << "pl date step: " << oopt.pldtstep << endl;
-                }else if(!strcmp(tokens[0].c_str(), "thorough")){
-                    oopt.thorough = true;
-                    cout << "set thorough: true (MAY TAKE A WHILE)" << endl;
-                }else if(!strcmp(tokens[0].c_str(), "lfiter")){
-                    oopt.lfiter = atoi(tokens[1].c_str());
-                    cout << "lf number of full iterations: " << oopt.lfiter << endl;
-                }else if(!strcmp(tokens[0].c_str(), "pliter")){
-                    oopt.pliter = atoi(tokens[1].c_str());
-                    cout << "pl number of full iterations: " << oopt.pliter << endl;
-                }else if(!strcmp(tokens[0].c_str(), "cviter")){
-                    oopt.cviter = atoi(tokens[1].c_str());
-                    cout << "cv number of full iterations: " << oopt.cviter << endl;
-                }else if(!strcmp(tokens[0].c_str(), "lfsimaniter")){
-                    oopt.lfsimaniter = atoi(tokens[1].c_str());
-                    cout << "lf number of simulated annealing iterations: " << oopt.lfsimaniter << endl;
-                }else if(!strcmp(tokens[0].c_str(), "plsimaniter")){
-                    oopt.plsimaniter = atoi(tokens[1].c_str());
-                    cout << "pl number of simulated annealing iterations: " << oopt.plsimaniter << endl;
-                }else if(!strcmp(tokens[0].c_str(), "cvsimaniter")){
-                    oopt.cvsimaniter = atoi(tokens[1].c_str());
-                    cout << "cv number of simulated annealing iterations: " << oopt.cvsimaniter << endl;
-                }else if(!strcmp(tokens[0].c_str(), "calcgrad")){
-                    oopt.calcgrad = true;
-                    cout << "calculating gradients instead of autodiff" << endl;
-                }else if(!strcmp(tokens[0].c_str(), "paramverbose")){
-                    paramverbose = true;
-                    cout << "*WARNING* writing param values to file paramverbose" << endl;
-                }else if(!strcmp(tokens[0].c_str(), "prime")){
-                    prime = true;
-                    cout << "PRIMING the optimization parameters and then exiting" << endl;
-                }else if(!strcmp(tokens[0].c_str(),"opt")){
-                    oopt.bestopt = atoi(tokens[1].c_str());
-                    cout << "setting opt: "<< oopt.bestopt << endl;
-                }else if(!strcmp(tokens[0].c_str(),"optad")){
-                    oopt.bestadopt = atoi(tokens[1].c_str());
-                    cout << "setting optad: " << oopt.bestadopt << endl;
-                }else if(!strcmp(tokens[0].c_str(),"optcvad")){
-                    oopt.bestcvopt = atoi(tokens[1].c_str());
-                    cout << "setting optcvad: " << oopt.bestcvopt << endl; 
-                }else if(!strcmp(tokens[0].c_str(),"moredetail")){
-                    oopt.moredetail = true;
-                }else if(!strcmp(tokens[0].c_str(),"moredetailad")){
-                    oopt.moredetailad = true;
-                }else if(!strcmp(tokens[0].c_str(),"moredetailcvad")){
-                    oopt.moredetailcvad = true;
-                }else if(!strcmp(tokens[0].c_str(),"randomcv")){
-                    randomcv = true;
-                    cv = true;
-                }else if(!strcmp(tokens[0].c_str(),"ind8s")){
-                    cout << "input dates: " << tokens[1] << endl;
-                    ind8s = tokens[1];
-                }else if(!strcmp(tokens[0].c_str(),"inr8s")){
-                    cout << "input rates: " << tokens[1] << endl;
-                    inr8s = tokens[1];
-                }else if(!strcmp(tokens[0].c_str(), "ftol")){
-                    oopt.ftol = atof(tokens[1].c_str());
-                    cout << "ftol: " << oopt.ftol << endl;
-                }else if(!strcmp(tokens[0].c_str(), "xtol")){
-                    oopt.xtol = atof(tokens[1].c_str());
-                    cout << "xtol: " << oopt.xtol << endl;
-                }else if(!strcmp(tokens[0].c_str(),"mapspace")){
-                    mapspaceb = true;
-                    cout << "after the analysis, a map of the adjacent space will be reported to the file mapspace.txt"<<endl;
-                }else if(!strcmp(tokens[0].c_str(),"nthreads")){
-                    oopt.nthreads = atoi(tokens[1].c_str());
-                    cout << "setting the maximum number of threads to " << oopt.nthreads << endl;
-                }else if(!strcmp(tokens[0].c_str(), "cvoutfile")){
-                    cvoutfile = tokens[1];
-                    cout << "setting the cv outfile to " << cvoutfile << endl;
-                }else if(!strcmp(tokens[0].c_str(), "log_pen")){
-                    log_pen = true;
-                    cout << "setting log penalty" << endl;
-                }else if(!strcmp(tokens[0].c_str(), "seed")){
-                    seed = atoi(tokens[1].c_str());
-                    cout << "setting the random number seed to " << seed << endl;
-                }
-            }
-        }
-    }
-    cout << "finished reading config file" << endl;
-    if(outfilen.size() == 0){
-        outfilen = "out_dates.tre";
-    }
-    if(cvstart < cvstop){
-        double tend = cvstart;
-        cvstart = cvstop;
-        cvstop = tend;
-        cout << "switching cvstart cvstop: " << cvstart << " -- " << cvstop << endl;
-    }
-    if(cvmultstep > 1){
-        cvmultstep = 1/(float)cvmultstep;
-        cout << "switching cvmultstep: " << cvmultstep <<endl;
-    }
-
-    // Set the random number seed, either from user or clock;
-    if (seed == -1) {
-        int timeSeed = (unsigned)time(NULL);
-    	srand(timeSeed);
-        cout << "using system clock for random number seed = " << timeSeed << endl;
-    } else {
-        srand(seed);
-    }
+    string configFileName = argv[1];
+    
+    read_config(configFileName, cvstart, cvstop, cvmultstep, randomcv, randomcviter, 
+        randomcvsamp, verbose, paramverbose, prime, mapspaceb, log_pen, treefile, 
+        cv, collapse, smooth, sample, numsites, scale, checkconstraints, outfilen, 
+        cvoutfile, mrcas, mrca_mins, mrca_maxs, oopt, seed, ind8s, inr8s);
+    
 
     /*
      * start the analyses
@@ -308,6 +107,7 @@ int main(int argc,char* argv[]) {
 
     // this should read each tree in a file and process those
     //while (getline(infile, line)){
+    string line;
     while (getlineSafe(infile, line)) { // version of getline where line endings are unknown
         if(line.size() > 1){
             TreeReader tr;
@@ -386,49 +186,54 @@ int main(int argc,char* argv[]) {
              * can basically just do this with maxes
              */
             if(checkconstraints == true){
-            map<Node *,double>::iterator it;
-    /*    bool max = false;
-        for (it=maxs.begin(); it != maxs.end(); it++ ){
-        Node * tempn = (*it).first;
-        if(tempn != tree->getRoot())
-        tempn = tempn->getParent();
-        else
-        continue;
-        double curtest = (*it).second;
-        while (tempn != tree->getRoot()){
-        if(maxs.count(tempn) == 1){
-        if(mins[tempn]  curtest){
-        cout << min_names[tempn] << " in conflict " << min_names[(*it).first] << endl;
-        exit(0);
-        }
-        }
-        tempn = tempn->getParent();
-        }
-        }
-        if(max == true)
-        exit(0);*/
-
-            bool min = false;
-            for (it=mins.begin(); it != mins.end(); it++ ){
-                Node * tempn = (*it).first;
-                if(tempn != tree->getRoot()){
-                    tempn = tempn->getParent();
-                }else{
-                    continue;
-                }
-                double curtest = (*it).second;
-                while (tempn != tree->getRoot()){
-                if(mins.count(tempn) == 1){
-                    if(mins[tempn] < curtest){
-                        cout << min_names[tempn] << " in conflict " << min_names[(*it).first] << endl;
-                        exit(0);
+                map<Node *,double>::iterator it;
+                
+            /*  
+                bool max = false;
+                for (it=maxs.begin(); it != maxs.end(); it++ ){
+                    Node * tempn = (*it).first;
+                    if(tempn != tree->getRoot()){
+                        tempn = tempn->getParent();
+                    }else{
+                        continue;
+                    }
+                    double curtest = (*it).second;
+                    while (tempn != tree->getRoot()){
+                        if(maxs.count(tempn) == 1){
+                            if(mins[tempn]  curtest){
+                                cout << min_names[tempn] << " in conflict " << min_names[(*it).first] << endl;
+                                exit(0);
+                            }
+                        }
+                        tempn = tempn->getParent();
                     }
                 }
-                tempn = tempn->getParent();
-                }
-            }
-            if(min == true)
+                if(max == true)
                 exit(0);
+            */
+
+                bool min = false;
+                for (it=mins.begin(); it != mins.end(); it++ ){
+                    Node * tempn = (*it).first;
+                    if(tempn != tree->getRoot()){
+                        tempn = tempn->getParent();
+                    }else{
+                        continue;
+                    }
+                    double curtest = (*it).second;
+                    while (tempn != tree->getRoot()){
+                        if(mins.count(tempn) == 1){
+                            if(mins[tempn] < curtest){
+                                cout << min_names[tempn] << " in conflict " << min_names[(*it).first] << endl;
+                                exit(0);
+                            }
+                        }
+                        tempn = tempn->getParent();
+                    }
+                }
+                if(min == true){
+                    exit(0);
+                }
             }
             /*
              * END CHECKING THE CONSTRAINTS
@@ -503,59 +308,59 @@ int main(int argc,char* argv[]) {
                 bool good = false;
                 int trycount = 0;
                 while (!good) {
-                	cout << "problem initializing. trying again." << endl;
-					cout << "attempting to get feasible start rates/dates." <<endl;
-				// clear vectors of bad values
-					//start_dates.clear();
-					//start_rates.clear();
-					//start_durations.clear();
-					get_feasible_start_dates(tree,&start_dates,&start_rates,&start_durations);
-					start_rate = get_start_rate(tree,&start_durations);
-					cout << "new start rate " << start_rate << endl;
-					start_rates[1] = start_rate;
-					minrate = 0.0;
-					pl_calc_parallel plp;
-					plp.setup_starting_bits(&parent_nds_ints,&child_counts, &free,
-								&char_durations, &log_fact_char_durations, &vmin,
-								&vmax, &start_dates, &start_rates, &start_durations);
-					plp.set_log_pen(log_pen);
-					plp.minrate = minrate;
-					plp.pen_min = &penmin;
-					plp.pen_max = &penmax;
-					plp.children_vec = &children_vec;
+                    cout << "problem initializing. trying again." << endl;
+                    cout << "attempting to get feasible start rates/dates." <<endl;
+            // clear vectors of bad values
+                    //start_dates.clear();
+                    //start_rates.clear();
+                    //start_durations.clear();
+                    get_feasible_start_dates(tree,&start_dates,&start_rates,&start_durations);
+                    start_rate = get_start_rate(tree,&start_durations);
+                    cout << "new start rate " << start_rate << endl;
+                    start_rates[1] = start_rate;
+                    minrate = 0.0;
+                    pl_calc_parallel plp;
+                    plp.setup_starting_bits(&parent_nds_ints,&child_counts, &free,
+                                            &char_durations, &log_fact_char_durations, &vmin,
+                                            &vmax, &start_dates, &start_rates, &start_durations);
+                    plp.set_log_pen(log_pen);
+                    plp.minrate = minrate;
+                    plp.pen_min = &penmin;
+                    plp.pen_max = &penmax;
+                    plp.children_vec = &children_vec;
 
-					//freeparams.clear();
-					numparams = generate_param_order_vector(&freeparams, true, NULL, &free);
-					plp.set_freeparams(numparams, true, &freeparams, &params);
-					initcalc = plp.calc_pl(params);
-					cout << "initial calc: " << initcalc << endl;
+                    //freeparams.clear();
+                    numparams = generate_param_order_vector(&freeparams, true, NULL, &free);
+                    plp.set_freeparams(numparams, true, &freeparams, &params);
+                    initcalc = plp.calc_pl(params);
+                    cout << "initial calc: " << initcalc << endl;
 
-					if(isnan(initcalc) || isinf(initcalc) || initcalc == LARGE){
-						trycount += 1;
-						if (trycount == 10) { // 10 is a magic number here. just don't want infinite looping if pathological problem.
-							cout << "Failed setting feasible start rates/dates after 10 attempts. Aborting." << endl;
-							exit(0);
-						}
-					} else {
-						cout << "feasible start rates/dates found" << endl;
-						good = true;
-					}
-					//exit(0);
+                    if(isnan(initcalc) || isinf(initcalc) || initcalc == LARGE){
+                        trycount += 1;
+                        if(trycount == 10){ // 10 is a magic number here. just don't want infinite looping if pathological problem.
+                            cout << "Failed setting feasible start rates/dates after 10 attempts. Aborting." << endl;
+                            exit(0);
+                        }
+                    }else{
+                        cout << "feasible start rates/dates found" << endl;
+                        good = true;
+                    }
+                    //exit(0);
                 }
             }
     /*        vector<double> g(params.size());
             cout << "calculating gradient" <<endl;
             g= vector<double>(params.size());
             plp.calc_gradient(params,&g);
-            for(int j=0;j<params.size();j++)
+            for(int j=0;j<params.size();j++){
                 cout << params[j] << "\t" << g[j] << endl;
-
+            }
             cout << "calculating gradient ad" <<endl;
-            g= vector<double>(params.size());
+            g=vector<double>(params.size());
             cout << "f: "<< plp.calc_function_gradient(&params,&g) << endl;
-            for(int j=0;j<params.size();j++)
+            for(int j=0;j<params.size();j++){
                 cout << params[j] << "\t" << g[j] << endl;
-
+            }
     */
             //prime optimization
             if(prime == true){
@@ -649,7 +454,7 @@ int main(int argc,char* argv[]) {
                         }
                     }
                 }
-        //        exit(0); // TODO: make sure the groups are broken up correctly
+        //      exit(0); // TODO: make sure the groups are broken up correctly
 
                 //start cv
                 cout << "--------------"<<endl;
@@ -678,8 +483,8 @@ int main(int argc,char* argv[]) {
                     int chisqcount = 0;
                     int i;
                     vector<double> sqerrs;
-        //was shared(chisq,chisqcount)
-        #pragma omp parallel for ADOLC_OPENMP_NC reduction(+:chisq) reduction(+:chisqcount) num_threads(oopt.nthreads)
+                //was shared(chisq,chisqcount)
+                #pragma omp parallel for ADOLC_OPENMP_NC reduction(+:chisq) reduction(+:chisqcount) num_threads(oopt.nthreads)
                     for(i=0;i<samp_groups.size();i++){
                         //cout << "thread_num: "<< omp_get_thread_num() << endl;
                         //cout << "num threads: " << omp_get_num_threads() << endl;
@@ -716,13 +521,13 @@ int main(int argc,char* argv[]) {
                         int fcount = 0;
                         /*for(int j=0;j<plpcv.rates.size();j++){
                             if(plpcv.freeparams[fcount] != -1){
-                            cout << "r:\t" <<cvplparams[plpcv.freeparams[fcount]]/numsites <<endl;
+                                cout << "r:\t" <<cvplparams[plpcv.freeparams[fcount]]/numsites <<endl;
                             }
                             fcount += 1;
                         }
                         for(int j=0;j<plpcv.numnodes;j++){
                             if(plpcv.freeparams[fcount] != -1){
-                            cout  <<"d:\t" <<cvplparams[plpcv.freeparams[fcount]]/numsites<< endl;
+                                cout  <<"d:\t" <<cvplparams[plpcv.freeparams[fcount]]/numsites<< endl;
                             }
                             fcount += 1;
                         }*/
@@ -753,10 +558,10 @@ int main(int argc,char* argv[]) {
                             //name obj 
             //                cout << tree->getNodeByNodeNumber(samp_groups[i][0])->getName() << "\t" << poc << "\t" << sq<< "\t" << chisq << "\t" << ratees << "\t" << d;
             //                for(int j=0;j<plpcv.rates.size();j++){
-            //                cout << "\t" << plpcv.rates[j]/float(numsites);
+                //                cout << "\t" << plpcv.rates[j]/float(numsites);
             //                }
             //                for(int j=0;j<plpcv.dates.size();j++){
-            //                cout << "\t" << plpcv.dates[j]/float(numsites);
+                //                cout << "\t" << plpcv.dates[j]/float(numsites);
             //                }
             //                cout << endl;
                         }else{//randomcv chisq
@@ -806,7 +611,6 @@ int main(int argc,char* argv[]) {
                         lowest_chi = chisq;
                         lowest_smoothing = curcv;
                     }
-
                     curcv = curcv * cvmultstep;
                     cout << "--------------"<< endl;
                     //exit(0);

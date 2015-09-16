@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <fstream>
 #include "pl_calc_parallel.h"
 #include "optim_options.h"
 #include "tree.h"
@@ -19,14 +20,14 @@ void apply_node_label_preorder(Tree * tr);
 void calc_char_durations(Tree * tr, int numsites);
 void setup_date_constraints(Tree * tr, map<Node *, double> * inmins, map<Node *, double> * inmaxs);
 void extract_tree_info(Tree * tr, vector<int> * free,
-		       vector<int> * parent_nds_ints, vector<int> * child_c, vector<double> * char_durations, 
-		       vector<double> * log_fact_char_durations, vector<double> * min,
-		       vector<double> * max, vector< vector<int> > * children_vec,vector<double>* pen_min, vector<double>* pen_max);
+        vector<int> * parent_nds_ints, vector<int> * child_c, vector<double> * char_durations, 
+        vector<double> * log_fact_char_durations, vector<double> * min,
+        vector<double> * max, vector< vector<int> > * children_vec,vector<double>* pen_min, vector<double>* pen_max);
 double logFact(double k);
 int generate_param_order_vector(vector<int> * freeparams, bool lf, 
-				vector<int> * cvnodes, vector<int> * free);
+        vector<int> * cvnodes, vector<int> * free);
 void get_feasible_start_dates(Tree * tr, vector<double> * dates, vector<double> * rates,
-			      vector<double> * durations);
+        vector<double> * durations);
 int a_feasible_time(Node * node,double timeAnc);
 double round(double x);
 double myRand(void);
@@ -47,4 +48,11 @@ int count_trees (string & treefile);
 
 istream& getlineSafe(std::istream& is, std::string& t);
 
+void read_config(string configFileName, double& cvstart, double& cvstop, double& cvmultstep,
+        bool& randomcv, int& randomcviter, double& randomcvsamp, bool& verbose, bool& paramverbose,
+        bool& prime, bool& mapspaceb, bool& log_pen, string& treefile, bool& cv, bool& collapse,
+        double& smooth, double& sample, int& numsites, double& scale, bool& checkconstraints,
+        string& outfilen, string& cvoutfile, map<string,vector<string> > & mrcas,
+        map<string,double > & mrca_mins, map<string,double > & mrca_maxs, OptimOptions& oopt,
+        int& seed, string& ind8s, string& inr8s);
 #endif
