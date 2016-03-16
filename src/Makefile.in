@@ -68,15 +68,15 @@ CPP_DEPS += \
 ./utils.d
 
 %.o: %.cpp
-	$(CP) -O3 -g3 -c -fmessage-length=0 $(OPENMP) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o $@ $(SRC_DIR)$<
+	$(CP) $(CPPFLAGS) $(LDFLAGS) -O3 -g3 -c -fmessage-length=0 $(OPENMP) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o $@ $(SRC_DIR)$<
 
 %.o: %.c
-	$(CC) -O3 -g3 -c -fmessage-length=0 $(OPENMP) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o $@ $<
+	$(CC) $(CFLAGS) $(LDFLAGS) -O3 -g3 -c -fmessage-length=0 $(OPENMP) -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o $@ $<
 
 all: treePL
 
 treePL: $(OBJS)
-	$(CP) -O3 -g3 -o treePL $(OBJS) $(LIBS)
+	$(CP) $(LDFLAGS) -O3 -g3 -o treePL $(OBJS) $(LIBS)
 
 clean:
 	-$(RM) *.d *.o treePL
@@ -86,7 +86,7 @@ distclean:
 
 install:
 	install -m 0755 treePL $(prefix)
-	
+
 uninstall:
 	-rm $(prefix)treePL
 
