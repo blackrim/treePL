@@ -112,48 +112,55 @@ double get_start_rate(Tree * tree, vector<double> * durations){
    need to examine this
    min should probably be much smaller
  **/
-void process_initial_branch_lengths(Tree * tree, bool collapse, int numsites){
-    double min = 1.;
-    for(int i=0;i<tree->getExternalNodeCount();i++){
-		if(tree->getExternalNode(i)->getBL()<min/numsites){
-			tree->getExternalNode(i)->setBL(min/numsites);
-			cout << "tiny branch length at "<< tree->getExternalNode(i)->getName()<< ". setting to " << (min/numsites) << endl;
-			//exit(0);
-		}
-    }
-    if (collapse == false){
-		for(int i=0;i<tree->getNodeCount();i++){
-			if(tree->getNode(i)->getBL()<min/numsites){
-				tree->getNode(i)->setBL(min/numsites);
-				cout << "tiny branch length at internal node. setting to " << (min/numsites) << endl;
-				 //	 exit(0);
-			}
-		}
+void process_initial_branch_lengths(Tree * tree, bool collapse, bool set1, int numsites){
+    if(set1 == true){
+        for(int i=0;i<tree->getNodeCount();i++){
+            cout << "setting all the branch lengths to 1" << endl;
+            tree->getNode(i)->setBL(1.0);
+        }
     }else{
-		/*
-		 * or collapse
-		 */
-		bool smallbranches = true;
-		while(smallbranches){
-			int icount = 0;
-			for(int i=0;i<tree->getNodeCount();i++){
-				if(tree->getNode(i)->getBL()<1./numsites && tree->getNode(i)!= tree->getRoot()){
-					Node * pr = tree->getNode(i)->getParent();
-					vector<Node *> children = tree->getNode(i)->getChildren();
-					for(unsigned int j=0;j<children.size();j++){
-						Node * ch = children[j];
-						pr->addChild(*ch);
-					}
-					pr->removeChild(*tree->getNode(i));
-					tree->processRoot();
-				}else{
-					icount += 1;
-				}
-			}
-			if(icount == tree->getNodeCount()){
-			    smallbranches = false;
-			}
-		}
+        double min = 1.;
+        for(int i=0;i<tree->getExternalNodeCount();i++){
+            if(tree->getExternalNode(i)->getBL()<min/numsites){
+                tree->getExternalNode(i)->setBL(min/numsites);
+                cout << "tiny branch length at "<< tree->getExternalNode(i)->getName()<< ". setting to " << (min/numsites) << endl;
+                //exit(0);
+            }
+        }
+        if (collapse == false){
+            for(int i=0;i<tree->getNodeCount();i++){
+                if(tree->getNode(i)->getBL()<min/numsites){
+                    tree->getNode(i)->setBL(min/numsites);
+                    cout << "tiny branch length at internal node. setting to " << (min/numsites) << endl;
+                     //	 exit(0);
+                }
+            }
+        }else{
+            /*
+             * or collapse
+             */
+            bool smallbranches = true;
+            while(smallbranches){
+                int icount = 0;
+                for(int i=0;i<tree->getNodeCount();i++){
+                    if(tree->getNode(i)->getBL()<1./numsites && tree->getNode(i)!= tree->getRoot()){
+                        Node * pr = tree->getNode(i)->getParent();
+                        vector<Node *> children = tree->getNode(i)->getChildren();
+                        for(unsigned int j=0;j<children.size();j++){
+                            Node * ch = children[j];
+                            pr->addChild(*ch);
+                        }
+                        pr->removeChild(*tree->getNode(i));
+                        tree->processRoot();
+                    }else{
+                        icount += 1;
+                    }
+                }
+                if(icount == tree->getNodeCount()){
+                    smallbranches = false;
+                }
+            }
+        }
     }
 }
 

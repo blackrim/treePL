@@ -14,7 +14,7 @@ void Tokenize(const string& str, vector<string>& tokens, const string& delimiter
 void TrimSpaces( string& str);
 void set_mins_maxs(Tree * tr,map<Node *,double> * mins, map<Node *,double> * maxs);
 double get_start_rate(Tree * tree, vector<double> * durations);
-void process_initial_branch_lengths(Tree * tree, bool collapse, int numsites);
+void process_initial_branch_lengths(Tree * tree, bool collapse, bool set1, int numsites);
 void apply_node_label_preorder(Tree * tr);
 void calc_char_durations(Tree * tr, int numsites);
 void setup_date_constraints(Tree * tr, map<Node *, double> * inmins, map<Node *, double> * inmaxs);

@@ -58,6 +58,7 @@ int main(int argc,char* argv[]) {
     map<string,double > mrca_maxs;
     bool cv = false;
     bool collapse = false;
+    bool set1 = false;
     double smooth = 10;
     double sample = 1.;
     int numsites =0;
@@ -138,6 +139,8 @@ int main(int argc,char* argv[]) {
                     cv = true;
                 }else if(!strcmp(tokens[0].c_str(),  "collapse")){
                     collapse = true;
+                }else if(!strcmp(tokens[0].c_str(), "set1")){
+                    set1 = true;
                 }else if(!strcmp(tokens[0].c_str(), "checkconstraints")){
                     checkconstraints = true;
                 }else if(!strcmp(tokens[0].c_str(), "outfile")){
@@ -316,7 +319,7 @@ int main(int argc,char* argv[]) {
             /*
              * change 0 BL to 1/numsites
              */
-            process_initial_branch_lengths(tree,collapse,numsites);
+            process_initial_branch_lengths(tree,collapse,set1,numsites);
             tree->setHeightFromTipToNodes();
             //TODO: set the max iters higher if bigger tree
             /*
