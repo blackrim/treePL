@@ -572,11 +572,11 @@ int main(int argc,char* argv[]) {
             cout << "exited lf converged :" << madeit<< endl;
             initcalc = plp.calc_pl(params);
             cout << "lf calc: " << initcalc << endl;
+
             if(paramverbose){
                 paramverboseFile.close();
                 paramverboseFile.open("paramverbosepl",ios::out);
             }
-    //        exit(0);
 
             /****
              * CROSS VALIDATION IF REQUIRED
@@ -785,8 +785,6 @@ int main(int argc,char* argv[]) {
                                     tchisq += 0;
                                 }else{
                                     tchisq += sq/expe;//average chisq
-                //                cout << "chi: " << d << " " << expe << " " << length << " " << sq << endl;
-                //                cout << "tchisq: " << tchisq << endl;
                                 }
                             }
                             chisq += tchisq/(float)samp_groups[i].size();
@@ -796,7 +794,6 @@ int main(int argc,char* argv[]) {
                         plpcv.delete_ad_arrays();
                         chisqcount += 1;
                         cout << "cv: " << i+1 << endl;
-            //            exit(0);
                     }
             
                     cout << "chisq: (" << curcv << ") "<< chisq << endl;//"\tsq:" << get_sum(sqerrs) << "\tmed: " << get_gmean(sqerrs) << endl;
@@ -812,7 +809,6 @@ int main(int argc,char* argv[]) {
 
                     curcv = curcv * cvmultstep;
                     cout << "--------------"<< endl;
-                    //exit(0);
                 }
                 cout << "check:"<<plp.calc_pl(params) <<endl;
                 plp.smoothing = lowest_smoothing;
@@ -820,27 +816,28 @@ int main(int argc,char* argv[]) {
             }else{
                 plp.smoothing = smooth;
             }
-            //exit(0);
             /*
              * END CROSS VALIDATION IF REQUIRED
              ****/
             //Now with Penalized Likelihood
-            freeparams.clear();
-            numparams = generate_param_order_vector(&freeparams, false, NULL, &free);
-            cout << "numparams:" << numparams << endl;
-            cout << "smoothing:" << plp.smoothing << endl;
-            plp.set_freeparams(numparams, false, &freeparams, &params);
+            //if we set the branch lengths to 1, we don't need to do more than lf
+            if (set1 == false){
+                freeparams.clear();
+                numparams = generate_param_order_vector(&freeparams, false, NULL, &free);
+                cout << "numparams:" << numparams << endl;
+                cout << "smoothing:" << plp.smoothing << endl;
+                plp.set_freeparams(numparams, false, &freeparams, &params);
 
-            //JUST FOR TESTING R8S things
-            if(ind8s.size() > 1 && inr8s.size() > 1){
-                process_ind8s_inr8s(ind8s,inr8s,&params, tree);
-                cout << plp.calc_pl(params) << endl;
+                //JUST FOR TESTING R8S things
+                if(ind8s.size() > 1 && inr8s.size() > 1){
+                    process_ind8s_inr8s(ind8s,inr8s,&params, tree);
+                    cout << plp.calc_pl(params) << endl;
                 exit(0);
+                }
+                cout << plp.calc_pl(params) << endl;
+                optimize_full(plp,&params,&oopt,false);
+                cout << "after opt calc: " << plp.calc_pl(params) << endl;
             }
-            cout << plp.calc_pl(params) << endl;
-    //        exit(0);
-            optimize_full(plp,&params,&oopt,false);
-            cout << "after opt calc: " << plp.calc_pl(params) << endl;
             /*
              * write the final dates to a text file
              */
