@@ -114,8 +114,8 @@ double get_start_rate(Tree * tree, vector<double> * durations){
  **/
 void process_initial_branch_lengths(Tree * tree, bool collapse, bool set1, int numsites){
     if(set1 == true){
+        cout << "setting all the branch lengths to 1" << endl;
         for(int i=0;i<tree->getNodeCount();i++){
-            cout << "setting all the branch lengths to 1" << endl;
             tree->getNode(i)->setBL(1.0);
         }
     }else{
