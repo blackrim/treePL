@@ -35,7 +35,7 @@ fi
 AC_CHECK_LIB([m], [fabs])
 
 have_nlopt=no
-AC_SEARCH_LIBS([nlopt_urand], [nlopt_cxx], [have_nlopt=yes])
+AC_SEARCH_LIBS([nlopt_create], [nlopt], [have_nlopt=yes])
 
 if test "x${have_nlopt}" = xno; then
    AC_MSG_ERROR([

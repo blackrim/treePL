@@ -3789,9 +3789,9 @@ fi
 
 
 have_nlopt=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing nlopt_urand" >&5
-$as_echo_n "checking for library containing nlopt_urand... " >&6; }
-if ${ac_cv_search_nlopt_urand+:} false; then :
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing nlopt_create" >&5
+$as_echo_n "checking for library containing nlopt_create... " >&6; }
+if ${ac_cv_search_nlopt_create+:} false; then :
   $as_echo_n "(cached) " >&6
 else
   ac_func_search_save_LIBS=$LIBS
@@ -3804,16 +3804,16 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 #ifdef __cplusplus
 extern "C"
 #endif
-char nlopt_urand ();
+char nlopt_create ();
 int
 main ()
 {
-return nlopt_urand ();
+return nlopt_create ();
   ;
   return 0;
 }
 _ACEOF
-for ac_lib in '' nlopt_cxx; do
+for ac_lib in '' nlopt; do
   if test -z "$ac_lib"; then
     ac_res="none required"
   else
@@ -3821,25 +3821,25 @@ for ac_lib in '' nlopt_cxx; do
     LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
   fi
   if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_search_nlopt_urand=$ac_res
+  ac_cv_search_nlopt_create=$ac_res
 fi
 rm -f core conftest.err conftest.$ac_objext \
     conftest$ac_exeext
-  if ${ac_cv_search_nlopt_urand+:} false; then :
+  if ${ac_cv_search_nlopt_create+:} false; then :
   break
 fi
 done
-if ${ac_cv_search_nlopt_urand+:} false; then :
+if ${ac_cv_search_nlopt_create+:} false; then :
 
 else
-  ac_cv_search_nlopt_urand=no
+  ac_cv_search_nlopt_create=no
 fi
 rm conftest.$ac_ext
 LIBS=$ac_func_search_save_LIBS
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_nlopt_urand" >&5
-$as_echo "$ac_cv_search_nlopt_urand" >&6; }
-ac_res=$ac_cv_search_nlopt_urand
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_nlopt_create" >&5
+$as_echo "$ac_cv_search_nlopt_create" >&6; }
+ac_res=$ac_cv_search_nlopt_create
 if test "$ac_res" != no; then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
   have_nlopt=yes
