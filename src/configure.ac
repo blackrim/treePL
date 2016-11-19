@@ -22,7 +22,13 @@ if test "x${have_adolc}" = xno; then
 --------------------------------------------------------
 The adolc library is helpful for parallel excution of the
 cross validation procedure. Failure to have this library
-may cause problems for convergence
+may cause problems for convergence.
+In the deps folder, unpack the adolc package, go into the
+folder and run
+autoreconf -fi
+./configure --with-openmp-flag=-fopenmp --prefix=/usr
+make
+sudo make install
 --------------------------------------------------------])
 fi
 
@@ -34,7 +40,11 @@ AC_SEARCH_LIBS([nlopt_urand], [nlopt_cxx], [have_nlopt=yes])
 if test "x${have_nlopt}" = xno; then
    AC_MSG_ERROR([
 --------------------------------------------------------
-The nlopt library is required for optimization.
+The nlopt library is required for optimization. In the 
+deps folder, you can unpack nlopt and run
+./configure
+make
+sudo make install
 --------------------------------------------------------])
 fi
 

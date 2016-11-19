@@ -657,6 +657,7 @@ infodir
 docdir
 oldincludedir
 includedir
+runstatedir
 localstatedir
 sharedstatedir
 sysconfdir
@@ -730,6 +731,7 @@ datadir='${datarootdir}'
 sysconfdir='${prefix}/etc'
 sharedstatedir='${prefix}/com'
 localstatedir='${prefix}/var'
+runstatedir='${localstatedir}/run'
 includedir='${prefix}/include'
 oldincludedir='/usr/include'
 docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
@@ -982,6 +984,15 @@ do
   | -silent | --silent | --silen | --sile | --sil)
     silent=yes ;;
 
+  -runstatedir | --runstatedir | --runstatedi | --runstated \
+  | --runstate | --runstat | --runsta | --runst | --runs \
+  | --run | --ru | --r)
+    ac_prev=runstatedir ;;
+  -runstatedir=* | --runstatedir=* | --runstatedi=* | --runstated=* \
+  | --runstate=* | --runstat=* | --runsta=* | --runst=* | --runs=* \
+  | --run=* | --ru=* | --r=*)
+    runstatedir=$ac_optarg ;;
+
   -sbindir | --sbindir | --sbindi | --sbind | --sbin | --sbi | --sb)
     ac_prev=sbindir ;;
   -sbindir=* | --sbindir=* | --sbindi=* | --sbind=* | --sbin=* \
@@ -1119,7 +1130,7 @@ fi
 for ac_var in	exec_prefix prefix bindir sbindir libexecdir datarootdir \
 		datadir sysconfdir sharedstatedir localstatedir includedir \
 		oldincludedir docdir infodir htmldir dvidir pdfdir psdir \
-		libdir localedir mandir
+		libdir localedir mandir runstatedir
 do
   eval ac_val=\$$ac_var
   # Remove trailing slashes.
@@ -1272,6 +1283,7 @@ Fine tuning of the installation directories:
   --sysconfdir=DIR        read-only single-machine data [PREFIX/etc]
   --sharedstatedir=DIR    modifiable architecture-independent data [PREFIX/com]
   --localstatedir=DIR     modifiable single-machine data [PREFIX/var]
+  --runstatedir=DIR       modifiable per-process data [LOCALSTATEDIR/run]
   --libdir=DIR            object code libraries [EPREFIX/lib]
   --includedir=DIR        C header files [PREFIX/include]
   --oldincludedir=DIR     C header files for non-gcc [/usr/include]
@@ -3708,13 +3720,25 @@ if test "x${have_adolc}" = xno; then
 --------------------------------------------------------
 The adolc library is helpful for parallel excution of the
 cross validation procedure. Failure to have this library
-may cause problems for convergence
+may cause problems for convergence.
+In the deps folder, unpack the adolc package, go into the
+folder and run
+autoreconf -fi
+./configure --with-openmp-flag=-fopenmp --prefix=/usr
+make
+sudo make install
 --------------------------------------------------------" >&5
 $as_echo "$as_me: WARNING:
 --------------------------------------------------------
 The adolc library is helpful for parallel excution of the
 cross validation procedure. Failure to have this library
-may cause problems for convergence
+may cause problems for convergence.
+In the deps folder, unpack the adolc package, go into the
+folder and run
+autoreconf -fi
+./configure --with-openmp-flag=-fopenmp --prefix=/usr
+make
+sudo make install
 --------------------------------------------------------" >&2;}
 fi
 
@@ -3765,9 +3789,9 @@ fi
 
 
 have_nlopt=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing nlopt_create" >&5
-$as_echo_n "checking for library containing nlopt_create... " >&6; }
-if ${ac_cv_search_nlopt_create+:} false; then :
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing nlopt_urand" >&5
+$as_echo_n "checking for library containing nlopt_urand... " >&6; }
+if ${ac_cv_search_nlopt_urand+:} false; then :
   $as_echo_n "(cached) " >&6
 else
   ac_func_search_save_LIBS=$LIBS
@@ -3780,16 +3804,16 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 #ifdef __cplusplus
 extern "C"
 #endif
-char nlopt_create ();
+char nlopt_urand ();
 int
 main ()
 {
-return nlopt_create ();
+return nlopt_urand ();
   ;
   return 0;
 }
 _ACEOF
-for ac_lib in '' nlopt; do
+for ac_lib in '' nlopt_cxx; do
   if test -z "$ac_lib"; then
     ac_res="none required"
   else
@@ -3797,25 +3821,25 @@ for ac_lib in '' nlopt; do
     LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
   fi
   if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_search_nlopt_create=$ac_res
+  ac_cv_search_nlopt_urand=$ac_res
 fi
 rm -f core conftest.err conftest.$ac_objext \
     conftest$ac_exeext
-  if ${ac_cv_search_nlopt_create+:} false; then :
+  if ${ac_cv_search_nlopt_urand+:} false; then :
   break
 fi
 done
-if ${ac_cv_search_nlopt_create+:} false; then :
+if ${ac_cv_search_nlopt_urand+:} false; then :
 
 else
-  ac_cv_search_nlopt_create=no
+  ac_cv_search_nlopt_urand=no
 fi
 rm conftest.$ac_ext
 LIBS=$ac_func_search_save_LIBS
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_nlopt_create" >&5
-$as_echo "$ac_cv_search_nlopt_create" >&6; }
-ac_res=$ac_cv_search_nlopt_create
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_nlopt_urand" >&5
+$as_echo "$ac_cv_search_nlopt_urand" >&6; }
+ac_res=$ac_cv_search_nlopt_urand
 if test "$ac_res" != no; then :
   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
   have_nlopt=yes
@@ -3825,7 +3849,11 @@ fi
 if test "x${have_nlopt}" = xno; then
    as_fn_error $? "
 --------------------------------------------------------
-The nlopt library is required for optimization.
+The nlopt library is required for optimization. In the
+deps folder, you can unpack nlopt and run
+./configure
+make
+sudo make install
 --------------------------------------------------------" "$LINENO" 5
 fi
 
