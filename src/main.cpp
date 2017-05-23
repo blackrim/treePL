@@ -303,10 +303,14 @@ int main(int argc,char* argv[]) {
         return 1;
     }
     ofstream outFile;
-    outFile.open(outfilen.c_str(),ios::out);
     ofstream outFile2;
-    string routfilen = outfilen+".r8s";
-    outFile2.open(routfilen.c_str(),ios::out);
+    
+    if (!prime) {
+        outFile.open(outfilen.c_str(),ios::out);
+        string routfilen = outfilen+".r8s";
+        outFile2.open(routfilen.c_str(),ios::out);
+    }
+    
     ofstream paramverboseFile;
 
     // this should read each tree in a file and process those
