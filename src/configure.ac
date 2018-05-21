@@ -1,5 +1,6 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
+CXXFLAGS="$CXXFLAGS -std=c++11"
 
 AC_PREREQ([2.68])
 AC_INIT([treepl], [1.0], [eebsmith@umich.edu])
@@ -13,9 +14,15 @@ AC_PROG_CC
 # Checks for libraries.
 have_adolc=no
 AC_SEARCH_LIBS([main], [adolc], [have_adolc=yes])
-if test "x${have_adolc}" = xyes; then
-   AC_CHECK_HEADERS([adolc/adouble.h],[],[have_adolc=no])
-fi
+#if test "x${have_adolc}" = xyes; then
+#   AC_CHECK_HEADERS([adolc/adouble.h],[],[have_adolc=no])
+#fi
+
+AC_CHECK_HEADERS([adolc/adouble.h], [], [],
+[[#ifdef HAVE_ADOLC
+# include <adolc/adouble.h>
+#endif
+]])
 
 if test "x${have_adolc}" = xno; then
    AC_MSG_WARN([

@@ -1523,6 +1523,37 @@ fi
 
 } # ac_fn_c_try_link
 
+# ac_fn_c_check_header_compile LINENO HEADER VAR INCLUDES
+# -------------------------------------------------------
+# Tests whether HEADER exists and can be compiled using the include files in
+# INCLUDES, setting the cache variable VAR accordingly.
+ac_fn_c_check_header_compile ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
+$as_echo_n "checking for $2... " >&6; }
+if eval \${$3+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+$4
+#include <$2>
+_ACEOF
+if ac_fn_c_try_compile "$LINENO"; then :
+  eval "$3=yes"
+else
+  eval "$3=no"
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+fi
+eval ac_res=\$$3
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+
+} # ac_fn_c_check_header_compile
+
 # ac_fn_c_try_cpp LINENO
 # ----------------------
 # Try to preprocess conftest.$ac_ext, and return whether this succeeded.
@@ -1692,37 +1723,6 @@ fi
   as_fn_set_status $ac_retval
 
 } # ac_fn_c_try_run
-
-# ac_fn_c_check_header_compile LINENO HEADER VAR INCLUDES
-# -------------------------------------------------------
-# Tests whether HEADER exists and can be compiled using the include files in
-# INCLUDES, setting the cache variable VAR accordingly.
-ac_fn_c_check_header_compile ()
-{
-  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
-$as_echo_n "checking for $2... " >&6; }
-if eval \${$3+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-#include <$2>
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  eval "$3=yes"
-else
-  eval "$3=no"
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-fi
-eval ac_res=\$$3
-	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-$as_echo "$ac_res" >&6; }
-  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-
-} # ac_fn_c_check_header_compile
 
 # ac_fn_c_check_type LINENO TYPE VAR INCLUDES
 # -------------------------------------------
@@ -3301,8 +3301,171 @@ if test "$ac_res" != no; then :
   have_adolc=yes
 fi
 
-if test "x${have_adolc}" = xyes; then
-   ac_ext=c
+#if test "x${have_adolc}" = xyes; then
+#   AC_CHECK_HEADERS([adolc/adouble.h],[],[have_adolc=no])
+#fi
+
+for ac_header in adolc/adouble.h
+do :
+  ac_fn_c_check_header_compile "$LINENO" "adolc/adouble.h" "ac_cv_header_adolc_adouble_h" "#ifdef HAVE_ADOLC
+# include <adolc/adouble.h>
+#endif
+
+"
+if test "x$ac_cv_header_adolc_adouble_h" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_ADOLC_ADOUBLE_H 1
+_ACEOF
+
+fi
+
+done
+
+
+if test "x${have_adolc}" = xno; then
+   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING:
+--------------------------------------------------------
+The adolc library is helpful for parallel excution of the
+cross validation procedure. Failure to have this library
+may cause problems for convergence.
+In the deps folder, unpack the adolc package, go into the
+folder and run
+autoreconf -fi
+./configure --with-openmp-flag=-fopenmp --prefix=/usr
+make
+sudo make install
+--------------------------------------------------------" >&5
+$as_echo "$as_me: WARNING:
+--------------------------------------------------------
+The adolc library is helpful for parallel excution of the
+cross validation procedure. Failure to have this library
+may cause problems for convergence.
+In the deps folder, unpack the adolc package, go into the
+folder and run
+autoreconf -fi
+./configure --with-openmp-flag=-fopenmp --prefix=/usr
+make
+sudo make install
+--------------------------------------------------------" >&2;}
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for fabs in -lm" >&5
+$as_echo_n "checking for fabs in -lm... " >&6; }
+if ${ac_cv_lib_m_fabs+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lm  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char fabs ();
+int
+main ()
+{
+return fabs ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_m_fabs=yes
+else
+  ac_cv_lib_m_fabs=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_m_fabs" >&5
+$as_echo "$ac_cv_lib_m_fabs" >&6; }
+if test "x$ac_cv_lib_m_fabs" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBM 1
+_ACEOF
+
+  LIBS="-lm $LIBS"
+
+fi
+
+
+have_nlopt=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing nlopt_create" >&5
+$as_echo_n "checking for library containing nlopt_create... " >&6; }
+if ${ac_cv_search_nlopt_create+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_func_search_save_LIBS=$LIBS
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char nlopt_create ();
+int
+main ()
+{
+return nlopt_create ();
+  ;
+  return 0;
+}
+_ACEOF
+for ac_lib in '' nlopt; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_search_nlopt_create=$ac_res
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext
+  if ${ac_cv_search_nlopt_create+:} false; then :
+  break
+fi
+done
+if ${ac_cv_search_nlopt_create+:} false; then :
+
+else
+  ac_cv_search_nlopt_create=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_nlopt_create" >&5
+$as_echo "$ac_cv_search_nlopt_create" >&6; }
+ac_res=$ac_cv_search_nlopt_create
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+  have_nlopt=yes
+fi
+
+
+if test "x${have_nlopt}" = xno; then
+   as_fn_error $? "
+--------------------------------------------------------
+The nlopt library is required for optimization. In the
+deps folder, you can unpack nlopt and run
+./configure
+make
+sudo make install
+--------------------------------------------------------" "$LINENO" 5
+fi
+
+# Checks for header files.
+ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
@@ -3699,165 +3862,6 @@ fi
 done
 
 
-for ac_header in adolc/adouble.h
-do :
-  ac_fn_c_check_header_mongrel "$LINENO" "adolc/adouble.h" "ac_cv_header_adolc_adouble_h" "$ac_includes_default"
-if test "x$ac_cv_header_adolc_adouble_h" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_ADOLC_ADOUBLE_H 1
-_ACEOF
-
-else
-  have_adolc=no
-fi
-
-done
-
-fi
-
-if test "x${have_adolc}" = xno; then
-   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING:
---------------------------------------------------------
-The adolc library is helpful for parallel excution of the
-cross validation procedure. Failure to have this library
-may cause problems for convergence.
-In the deps folder, unpack the adolc package, go into the
-folder and run
-autoreconf -fi
-./configure --with-openmp-flag=-fopenmp --prefix=/usr
-make
-sudo make install
---------------------------------------------------------" >&5
-$as_echo "$as_me: WARNING:
---------------------------------------------------------
-The adolc library is helpful for parallel excution of the
-cross validation procedure. Failure to have this library
-may cause problems for convergence.
-In the deps folder, unpack the adolc package, go into the
-folder and run
-autoreconf -fi
-./configure --with-openmp-flag=-fopenmp --prefix=/usr
-make
-sudo make install
---------------------------------------------------------" >&2;}
-fi
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for fabs in -lm" >&5
-$as_echo_n "checking for fabs in -lm... " >&6; }
-if ${ac_cv_lib_m_fabs+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lm  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char fabs ();
-int
-main ()
-{
-return fabs ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_m_fabs=yes
-else
-  ac_cv_lib_m_fabs=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_m_fabs" >&5
-$as_echo "$ac_cv_lib_m_fabs" >&6; }
-if test "x$ac_cv_lib_m_fabs" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBM 1
-_ACEOF
-
-  LIBS="-lm $LIBS"
-
-fi
-
-
-have_nlopt=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing nlopt_create" >&5
-$as_echo_n "checking for library containing nlopt_create... " >&6; }
-if ${ac_cv_search_nlopt_create+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_func_search_save_LIBS=$LIBS
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char nlopt_create ();
-int
-main ()
-{
-return nlopt_create ();
-  ;
-  return 0;
-}
-_ACEOF
-for ac_lib in '' nlopt; do
-  if test -z "$ac_lib"; then
-    ac_res="none required"
-  else
-    ac_res=-l$ac_lib
-    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
-  fi
-  if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_search_nlopt_create=$ac_res
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext
-  if ${ac_cv_search_nlopt_create+:} false; then :
-  break
-fi
-done
-if ${ac_cv_search_nlopt_create+:} false; then :
-
-else
-  ac_cv_search_nlopt_create=no
-fi
-rm conftest.$ac_ext
-LIBS=$ac_func_search_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_nlopt_create" >&5
-$as_echo "$ac_cv_search_nlopt_create" >&6; }
-ac_res=$ac_cv_search_nlopt_create
-if test "$ac_res" != no; then :
-  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
-  have_nlopt=yes
-fi
-
-
-if test "x${have_nlopt}" = xno; then
-   as_fn_error $? "
---------------------------------------------------------
-The nlopt library is required for optimization. In the
-deps folder, you can unpack nlopt and run
-./configure
-make
-sudo make install
---------------------------------------------------------" "$LINENO" 5
-fi
-
-# Checks for header files.
 for ac_header in fenv.h stdlib.h string.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
