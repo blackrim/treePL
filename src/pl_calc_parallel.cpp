@@ -51,10 +51,10 @@ void pl_calc_parallel::setup_starting_bits(const vector<int> * parents_nds, cons
     cvnodes = vector<int>();
     smoothing = 1;
     for(int i=0; i<numnodes; i++){
-	dates.push_back(start_dates->at(i));
-	rates.push_back(start_rates->at(i));
-	durations.push_back(start_durations->at(i));
-	cvnodes.push_back(0);
+        dates.push_back(start_dates->at(i));
+        rates.push_back(start_rates->at(i));
+        durations.push_back(start_durations->at(i));
+        cvnodes.push_back(0);
     }
     //FOR AUTODIFF
     advdurations_adc = new adouble[durations.size()];

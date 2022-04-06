@@ -1,21 +1,22 @@
 treefile = vib.tre
-smooth = 0.00001
+outfile = vib.out
+smooth = 1.0
 numsites = 10000
 mrca = nrt clemensae rigidum
-min = nrt 100
-max = nrt 100
-[cv]
-randomcv
+min = nrt 10
+max = nrt 10
+cv
+#randomcv
 [verbose]
-[thorough]
+thorough
 [prime]
-cviter = 1
+#cviter = 1
 cvstart = 0.001
-cvstop = 10000
-randomcviter = 10
-randomcv
+cvstop = 1000
+#randomcviter = 10
+#randomcv
 opt = 3
 moredetail
 optad = 1
 optcvad = 3
-log_pen
+#log_pen
