@@ -4,8 +4,8 @@
 #probably need something like this if using intel
 #export LD_LIBRARY_PATH=/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64/:$LD_LIBRARY_PATH
 #get some errors with intel with really big trees
-CC := $(CC)
-CP := $(CXX) -std=c++11
+CC := @CC@
+CP := @CXX@ -std=c++11
 
 OPENMP := -fopenmp
 #OPENMP := -openmp -parallel
