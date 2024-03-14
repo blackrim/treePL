@@ -11,13 +11,13 @@ OPENMP := -fopenmp
 #OPENMP := -openmp -parallel
 
 LIBS := -lm $(OPENMP) -ladolc -lnlopt -L/usr/lib64:/usr/local/lib64
-LDFLAGS := -L/usr/local/lib64 -I/usr/local/include
+LDFLAGS := @LDFLAGS@ -L/usr/local/lib64 -I/usr/local/include
 
 RM := rm -rf
 
 SRC_DIR = ./
 
-prefix = /usr/bin/
+prefix = @prefix@
 
 CPP_SRCS += \
 ./main.cpp \
@@ -86,8 +86,8 @@ distclean:
 	-$(RM) *.o *.d configure config.log config.h config.status treePL Makefile
 
 install:
-	install -m 0755 treePL $(prefix)
+	install -Dm 0755 treePL $(prefix)/bin/treePL
 
 uninstall:
-	-rm $(prefix)treePL
+	-rm $(prefix)/bin/treePL
 
