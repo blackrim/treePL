@@ -91,7 +91,6 @@ check_constraints_consistent <- function (phy, cnstrnts) {
 }
 
 # write a treePL config file to pwd for an individual source tree
-# ndconstrnts is a dataframe with cols: mrca1, mrca2, age, cname, node
 # ndconstrnts is a dataframe with cols: constraint, node, min, max, rtax, ltax
 writeTreePLConfig <- function (phyname, nsites, ndconstrnts, nthreads=8, writeIt=TRUE) {
     
