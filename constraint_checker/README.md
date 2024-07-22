@@ -49,7 +49,7 @@ fossils <- read.csv("constraint_table.csv", stringsAsFactors=FALSE, na.strings=c
 ```
 We can look at the structure of the constraint table by just printing it out:
 ```
-
+fossils;
    Constraint.name   mrca_L   mrca_R  Min  Max                                      info
 1             Root  taxon_1 taxon_39 70.1 86.5                                      <NA>
 2     CladeA_crown  taxon_1 taxon_14 26.1 31.3      younger than descendant node FossilW
