@@ -1,6 +1,8 @@
 require(ape);
 require(phangorn);
 
+## complaints/suggestions to @josephwb phylo.jwb@gmail.com
+
 # purpose: given a table of fossil constraints and a tree:
 # 1. check that fossil ages are consistent with topology (i.e., descendant not older than ancestors)
 # 2. check if fossils map to same node (get rid of younger one)
@@ -13,7 +15,11 @@ require(phangorn);
 # map each constraint in the tree. then check if any ancestors are younger than descendants
 # this does not currently check max ages
 check_constraints_consistent <- function (phy, cnstrnts) {
-
+    
+    if (!is.rooted(phy)) {
+        stop("\n\nWARNING: tree is unrooted! Constraint checking is not possible. Stopping.\n\n");
+    }
+    
     rtax <- cnstrnts$mrca_R;
     ltax <- cnstrnts$mrca_L;
     
