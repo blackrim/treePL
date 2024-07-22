@@ -8,7 +8,8 @@ require(phangorn);
 # 2. check if fossils map to same node (get rid of younger one)
 # 3. produce output files for dating (e.g., treePL)
 
-## functions are at the top of the file, commands (and example data) are below
+## functions are at the top of the file, commands (and example data) are below (commented out)
+## see example commands in the README.md
 
 ################################################################################
 
@@ -139,26 +140,29 @@ writeTreePLConfig <- function (phyname, nsites, ndconstrnts, nthreads=8, writeIt
 
 ################################################################################
 
+### The following commands involving the example data are commented-out so this file can be sourced.
+##  The commands can also be found in the README.md
+
 ## dummy example data
-# tree. includes node labels (matches constraint table, below), which can be visualized in FigTree
-phy <- read.tree("phy.tre");
-# constraint data. must minimally have column names (in any order):
-# 'Constraint.name', 'mrca_L', 'mrca_R', 'Min', 'Max'
-# can have extra columns. this example includes 'info' which 
-fossils <- read.csv("constraint_table.csv", stringsAsFactors=FALSE, na.strings=c("", " ", "NA"));
+## tree. includes node labels (matches constraint table, below), which can be visualized in FigTree
+#phy <- read.tree("phy.tre");
 
-# let's run it!
-res <- check_constraints_consistent(phy=phy, cnstrnts=fossils);
-# look at the results
-res;
-# write a copy of the results for records
-write.csv(res, row.names=FALSE, quote=FALSE, file="fossil_analysis_results.csv");
+## constraint data. must minimally have column names (in any order):
+## 'Constraint.name', 'mrca_L', 'mrca_R', 'Min', 'Max'
+## can have extra columns. this example includes 'info' which 
+#fossils <- read.csv("constraint_table.csv", stringsAsFactors=FALSE, na.strings=c("", " ", "NA"));
 
-# if you are happy with the results, we can prune the invalidated constraints
-res <- res[res$keep,];
-# and pitch columns that serve no future purpose
-res <- within(res, rm(keep, notes));
+## let's run it!
+#res <- check_constraints_consistent(phy=phy, cnstrnts=fossils);
+## look at the results
+#res;
+## write a copy of the results for records
+#write.csv(res, row.names=FALSE, quote=FALSE, file="fossil_analysis_results.csv");
 
-# write a treePL config file. make sure to use variable values that match your data!
-writeTreePLConfig(phyname="My_awesome_phylogeny.tre", nsites=131313, ndconstrnts=res, nthreads=8);
+## if you are happy with the results, we can prune the invalidated constraints
+#res <- res[res$keep,];
+## and pitch columns that serve no future purpose
+#res <- within(res, rm(keep, notes));
 
+## write a treePL config file. make sure to use variable values that match your data!
+#writeTreePLConfig(phyname="My_awesome_phylogeny.tre", nsites=131313, ndconstrnts=res, nthreads=8);
