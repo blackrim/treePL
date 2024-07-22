@@ -62,7 +62,7 @@ fossils;
 9          FossilZ taxon_26 taxon_34 27.3 29.2 dates same node as FossilQ but is younger
 10         FossilQ taxon_27 taxon_33 31.9 34.6   dates same node as FossilZ but is older
 ```
-The table _must_ contain the columns (in any order): in any order:
+The table _must_ contain the columns (in any order):
 'Constraint.name', 'mrca_L', 'mrca_R', 'Min', and 'Max'. 'mrca_L' and 'mrca_R' are two taxa which share a common ancestor at some node in the tree; the 'L' (left) and 'R' (right) are arbitrary, and can be thought of instead as 'tip1' and 'tip2' in any order. The `info` column present in this example is not necessary, and here just explains how introduced issues should be interperted. 
 
 Ok, let's try it out:
