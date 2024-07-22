@@ -41,7 +41,7 @@ Let's run it with the example data, shall we? Let us read in our data. First, th
 ```
 phy <- read.tree("phy.tre");
 ```
-The tree includes node labels (matches constraint table, below), which can be visualized in FigTree so the exmaple can be easily followed.
+The tree includes node labels (matches 'Constraint.name' in constraint table, below), which can be visualized in FigTree so the exmaple can be easily followed.
 
 Now load the csv file containing information on the names, positions, and ages of constraints:
 ```
