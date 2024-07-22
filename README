@@ -1,3 +1,5 @@
 treePL (/ˈtriːpəl/) is a phylogenetic penalized likelihood program.
 
 More information on installation can be found on the wiki https://github.com/blackrim/treePL/wiki
+
+Constraint checking (R) code, along with example data, is available here: https://github.com/blackrim/treePL/tree/master/constraint_checker
