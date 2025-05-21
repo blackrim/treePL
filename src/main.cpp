@@ -299,7 +299,7 @@ int main(int argc,char* argv[]) {
     //added loop to do multiple trees in the file
     ifstream infile(treefile.c_str());
     if(!infile){
-        cerr << "Could not open file." << endl;
+        cerr << "Could not open file '" <<  treefile.c_str() << "'" << endl;
         return 1;
     }
     ofstream outFile;
