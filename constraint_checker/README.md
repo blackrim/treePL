@@ -18,7 +18,7 @@ To help deal with these issues, I've put together some R code that you can use t
 
 ### How To Use
 
-Put your data in the present directory; for now we will use the example data provided. In R, set your working directory to the present directory (I'll use my own system path here):
+Put your data in your R 'working directory'; for now we will use the example data provided. In R, set your working directory to the present directory (I'll use my own system path here):
 
 ```
 setwd("/home/josephwb/Work/Phylogenetics/treePL/constraint_checker");
