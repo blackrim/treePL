@@ -11,7 +11,7 @@ From experience dealing with troubleshooting many such issues, one (or more) of 
 
 2. Having multiple (perhaps conflicting) constraints applied to the same node. This almost certainly involves a problem involving the MRCA statement. In trees of many hundreds or thousands of tips, two different pairs of tips can easily have the same MRCA. In a slightly different manner, the relationships in the tree may not coincide exactly with expectations; for example, if a (say) family is not recovered to be monophyletic in the present tree, then selection of a different representative taxon within that expected group may define a different MRCA node. [Aside: the code [here](https://gist.github.com/josephwb/f3d35f8833a07f71002af7726b12652b) may help diagnose the last situation].
 
-3. The tree is unrooted. The meaning of 'ancestral' and 'descendant' nodes is ambiguous when a tree is unrooted. The code below can tell you if your tree is unrooted, but (because taxonomy is not involved) does not know the tree _shoiuld_ be rooted.
+3. The tree is unrooted. The meaning of 'ancestral' and 'descendant' nodes is ambiguous when a tree is unrooted. The code below can tell you if your tree is unrooted, but (because taxonomy is not involved) does not know how the tree _should_ be rooted.
 
 
 To help deal with these issues, I've put together some R code that you can use to vet your data. Example data (with built-in issues) is also provided.
